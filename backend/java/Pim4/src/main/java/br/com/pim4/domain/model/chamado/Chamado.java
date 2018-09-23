@@ -1,7 +1,10 @@
 package br.com.pim4.domain.model.chamado;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.pim4.domain.model.pessoa.Atendente;
 
 public class Chamado {
 	
@@ -20,16 +23,16 @@ public class Chamado {
 	/*
 	*  Cria um chamado com o evento de abertura
 	*/
-	public static Chamado abrirChamado(String assunto, String descricaoProblema) {
-		Protocolo novoProtocolo = new Protocolo(Protocolo.proximoId());
+	public static Chamado abrirChamado(String assunto, String descricaoProblema, Atendente responsavel) {
+		Protocolo novoProtocolo = new Protocolo(Protocolo.gerarProtocolo());
 		Chamado novoChamado = new Chamado(novoProtocolo, assunto);		
-		novoChamado.eventos.add(new EventoAbertura(descricaoProblema));
+		novoChamado.eventos.add(new EventoAbertura(descricaoProblema, responsavel));
 		return novoChamado;
 	}
 
     private EventoChamado abertura() {
         for (EventoChamado e : eventos) {
-            if (e.getClass() == EventoAbertura) {
+            if (e.getClass() == EventoAbertura.class) {
                 return e;
             }
         }
@@ -38,7 +41,7 @@ public class Chamado {
 	
 	private EventoChamado encerramento() {
 		for (EventoChamado e : eventos ) {
-			if (e.getClass() == EventoEncerramento) {
+			if (e.getClass() == EventoEncerramento.class) {
 				return e;
 			}
 		}
@@ -62,7 +65,7 @@ public class Chamado {
 	/*
 	* Obtem a data de abertura de encerramento a partir da data de seu evento de encerramento.
 	*/
-	public String dataEncerramento() {
+	public LocalDateTime dataEncerramento() {
 		return encerramento().getDataEvento();
 	}
 
@@ -72,8 +75,6 @@ public class Chamado {
 	public boolean encerrado() {
 		return encerramento() != null;
 	}
-
-
 	
 	public Atendente abertoPor() {
 		return abertura().getResponsavel();

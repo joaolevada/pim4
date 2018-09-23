@@ -1,6 +1,9 @@
 package br.com.pim4.domain.model.chamado;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class Protocolo {
 	
@@ -10,16 +13,17 @@ public class Protocolo {
 		this.protocolo = protocolo;
 	}
 	
-	public String gerarProtocolo() throws Exception {
+	public static String gerarProtocolo() {		
 		
-		// todo Gerar um numero de protocolo usando o formato
-		// aaaammdd-seiscaracteresaleatorios
+		LocalDateTime agora = LocalDateTime.now();
+		String novoProtocolo = "CHD-";
+		novoProtocolo.concat(agora.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+		byte[] array = new byte[6]; // length is bounded by 6
+	    new Random().nextBytes(array);
+	    String randomStr = new String(array, Charset.forName("UTF-8"));
+		novoProtocolo.concat(randomStr);
+		return novoProtocolo;
 		
-		throw new Exception("Ainda não implementado!");
-		
-		// LocalDateTime agora = LocalDateTime.now();
-		// String novoProtocolo = agora.format()
-		// return novoProtocolo;
 	}
 
 }
