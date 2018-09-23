@@ -1,31 +1,35 @@
 package br.com.pim4.domain.model.chamado;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chamado {
 	
 	private final Protocolo protocolo;
 	private final String assunto;
 	private List<EventoChamado> eventos;
 
-	public Chamado() { }
-
+	// public Chamado() {}
+	
 	public Chamado(Protocolo protocolo, String assunto) {
 		this.protocolo = protocolo;
 		this.assunto = assunto;
-		eventos = new ArraList<>();
-	}
+		eventos = new ArrayList<>();
+	}	
 
 	/*
 	*  Cria um chamado com o evento de abertura
 	*/
 	public static Chamado abrirChamado(String assunto, String descricaoProblema) {
+		Protocolo novoProtocolo = new Protocolo(Protocolo.proximoId());
 		Chamado novoChamado = new Chamado(novoProtocolo, assunto);		
-		novoChamado.eventos.add(new EventoAbertura(descricaoDoProblema));
+		novoChamado.eventos.add(new EventoAbertura(descricaoProblema));
 		return novoChamado;
 	}
 
     private EventoChamado abertura() {
-        for (Evento e : eventos) {
-            if (e.class == EventoAbertura) {
+        for (EventoChamado e : eventos) {
+            if (e.getClass() == EventoAbertura) {
                 return e;
             }
         }
@@ -33,8 +37,8 @@ public class Chamado {
 	}
 	
 	private EventoChamado encerramento() {
-		for (Evento e : eventos ) {
-			if (e.class == EventoEncerramento) {
+		for (EventoChamado e : eventos ) {
+			if (e.getClass() == EventoEncerramento) {
 				return e;
 			}
 		}
@@ -74,9 +78,5 @@ public class Chamado {
 	public Atendente abertoPor() {
 		return abertura().getResponsavel();
 	}
-
-
-
-
 
 }
