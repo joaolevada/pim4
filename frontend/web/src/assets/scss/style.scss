@@ -13,15 +13,18 @@ $theme-colors:( 'accent-color' : $accent-color,
 @import 'node_modules/bootstrap/scss/bootstrap';
 
 
+
 #app{
-    max-height: 85vh;
-    overflow: auto;
-    
+    max-height: 90vh;
+    overflow: auto;    
 }
 .progress{
     height: 3px;
     position: relative;
-    background-color:#343a4000;  
+    background-color:#343a4000; 
+    position: fixed;
+    top: 0;
+    left: 0; 
 }
 
 .progress .progress-bar{
@@ -56,10 +59,6 @@ $theme-colors:( 'accent-color' : $accent-color,
     
 }
 
-/*
-    DEMO STYLE
-*/
-
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -80,12 +79,18 @@ p {
 }
 a,
 a:hover,
-a:focus {
+a:focus,
+a:active {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
+    
 }
-
+a[href^="#!"]:focus {
+    background-color: #fff;
+    color:$accent-color;
+  }
+  
 .navbar {
     padding: 15px 10px;
     background: #fff;
@@ -120,6 +125,7 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
+    overflow: hidden;
 }
 
 #sidebar {
@@ -128,13 +134,16 @@ span {
     height: 100vh;
     background: $accent-color;
     color: #fff;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    transition-timing-function: linear
 }
 
 #sidebar.active {
-    min-width: 90px;
-    max-width: 100px;
+    min-width: 85px;
+    max-width: 85px;
     text-align: center;
+    // transition-duration: 1s;
+    // transition-timing-function: ease-out
 }
 
 #sidebar.active .sidebar-header h3,
@@ -242,11 +251,6 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
-    background: #fff;
-    color: $accent-color;
-}
-
 a.article,
 a.article:hover {
     background: #6d7fcc !important;
@@ -273,8 +277,7 @@ a.article:hover {
     #content{
         width: 100%
     }
-
-    
+  
 
     .dropdown-toggle::after {
         top: auto;

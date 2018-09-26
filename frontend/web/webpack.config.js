@@ -1,13 +1,13 @@
-const path = require('path')
+/* eslint-disable */
+const path = require('path');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let plugins = []
 
 plugins.push(new webpack.ProvidePlugin({
-    '$': 'jquery/dist/jquery.slim.js',
-    'jQuery': 'jquery/dist/jquery.slim.js',
+    'doc': 'jquery/dist/jquery.js',
 }));
 
 plugins.push(new MiniCssExtractPlugin({
@@ -15,7 +15,7 @@ plugins.push(new MiniCssExtractPlugin({
 }))
 
 module.exports = {
-    mode: 'development',  
+    mode: 'development',
     entry: {
         app: [
             './src/app.js',
@@ -23,7 +23,13 @@ module.exports = {
             './src/views/home/home.scss',
             './src/assets/scss/style.scss',
         ],
-        vendor: ['./index.js' , './src/routes/rotas.js']
+        vendor: ['./index.js',
+            './src/routes/rotas.js',
+            './src/components/card/card.component.js',
+            './src/components/breadcrumb/breadcrumb.component.js',
+            './src/views/novoCliente/novoCliente.js',
+            './src/views/abrirChamado/formulario/novoChamado.component.js'
+        ]
     },
     output: {
         filename: '[name].bundle.js',
@@ -45,11 +51,18 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/,
             use: {
-              loader: 'babel-loader'
+                loader: 'babel-loader'
             }
-          }
-       
-    ]
+        },
+        {
+            test: /\.(html)$/,
+            use: {
+                loader: 'html-loader',
+
+            }
+        }
+
+        ]
     },
 
     plugins
