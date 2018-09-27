@@ -1,12 +1,10 @@
 import { Slim } from 'slim-js';
 import { tag, template } from 'slim-js/Decorators';
 
-
 const tpl = require('./novo-cliente.html');
 
 @tag('novo-cliente')
 @template(tpl)
-
 class NovoCliente extends Slim {
   onCreated() {
     setTimeout(() => {
