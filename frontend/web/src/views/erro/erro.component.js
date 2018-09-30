@@ -1,14 +1,16 @@
 import { Slim } from 'slim-js';
 import { tag, template } from 'slim-js/Decorators';
 
-const tpl = require('./novoChamado.component.html');
+const tpl = require('./erro.html');
 
-@tag('novo-chamado')
+@tag('erro-404')
 @template(tpl)
 
-class NovoChamado extends Slim {
+class Erro extends Slim {
   onBeforeCreated() {
     this.text = 'gui';
     this.img = 'src/assets/imgs/man.svg';
   }
 }
+
+export default Erro;

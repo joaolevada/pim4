@@ -1,5 +1,6 @@
 import Navigo from 'navigo';
 
+/*
 async function getView(url, element) {
   doc(element).html('<div class="progress pb-5"> <div class="progress-bar "></div></div> </div>');
 
@@ -9,35 +10,38 @@ async function getView(url, element) {
 
     doc(element).html(viewContent);
   } catch (err) {
-    doc(element).html(`<h3 class="text-center mt-5">Houve um erro ao carregar o conteudo <br> Provavelmente você esta offline :/ <br> ${err}</h3>`);
+doc(element)
+.html(`<h3 class="text-center mt-5">Houve um erro ao carregar o conteudo <br>
+Provavelmente você esta offline :/ <br> ${err}</h3>`);
   }
 }
+*/
 
 const router = new Navigo(null, true, '#!');
 
 // Declaração das nossas rotas e suas respectivas views
 router.on({
   'novo-chamado': async () => {
-    getView('./src/views/abrirChamado/abrirChamado.html', '#app');
 
-    // const { AbrirChamado } = await import('../views/abrirChamado/abrirChamado');
+    doc('#app').html('<bread-crumb></bread-crumb> <novo-chamado></novo-chamado>');
   },
   'encerrar-chamado': () => {
-    getView('./src/views/encerrarChamado/encerrarChamado.html', '#app');
+
+    doc('#app').html('<bread-crumb></bread-crumb> <encerrar-chamado></encerrar-chamado>');
   },
   'novo-cliente': () => {
     doc('#app').html('<bread-crumb></bread-crumb> <novo-cliente></novo-cliente>');
   },
   home: () => {
-    getView('./src/views/home/home.html', '#app');
+    doc('#app').html('<home-teste></home-teste>');
   },
 });
 
 // rota principal
-router.on(() => getView('./src/views/home/home.html', '#app'));
+router.on(() => doc('#app').html('<home-teste></home-teste>'));
 
-// getView com o template do 404
+// // getView com o template do 404
 
-router.notFound(query => getView('./src/views/erro/erro.html', '#app'));
+router.notFound(query => doc('#app').html('<bread-crumb></bread-crumb><erro-404></erro-404>'));
 
 router.resolve();

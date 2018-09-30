@@ -1,11 +1,11 @@
-<div class="container">
-  <h3 class="mb-4">Novo Cliente</h3>
+<div class="container shadow-1">
+  <h5 class="mb-4 pt-2">Novo Cliente</h5>
 
-
-  <form>
+  <form  bind>
     <div class="form-row">
+
       <div class="form-group col-md-6">
-        <label for="inputEmail4">Nome</label>
+        <label s:id="teste" for="inputEmail4">Nome</label>
         <input type="text" class="form-control" id="inputEmail4" placeholder="Nome">
       </div>
 
@@ -13,44 +13,54 @@
         <label for="inputPassword4">Sobrenome</label>
         <input type="text" class="form-control" id="inputPassword4" placeholder="Sobrenome">
       </div>
+
     </div>
 
     <div class="form-row">
+
       <div class="form-group col-md-6">
         <label for="inputAddress">CPF</label>
         <input type="text" class="form-control" id="inputAddress" placeholder="000.000.000-00">
       </div>
+      
       <div class="form-group col-md-6">
         <div class="form-group ">
           <label for="inputCity">Email</label>
           <input type="email" class="form-control" id="inputCity" placeholder="exemplo@gmail.com">
         </div>
       </div>
+
     </div>
 
     <div class="form-row">
 
-      <div class="form-group col-md-3">
+      <div  class="form-group col-md-3">
         <label for="inputAddress">CEP</label>
-        <input s:id="cep" type="tel" min="0" maxlength="8" class="form-control" id="inputAddress" placeholder="Teste o Cep :)">
+        <input s:id="cep" type="tel" min="0" maxlength="8" bind:class="isvalid" id="inputAddress" placeholder="Teste o Cep :)">
+        <div s:if="erro" class="invalid-tooltip">
+          Por favor Insira um CEP valido!
+        </div>
       </div>
+
       <div class="form-group col-md-4">
         <label for="inputAddress">Endereco</label>
-        <input s:id="endereco" type="text" class="form-control" id="inputAddress" placeholder="">
+        <input s:id="endereco"  type="text" class="form-control" id="inputAddress" placeholder="">
       </div>
+
       <div class="form-group col-md-4">
         <label for="inputAddress2">Bairro</label>
         <input s:id="bairro" type="text" class="form-control" id="inputAddress2" placeholder="">
       </div>
+
       <div class="form-group col-md-1">
         <label for="inputAddress">Numero</label>
-        <input type="number" class="form-control" id="inputAddress" placeholder="">
+        <input type="number" min="0" class="form-control" id="inputAddress" placeholder="">
       </div>
 
     </div>
 
-
     <div class="form-row">
+
       <div class="form-group col-md-3">
         <div class="form-group ">
           <label for="inputCity">Cidade</label>
@@ -71,25 +81,19 @@
             <input type="tel" class="form-control" id="inputCity" placeholder="">
           </div>
         </div>
+
         <div class="form-group col-md-3">
           <div class="form-group ">
             <label for="inputCity">Celular</label>
             <input type="tel" class="form-control" id="inputCity" placeholder="">
           </div>
         </div>
-
-
+      
     </div>
 
-
-  
-
-    <div class="float-right">
+    <div class="w-100 p-3 d-flex justify-content-end">
       <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
 
-
   </form>
-
-
 </div>
