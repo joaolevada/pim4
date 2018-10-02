@@ -27,6 +27,7 @@ public class Chamado {
 		Protocolo novoProtocolo = new Protocolo(Protocolo.gerarProtocolo());
 		Chamado novoChamado = new Chamado(novoProtocolo, assunto);		
 		novoChamado.eventos.add(new EventoAbertura(descricaoProblema, responsavel));
+		
 		return novoChamado;
 	}
 
