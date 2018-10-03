@@ -8,7 +8,8 @@ module.exports = {
     },
     "rules": {
         "no-unused-vars": "off",
-        "prefer-destructuring": "off"
+        "prefer-destructuring": "off",
+        "linebreak-style": "off"
       
     },
     "globals": {
