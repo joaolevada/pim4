@@ -13,3 +13,5 @@ class BreadCrumb extends Slim {
     this.current = this.url[4];
   }
 }
+
+export default BreadCrumb;

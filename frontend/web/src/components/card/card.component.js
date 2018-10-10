@@ -43,3 +43,5 @@ class CardComponent extends Slim {
     // alert(this.teste);
   }
 }
+
+export default CardComponent;
