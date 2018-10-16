@@ -107,10 +107,6 @@ a:active {
     transition: all 0.3s;
     
 }
-a[href^="#!"]:focus {
-    background-color: #fff;
-    color:$accent-color;
-  }
   
 .navbar {
     padding: 15px 10px;

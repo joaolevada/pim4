@@ -20,25 +20,50 @@ Provavelmente você esta offline :/ <br> ${err}</h3>`);
 const router = new Navigo(null, true, '#!');
 
 // Declaração das nossas rotas e suas respectivas views
+
+router.on('/app', () => {
+  doc('main').html('<app-layout></app-layout>');
+  // router.pause();
+  // router.navigate('/#!home');
+  // router.resume(); // or .pause(false)
+},
+{
+  before(done, params) {
+    // doing some async operation
+    done();
+  },
+  after(params) {
+    setTimeout(() => {
+      router.pause();
+      router.navigate('/app/home'); // /#!/app/home /#!/app/home
+      router.resume(); // or .pause(false)
+    }, 100);
+  },
+  leave(params) {
+    // when you are going out of the that route
+  },
+});
+
 router.on({
-  'novo-chamado': async () => {
+  'app/novo-chamado': async () => {
 
     doc('#app').html('<bread-crumb></bread-crumb> <novo-chamado></novo-chamado>');
   },
-  'encerrar-chamado': () => {
+  'app/encerrar-chamado': () => {
 
     doc('#app').html('<bread-crumb></bread-crumb> <encerrar-chamado></encerrar-chamado>');
   },
-  'novo-cliente': () => {
+  'app/novo-cliente': () => {
     doc('#app').html('<bread-crumb></bread-crumb> <novo-cliente></novo-cliente>');
   },
-  home: () => {
+  'app/home': () => {
     doc('#app').html('<home-teste></home-teste>');
   },
 });
 
+
 // rota principal
-router.on(() => doc('#app').html('<home-teste></home-teste>'));
+router.on(() => doc('main').html('<app-login></app-login>'));
 
 // // getView com o template do 404
 
