@@ -1,5 +1,5 @@
-$accent-color:#7386D5;
-$text-color:#D8DBE2;
+$accent-color:#007bff;
+$text-color:#fafafa;
 $primary-color:#626C66;
 $secundary-color: #246A73;
 $background-color:#2A2B2A;
@@ -11,9 +11,16 @@ $theme-colors:( 'accent-color' : $accent-color,
                 'background-color' : $background-color);
 
 @import 'node_modules/bootstrap/scss/bootstrap';
-
+* 
 .shadow-1{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.shadow-nav{
+    box-shadow: 3px 1.5px 3.5px rgba(0,0,0,0.12), 2px 1.5px 3.5px rgba(0,0,0,0.24);
+}
+
+.shadow-nav-1{
+    box-shadow: 1px 1.5px 3.5px rgba(0,0,0,0.12), 1px 1.5px 3.5px rgba(0,0,0,0.24);
 }
 .shadow-2{
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -108,17 +115,17 @@ a:active {
     
 }
 a[href^="#!"]:focus {
-    background-color: #fff;
+    background-color: #fafafa;
     color:$accent-color;
   }
   
 .navbar {
-    padding: 15px 10px;
-    background: #fff;
+    padding: 11.07px 10px;
+    background: #fafafa;
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+
 }
 
 .navbar-btn {
@@ -150,11 +157,11 @@ span {
 }
 
 #sidebar {
-    min-width: 18%;
-    max-width: 18%;
+    min-width: 15%;
+    max-width: 15%;
     height: 100vh;
     background: $accent-color;
-    color: #fff;
+    color: #fafafa;
     transition: all 0.2s;
     transition-timing-function: linear
 }
@@ -207,7 +214,7 @@ span {
 }
 
 #sidebar .sidebar-header {
-    padding: 19px;
+    padding: 15px;
 
 }
 
@@ -229,7 +236,7 @@ span {
 
 #sidebar ul li a:hover {
     color: $accent-color;
-    background: #fff;
+    background: #fafafa;
 }
 
 #sidebar ul li a i {
@@ -238,8 +245,8 @@ span {
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: #fafafa;
+    background: #3195ff;
 }
 
 a[data-toggle="collapse"] {
@@ -257,7 +264,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #3195ff;
 }
 
 ul.CTAs {
@@ -274,8 +281,8 @@ ul.CTAs a {
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
+    background: #3195ff !important;
+    color: #fafafa !important;
 }
 
 /* ---------------------------------------------------
@@ -320,7 +327,7 @@ a.article:hover {
        
     }
     #sidebar .sidebar-header  {
-        padding: 17.4px
+        padding: 13.3px
        
     }
     #sidebar ul li a {
