@@ -14,12 +14,12 @@
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        <nav id="sidebar" class=" bg-primary">
-            <div class="sidebar-header text-center  bg-background-color shadow-nav-1">
-                <a href="#home">
+        <nav id="sidebar" class=" bg-primary-color">
+            <div class="sidebar-header text-center  bg-secundary-color shadow-nav-1">
+                <a href="#!/home">
                     <h3 class="m-0">PIM4</h3>
                 </a>
-                <strong><a href="#home"><img src="./src/assets/imgs/404.svg" width="30" height="30" alt=""></a></strong>
+                <strong><a href="#!/home"><img src="./src/assets/imgs/404.svg" width="30" height="30" alt="PIM4"></a></strong>
             </div>
 
             <ul class="list-unstyled components">
@@ -36,31 +36,31 @@
                             <a href="#!/encerrar-chamado">Encerrar</a>
                         </li>
                         <li>
-                            <a href="#">Vizualizar</a>
+                            <a href="#!/">Vizualizar</a>
                         </li>
 
                     </ul>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle mt-2 ">
                         <i class="fas fa-plus"></i>
                         Cadastrar
                     </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <ul class="collapse list-unstyled mb-2" id="pageSubmenu">
                         <li>
                             <a href="#!/novo-cliente">Cliente</a>
                         </li>
                         <li>
                             <a href="#">Atendente</a>
                         </li>
-<!-- 
+
                         <a href="#!/encerrar-chamado">
-                            <i class="fas fa-briefcase"></i>
-                            Algo
-                        </a> -->
+                            Consultar
+                        </a>
                     </ul>
-                <!-- </li>
-                <li>
+                </li>
+         
+                <!-- <li>
                     <a href="#">
                         <i class="fas fa-stick"></i>
                         Algo
@@ -84,13 +84,13 @@
         <!-- Page Content / navbar -->
         <div id="content" class="container-fluid m-0 p-0 ">
 
-            <nav id="progress" class="navbar navbar-expand-lg navbar-dark bg-background-color shadow-nav  m-0">
+            <nav id="progress" class="navbar navbar-expand-lg navbar-dark bg-secundary-color shadow-nav  m-0">
                 <div class="container-fluid ">
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary-color">
                         <i class="fas fa-chevron-left align-middle" id="toRigth"></i>
                     </button>
-                    <button class="btn btn-background-color d-flex d-lg-none ml-auto" type="button" data-toggle="collapse"
+                    <button class="btn btn-secundary-color d-flex d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                         aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>

@@ -63,14 +63,14 @@ class Grafico extends Slim {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Jullho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         datasets: [{
           label: 'Chamados Positivos',
-          backgroundColor: 'rgb(25, 118, 210, 0.4)',
-          borderColor: 'rgb(25, 118, 210)',
+          backgroundColor: 'rgb(0,76,140, 0.4)',
+          borderColor: 'rgb(0,76,140)',
           data: [0, 5, 10, 20, 30, 35, 45, 40, 50, 48, 43, 45],
         },
         {
           label: 'Chamados Negativos',
-          backgroundColor: 'rgb(211, 47, 47  ,0.4)',
-          borderColor: 'rgb(211, 47, 47  )',
+          backgroundColor: 'rgb(88,165,240,0.4)',
+          borderColor: 'rgb(88,165,240  )',
           data: [0, 20, 4, 10, 17, 25, 50, 45, 38, 29, 26, 20],
         },
         ],
@@ -124,8 +124,8 @@ class Grafico extends Slim {
 
         datasets: [{
           label: 'Chamados Positivos',
-          backgroundColor: ['rgb(25, 118, 210)', 'rgb(211, 47, 47  )'],
-          borderColor: ['rgb(25, 118, 210)', 'rgb(211, 47, 47  )'],
+          backgroundColor: ['rgb(0,76,140,0.9)', 'rgb(88,165,240  )'],
+          borderColor: ['rgb(0,76,140,0.9)', 'rgb(88,165,240  )'],
           data: [371, 284],
         },
         ],
@@ -136,7 +136,7 @@ class Grafico extends Slim {
         responsive: true,
         title: {
           display: true,
-          text: 'Chamados Positivos vs Chamados Negativos ( Anual )',
+          text: 'Positivos vs Negativos ( Anual )',
           fontSize: 18,
           padding: 10,
         },

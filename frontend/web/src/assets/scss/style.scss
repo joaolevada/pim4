@@ -1,14 +1,18 @@
-$accent-color:#007bff;
 $text-color:#fafafa;
-$primary-color:#626C66;
-$secundary-color: #246A73;
-$background-color:#2A2B2A;
+$primary-color:#0277bd;
+$primary-light:#58a5f0;
+$primary-dark:#004c8c;
+$secundary-light: #62727b;
+$secundary-dark: #102027;
+$secundary-color:#37474f;
 
-$theme-colors:( 'accent-color' : $accent-color, 
-                'text-color' : $text-color, 
+$theme-colors:( 'primary-light' : $primary-light, 
+                'primary-dark' : $primary-dark, 
                 'primary-color' : $primary-color, 
-                'secundary-color' : $secundary-color, 
-                'background-color' : $background-color);
+                'text-color' : $text-color, 
+                'secundary-light' : $secundary-light, 
+                'secundary-dark' : $secundary-dark, 
+                'secundary-color' : $secundary-color);
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 * 
@@ -59,7 +63,7 @@ $theme-colors:( 'accent-color' : $accent-color,
    position: absolute;
    height: 3px;
    width: 10%;
-   background-color:$accent-color;
+   background-color:$primary-light;
    animation: progress-animation .6s infinite;
    animation-timing-function: ease-in-out;
 }
@@ -70,19 +74,19 @@ $theme-colors:( 'accent-color' : $accent-color,
 
    
     20%{
-        background-color: $accent-color;
+        background-color: $primary-light;
         width: 20%;
     }
    
     40%{
-        background-color:$accent-color;
+        background-color:$primary-light;
         width: 80%;
     }
 
     
     100% { transform: translateX(100vw);
         width: 80%;
-        background-color:$accent-color;
+        background-color:$primary-light;
     }
     
 }
@@ -114,10 +118,10 @@ a:active {
     transition: all 0.3s;
     
 }
-a[href^="#!"]:focus {
-    background-color: #fafafa;
-    color:$accent-color;
-  }
+// a[href^="#!"]:focus {
+//     background-color: #fafafa;
+//     color:$primary-color;
+//   }
   
 .navbar {
     padding: 11.07px 10px;
@@ -160,15 +164,14 @@ span {
     min-width: 15%;
     max-width: 15%;
     height: 100vh;
-    background: $accent-color;
     color: #fafafa;
     transition: all 0.2s;
     transition-timing-function: linear
 }
 
 #sidebar.active {
-    min-width: 85px;
-    max-width: 85px;
+    min-width: 95px;
+    max-width: 95px;
     text-align: center;
     // transition-duration: 1s;
     // transition-timing-function: ease-out
@@ -190,7 +193,7 @@ span {
 #sidebar.active ul li a {
     padding: 20px 10px;
     text-align: center;
-    font-size: 0.85em;
+    font-size: 0.95em;
 }
 
 #sidebar.active ul li a i {
@@ -225,17 +228,18 @@ span {
 
 #sidebar ul.components {
     padding: 20px 0;
-    /*border-bottom: 1px solid #47748b;*/
+    // border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
+    
 }
 
 #sidebar ul li a:hover {
-    color: $accent-color;
+    color: $primary-color;
     background: #fafafa;
 }
 
@@ -246,7 +250,8 @@ span {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fafafa;
-    background: #3195ff;
+    background:darken($primary-color,6%);
+    border-left: 5px solid darken($primary-dark,6%)   
 }
 
 a[data-toggle="collapse"] {
@@ -264,7 +269,9 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #3195ff;
+    background:darken($primary-color,3%);
+    border-left: 5px solid darken($primary-dark,6%)   
+    
 }
 
 ul.CTAs {
@@ -281,7 +288,7 @@ ul.CTAs a {
 
 a.article,
 a.article:hover {
-    background: #3195ff !important;
+    background:$primary-color !important;
     color: #fafafa !important;
 }
 
@@ -317,6 +324,7 @@ a.article:hover {
     }
     #sidebar.active {
         margin-left: 0 !important;
+        
     }
     #sidebar .sidebar-header h3,
     #sidebar .CTAs {
