@@ -10,7 +10,7 @@ class BreadCrumb extends Slim {
   async onBeforeCreated() {
     this.url = window.location.href;
     this.url = this.url.split('/');
-    this.current = this.url[4];
+    this.current = this.url[5];
   }
 }
 
