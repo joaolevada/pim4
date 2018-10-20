@@ -1,0 +1,164 @@
+body{font-family: "Roboto"}
+.efeito a{
+    color: #f4f4f4 !important;
+    font-size: 1.1rem;
+}
+
+ .teste {
+     height: 100vh;
+     background-color: rgba(0,0,0 ,0.6);
+     position: absolute;
+     z-index: 1;
+     top: 0;
+     left: 0;
+     width: 100%;
+ }
+ #logar{
+     font-size: 1rem;
+ }
+.teste{
+    padding-top: 15em;
+}
+.home{
+    background: url(../img/home\ 5.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100vh;
+}
+
+.quemsomos{
+    background-color:#f4f4f4;
+    padding: 3em 0 6em 0;
+}
+.servicos{
+    background-color:  rgba(225, 224, 229);
+    padding: 3em 0 6em 0;
+}
+
+.blog{
+    padding: 3em 0 6em 0;
+}
+
+#subtitulo{
+    font-size: 1.5em;
+}
+p{
+    text-align: justify;
+}
+h3{
+    margin-top: 0;
+    font-size: 2em;
+    text-align: center;
+}
+#contato{
+    
+    padding: 3em 0 6em 0;
+    background-color: rgba(225, 224, 229);
+}
+article{
+    padding: 1em;
+}
+
+form{
+    margin: 0 auto;
+    width: 50%;
+}
+
+h3{
+    
+    text-transform: capitalize;
+    font-size: 2em;
+}
+
+.rodape{
+    background:rgb(248, 249, 250)!important;
+}
+
+.rodape a {
+    font-size: 0.7em;
+    color: rgb(20, 18, 18);
+    text-decoration: none;
+}
+.rede-sociais li{
+    display: inline-block;
+}
+#contato button {
+    margin: 0 auto;
+    display: block;
+}
+.rede-sociais a[href*="facebook"] {
+    background-image: url(../img/facebook2.png);
+}
+.rede-sociais a[href*="twitter"]{
+    background-image: url(../img/twitter2.png);
+}
+.rede-sociais a[href*="instagram"] {
+    background-image: url(../img/instagram2.png);
+}
+.rede-sociais a[href*="linkedin"] {
+    background-image: url(../img/linkedin2.png);
+}
+.rede-sociais a[href*="youtube"] {
+    background-image: url(../img/youtube2.png);
+}
+
+.rede-sociais a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-indent: -9999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    margin-left: 1em;
+}
+.rede-sociais a{
+    background-size: 40px 40px;
+}
+.efeito:hover{
+    text-decoration: underline;
+ 
+}
+@Media only screen and (min-width:500px){
+    .home, .quemsomos, .servicos,.blog, #contato{
+        height: 100vh;
+    }
+}
+
+
+.rodape p{
+    text-align: center;
+}
+.shadow-1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+  
+  .shadow-1:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  
+  .shadow-2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  
+  .shadow-3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+  
+  .shadow-4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+  
+  .shadow-5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  }
+
+
+
+
+
+
+
