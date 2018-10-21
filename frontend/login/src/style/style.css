@@ -3,8 +3,9 @@
 }
 .rowbg1{
     height: 45vh;
-    
+    background-color: #0277bd
 }
+
 
 .rowbg {
     height: 55vh;
@@ -22,21 +23,20 @@
   width: 100%
 }
 .center {
-    /* position: absolute;
-    top: 20vh;
-    left: 32rem; */
     padding: 2rem;
-    margin-top: -2rem;
+    padding-top: 0px;
+    width: 21rem;
+    height: 27rem;
     border-radius: 5px;
 }
 
 @media screen and (max-width: 768px){
   .center {
-    /* position: absolute;
-    top: 20vh;
-    left: 32rem; */
     padding: 2rem;
-    margin-top: 1rem;
+    padding-top: 0px;
+    width: 20rem;
+    /* height: 26rem; */
+    /* margin-top: -2rem; */
     border-radius: 5px;
 }
 }
@@ -79,4 +79,51 @@ body {
   .shadow-5 {
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
+  .progress{
+    /* padding-bottom: 1rem; */
+    height: 3px;
+    /* position: relative; */
+    background-color:#343a4000; 
+    /* position: fixed; */
+    top: 0;
+    left: 0; 
+}
+
+.progress .progress-bar{
+   /* position: absolute; */
+   height: 3px;
+   width: 20%;
+   background-color:#0277bd;
+   border-radius:5px; 
+   animation: progress-animation 1s ease-in-out infinite alternate-reverse both;
+}
+
+@keyframes progress-animation{
+  0% {
+    -webkit-transform: translateX(-1rem);
+    transform: translateX(-1rem);
+  }
+  100% {
+    -webkit-transform: translateX(14.5rem);
+    transform: translateX(14.5rem);
+  }
+  }
+
   
+.text-expand {
+  -webkit-animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+          animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+}
+
+@keyframes text-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
