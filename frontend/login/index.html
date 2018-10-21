@@ -16,57 +16,89 @@
 </head>
 
 <body>
-  <div class="container-fluid bg ">
-    <div class="row rowbg1  d-flex justify-content-center ">
+    <div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Opa, Algo deu Errado !</h5>
+              <button type="button" class="close" onclick="window.location = MAIN_URL" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-left">
+              Houve um erro inesperado ao efetuar o Login. <br>
+              Verifique sua conexão e tente novamente, se o erro persistir entre em contato com a equipe de suporte.
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+              <button class="btn btn-primary-color shadow-1-no-hover " onclick="window.location = MAIN_URL" role="button">Tentar Novamente</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+  <div class="container-fluid">
+    <div class="row rowbg1  d-flex justify-content-center "></div>
+    <div class="row rowbg bg-light"></div>
 
-    </div>
-    <div class="row rowbg bg-light">
+    <div class="container-fluid hero-container d-flex flex-column">
 
-    </div>
-
-    <div class="container-fluid t d-flex flex-column">
-
-      <div class="row  w-100  align-self-center justify-content-center  mt-5">
+      <div class="row w-100 align-self-center justify-content-center  mt-5">
         <h1 class="text-light text-expand">Pim</h1>
         <h1 class="text-light text-expand font-weight-light">Quatro</h1>
       </div>
 
+      <div class="row align-self-center  mt-3">
 
-      <div class="row align-self-center  mt-4">
-        
         <div class="center shadow-1 bg-light fade-in">
-            <div class="w-100 progress d-none ">
-              <div class="progress-bar"></div>
-            </div>
+
+          <div class="w-100 progress d-none ">
+            <div class="progress-bar"></div>
+          </div>
 
           <img class="mt-4" src="./src/imgs/support.svg" width="80" height="80" alt="Logo">
+
           <hr>
-          <form>
-            <div class="form-group text-left mt-4 ">
-              <label for="email">Email</label>
-              <input type="email" class="form-control " id="email" aria-describedby="emailHelp" placeholder="Seu email">
-              <small id="emailHelp" class="invalid-feedback d-none">Email ou Senha Inválidos.</small>
+
+          <form autocomplete="off">
+
+            <div class="form-row mt-4  text-left">
+              <div class="col-md-12 mb-3">
+                <label for="email">Email</label>
+                <input type="email" required class="form-control" aria-describedby="emailHelp" name="email" id="email" placeholder="Seu email">
+                <small id="emailHelp" class="invalid-feedback d-none">Email ou Senha Inválidos.</small>
+              </div>
             </div>
-            <div class="form-group text-left">
-              <label for="password">Senha</label>
-              <input type="password" class="form-control" id="password"  placeholder="Sua senha">
+
+            <div class="form-row text-left">
+              <div class="col-md-12">
+                <label for="password">Senha</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Sua senha">
+              </div>
             </div>
-            <button type="button" id="logar" class="btn btn-primary mt-4 mb-2 " disabled="true" >Entrar</button>
+
+            <div class="form-row mt-4 text-left" id="toggle">
+              <div class="col-md-12 mt-1 mb-1 d-flex justify-content-center">
+                <button type="submit" disabled id="logar" class="btn btn-primary-color shadow-1-no-hover ">Entrar</button>
+              </div>
+            </div>
+
           </form>
+          
         </div>
+     
 
       </div>
+
     </div>
 
   </div>
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
   <script src="./src/js/jquery.min.js"></script>
   <script src="./src/js/popper.min.js"></script>
   <script src="./src/js/bootstrap.min.js"></script>
+  <script src="./src/js/variables.js"></script>
+  <script src="./src/js/validate.js"></script>
   <script src="./src/js/lib.js"></script>
   <script src="./src/js/index.js"></script>
 </body>
