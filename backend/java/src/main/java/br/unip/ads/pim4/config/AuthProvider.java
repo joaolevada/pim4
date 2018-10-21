@@ -28,7 +28,7 @@ public class AuthProvider implements AuthenticationProvider {
         // Regras de autenticacao (usaremos via Basic Authentication)
 
         EMail email = new EMail(login);
-        Atendente atendente = atendenteRepo.findByPessoaEmailAndSenha(email, senha);
+        Atendente atendente = atendenteRepo.findByPessoaEmailAndSenha(email, senha).get();
         if (atendente != null) {
 			return new UsernamePasswordAuthenticationToken(login, senha, emptyList());
         }
