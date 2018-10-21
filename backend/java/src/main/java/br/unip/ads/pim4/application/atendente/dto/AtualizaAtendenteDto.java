@@ -1,12 +1,13 @@
-package br.unip.ads.pim4.application.atendente;
+package br.unip.ads.pim4.application.atendente.dto;
 
 public class AtualizaAtendenteDto {
 	
 	private String nome;
 	private String email;
 	private String cpf;
-	private String senha;	
-	
+	private String senha;
+	private String senhaAntiga;	
+
 	public AtualizaAtendenteDto() {
 		// Rest
 	}
@@ -41,6 +42,12 @@ public class AtualizaAtendenteDto {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}	
+	}
+	public String getSenhaAntiga() {
+		return senhaAntiga;
+	}
+	public void setSenhaAntiga(String senhaAntiga) {
+		this.senhaAntiga = senhaAntiga;
+	}
 
 }

@@ -1,4 +1,4 @@
-package br.unip.ads.pim4.application.atendente;
+package br.unip.ads.pim4.application.atendente.dto;
 
 public class AtendenteResumoDto {
 	

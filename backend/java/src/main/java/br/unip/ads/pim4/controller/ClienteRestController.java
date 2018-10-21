@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.unip.ads.pim4.application.cliente.AtualizaClienteDto;
 import br.unip.ads.pim4.application.cliente.ClienteAppService;
-import br.unip.ads.pim4.application.cliente.ClienteResumoDto;
-import br.unip.ads.pim4.application.cliente.NovoClienteDto;
-import br.unip.ads.pim4.application.cliente.assembly.ClienteResumoDtoAssembler;
+import br.unip.ads.pim4.application.cliente.dto.AtualizaClienteDto;
+import br.unip.ads.pim4.application.cliente.dto.ClienteResumoDto;
+import br.unip.ads.pim4.application.cliente.dto.NovoClienteDto;
+import br.unip.ads.pim4.application.cliente.dto.assembly.ClienteDtoAssembler;
 import br.unip.ads.pim4.config.SwaggerConfig;
-import br.unip.ads.pim4.domain.model.Cliente;
-import br.unip.ads.pim4.domain.model.Id;
-import br.unip.ads.pim4.repository.ClienteRepository;
 import io.swagger.annotations.Api;
 
 @Api(tags = SwaggerConfig.TAG_CLIENTE)
@@ -30,47 +27,39 @@ import io.swagger.annotations.Api;
 public class ClienteRestController extends AbstractRestController {
 	
 	@Autowired
-	private ClienteRepository clienteRepo;
-	@Autowired
 	private ClienteAppService clienteAppService;
 	
-	@GetMapping()
-	public ResponseEntity<Iterable<ClienteResumoDto>> findAll() {
-		
-		Iterable<Cliente> osClientes = clienteRepo.findAll();			
-		return ResponseEntity.ok(ClienteResumoDtoAssembler.toDtoList(osClientes));
-		
-	}
-	
-	@GetMapping("{id}")
-	public ResponseEntity<ClienteResumoDto> findById(@PathVariable("id") String id) {
-		
-		Cliente clienteEncontrado = clienteRepo.findById(new Id(id));
-		if (clienteEncontrado == null) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(ClienteResumoDtoAssembler.toDto(clienteEncontrado));
-		
-	}
-	
 	@PostMapping
-	public ResponseEntity<URI> create(@RequestBody NovoClienteDto dto) {
+	public ResponseEntity<URI> criar(@RequestBody NovoClienteDto dto) {
 		
-		Cliente novoCliente = clienteAppService.criarCliente(dto);
-		clienteRepo.save(novoCliente);
-		return ResponseEntity.created(super.criarUriPorId(novoCliente.getId())).build();
+		/*
+		 * TODO Tratar exceções
+		 */
+		
+		String novoId = clienteAppService.criar(dto);		
+		return ResponseEntity.created(super.criarUriPorId(novoId)).build();
 				
 	}
 	
+	@GetMapping("{id}")
+	public ResponseEntity<ClienteResumoDto> buscar(@PathVariable("id") String id) {		
+		
+		/*
+		 * TODO Tratar exceções
+		 */
+		
+		return ResponseEntity.ok(clienteAppService.buscar(id));
+		
+	}
+	
 	@PutMapping("{id}")
-	public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody AtualizaClienteDto dto) {
+	public ResponseEntity<Void> update(@PathVariable("id") String id, @RequestBody AtualizaClienteDto dadosAtualizados) {
 		
-		Cliente clienteParaAtualizar = clienteRepo.findById(new Id(id));
-		if (clienteParaAtualizar == null) {
-			return ResponseEntity.notFound().build();
-		}
+		/*
+		 * TODO Tratar exceções
+		 */
 		
-		clienteAppService.atualizarCliente(clienteParaAtualizar, dto);
+		clienteAppService.atualizar(id, dadosAtualizados);
 		return ResponseEntity.ok().build();	
 		
 	}
@@ -79,18 +68,28 @@ public class ClienteRestController extends AbstractRestController {
 	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
 		
 		/*
-		 * TODO Há verificações de consistência que devem ser consideradas antes de 
-		 * excluir um Cliente. Se houver chamados aberto em nome do Cliente, por exemplo...
+		 * TODO Tratar exceções
 		 */
 		
-		Cliente clienteParaRemover = clienteRepo.findById(new Id(id));
-		if (clienteParaRemover == null) {
-			return ResponseEntity.notFound().build();
-		}
-		clienteRepo.delete(clienteParaRemover);
+		clienteAppService.excluir(id);		
 		return ResponseEntity.ok().build();
 		
 	}
+	
+	@GetMapping()
+	public ResponseEntity<Iterable<ClienteResumoDto>> buscarTodos() {		
+					
+		return ResponseEntity.ok(clienteAppService.buscarTodos());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

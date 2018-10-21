@@ -1,4 +1,4 @@
-package br.unip.ads.pim4.application.cliente;
+package br.unip.ads.pim4.application.cliente.dto;
 
 public class ClienteResumoDto {
 	
