@@ -1,34 +1,15 @@
 const form = document.querySelector('form');
 const btnLogar = document.querySelector('#logar');
-const URL = 'url/da/api';
+const URL = '';
 
-validaLogin(form);
+validaCampos(form);
 
 btnLogar.addEventListener('click', e => {
     e.preventDefault();
 
-    if (!btnLogar.classList.contains('disabled')) {
-
-        const login = {
-            email: form.email.value,
-            senha: form.password.value,
-        };
-
-        const header = {
-            method: "POST",
-            body: login
-        };
-
-        fetch(URL, header)
-            .then(response => response.json()) // Espero que venha um hash como token
-            .then(data => {
-                if (data.erro) {
-                    alert('Usuario ou Senha Inválidos')
-                } else {
-                    localStorage.setItem('token', data.token);
-                }
-            })
-            .catch()
+    if (!btnLogar.hasAttribute('disabled')) {
+     
+        getUser(URL, form);
 
         // console.log(localStorage.getItem('token'))
 
@@ -36,3 +17,4 @@ btnLogar.addEventListener('click', e => {
 
     }
 });
+
