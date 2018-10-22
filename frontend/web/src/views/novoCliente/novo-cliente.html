@@ -1,17 +1,17 @@
-<div class="container shadow-1">
-  <h5 class="mb-4 pt-2">Novo Cliente</h5>
+<div class="container p-4 shadow-1 fade-in">
+  <h5 class="mb-4">Novo Cliente</h5>
 
-  <form  bind>
+  <form bind autocomplete="off">
     <div class="form-row">
 
       <div class="form-group col-md-6">
-        <label s:id="teste" for="inputEmail4">Nome</label>
-        <input type="text" class="form-control" id="inputEmail4" placeholder="Nome">
+        <label for="nome">Nome</label>
+        <input autocomplete="off" type="text" bind:class="nomeIsValid" s:id="nome" id="nome" placeholder="Nome">
       </div>
 
       <div class="form-group col-md-6">
-        <label for="inputPassword4">Sobrenome</label>
-        <input type="text" class="form-control" id="inputPassword4" placeholder="Sobrenome">
+        <label for="sobrenome">Sobrenome</label>
+        <input autocomplete="off" type="text" bind:class="sobrenomeIsValid" s:id="sobrenome" id="sobrenome" placeholder="Sobrenome">
       </div>
 
     </div>
@@ -19,81 +19,135 @@
     <div class="form-row">
 
       <div class="form-group col-md-6">
-        <label for="inputAddress">CPF</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="000.000.000-00">
+        <label for="cpf">CPF</label>
+        <input autocomplete="off" type="text" bind:class="cpfIsValid" id="cpf" s:id="cpf" data-mask="###.###.###-##">
+        <div s:if="cpfIsValid" class="invalid-feedback">Por favor Insira um CPF valido !</div>
       </div>
-      
+
       <div class="form-group col-md-6">
         <div class="form-group ">
-          <label for="inputCity">Email</label>
-          <input type="email" class="form-control" id="inputCity" placeholder="exemplo@gmail.com">
+          <label for="email">Email</label>
+          <input autocomplete="off" type="email" bind:class="emailIsValid" s:id="email" id="email" placeholder="exemplo@gmail.com">
+          <div s:if="emailIsValid" class="invalid-feedback">Por favor Insira um Email valido !</div>
         </div>
       </div>
 
     </div>
 
     <div class="form-row">
-
-      <div  class="form-group col-md-3">
-        <label for="inputAddress">CEP</label>
-        <input s:id="cep" type="tel" min="0" maxlength="8" bind:class="isvalid" id="inputAddress" placeholder="Teste o Cep :)">
-        <div s:if="erro" class="invalid-tooltip">
-          Por favor Insira um CEP valido!
-        </div>
-      </div>
-
-      <div class="form-group col-md-4">
-        <label for="inputAddress">Endereco</label>
-        <input s:id="endereco"  type="text" class="form-control" id="inputAddress" placeholder="">
-      </div>
-
-      <div class="form-group col-md-4">
-        <label for="inputAddress2">Bairro</label>
-        <input s:id="bairro" type="text" class="form-control" id="inputAddress2" placeholder="">
-      </div>
-
-      <div class="form-group col-md-1">
-        <label for="inputAddress">Numero</label>
-        <input type="number" min="0" class="form-control" id="inputAddress" placeholder="">
-      </div>
-
-    </div>
-
-    <div class="form-row">
-
-      <div class="form-group col-md-3">
-        <div class="form-group ">
-          <label for="inputCity">Cidade</label>
-          <input s:id="cidade" type="text" class="form-control" id="inputCity" placeholder="">
-        </div>
-      </div>
-
-      <div class="form-group col-md-3">
-        <div class="form-group ">
-          <label for="inputCity">Estado</label>
-          <input s:id="estado" type="text" class="form-control" id="inputCity" placeholder="">
-        </div>
-      </div>
 
       <div class="form-group col-md-3 ">
-          <div class="form-group ">
-            <label for="inputCity">Telefone</label>
-            <input type="tel" class="form-control" id="inputCity" placeholder="">
-          </div>
+        <div class="form-group ">
+          <label for="tell">Telefone</label>
+          <input autocomplete="off" type="tel" bind:class="tellIsValid" s:id="tell" id="tell" placeholder="" data-mask="(##) ####-####">
+          <div s:if="tellIsValid" class="invalid-feedback">Por favor Insira um Telefone valido !</div>
         </div>
+      </div>
 
-        <div class="form-group col-md-3">
-          <div class="form-group ">
-            <label for="inputCity">Celular</label>
-            <input type="tel" class="form-control" id="inputCity" placeholder="">
-          </div>
+      <div class="form-group col-md-3">
+        <div class="form-group ">
+          <label for="cell">Celular</label>
+          <input autocomplete="off" type="tel" bind:class="cellIsValid" s:id="cell" id="cell" placeholder="" data-mask="(##) # ####-####">
+          <div s:if="cellIsValid" class="invalid-feedback">Por favor Insira um Celular valido !</div>
         </div>
-      
+      </div>
+
     </div>
 
-    <div class="w-100 p-3 d-flex justify-content-end">
-      <button type="button" class="btn btn-primary-color">Salvar</button>
+    <div class="w-100 p-3 mt-5 d-flex justify-content-end">
+      <button type="button" s:id="salvar" class="btn btn-primary-color shadow-1">Salvar</button>
     </div>
 
   </form>
+  <div bind s:id="snackbar" id="snackbar">{{msg}}</div>
+  
 </div>
+
+<style scoped>
+    /* The snackbar - position it at the bottom and in the middle of the screen */
+    #snackbar {
+      visibility: hidden;
+      /* Hidden by default. Visible on click */
+      min-width: 250px;
+      /* Set a default minimum width */
+      margin-left: -125px;
+      /* Divide value of min-width by 2 */
+      background-color:#dc3546e3 ;
+      /* Black background color */
+      color: #fff;
+      /* White text color */
+      text-align: center;
+      /* Centered text */
+      border-radius: 5px;
+      /* Rounded borders */
+      padding: 16px;
+      /* Padding */
+      position: fixed;
+      /* Sit on top of the screen */
+      z-index: 1;
+      /* Add a z-index if needed */
+      left: 50%;
+      /* Center the snackbar */
+      bottom: 30px;
+      /* 30px from the bottom */
+    }
+
+    /* Show the snackbar when clicking on a button (class added with JavaScript) */
+    #snackbar.show {
+      visibility: visible;
+      /* Show the snackbar */
+      /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+   However, delay the fade out process for 2.5 seconds */
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    /* Animations to fade the snackbar in and out */
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+
+      to {
+        bottom: 30px;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: 30px;
+        opacity: 1;
+      }
+
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+  </style>

@@ -1,34 +1,29 @@
-const form = document.querySelector('form');
-const btnLogar = document.querySelector('#logar');
-const URL = 'url/da/api';
+const form = doc('form');
+const btnLogar = doc('#logar');
 
-validaLogin(form);
+validaForm(form)
+
+document.addEventListener('keypress', function (e) {
+    if (e.which == 13) {
+
+        if (!btnLogar.hasAttribute('disabled')) {
+
+            getUser(API_URL, form);
+
+            // console.log(localStorage.getItem('token'))
+
+        } else {
+
+        }
+    }
+}, false);
 
 btnLogar.addEventListener('click', e => {
     e.preventDefault();
 
-    if (!btnLogar.classList.contains('disabled')) {
+    if (!btnLogar.hasAttribute('disabled')) {
 
-        const login = {
-            email: form.email.value,
-            senha: form.password.value,
-        };
-
-        const header = {
-            method: "POST",
-            body: login
-        };
-
-        fetch(URL, header)
-            .then(response => response.json()) // Espero que venha um hash como token
-            .then(data => {
-                if (data.erro) {
-                    alert('Usuario ou Senha Inválidos')
-                } else {
-                    localStorage.setItem('token', data.token);
-                }
-            })
-            .catch()
+        getUser(API_URL, form);
 
         // console.log(localStorage.getItem('token'))
 
@@ -36,3 +31,4 @@ btnLogar.addEventListener('click', e => {
 
     }
 });
+

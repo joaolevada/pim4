@@ -362,4 +362,37 @@ a.article:hover {
     }
 }
 
-/*Batatas*/
+.fade-in {
+	-webkit-animation: fade-in 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000)  both;
+	        animation: fade-in 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000)  both;
+}
+@keyframes fade-in {
+  0% {
+    -webkit-transform: translateX(-50px);
+            transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.text-expand {
+    -webkit-animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+            animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+  }
+  
+  @keyframes text-expand {
+    0% {
+      letter-spacing: -0.5em;
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

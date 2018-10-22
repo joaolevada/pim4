@@ -10,11 +10,13 @@ module.exports = {
         "no-unused-vars": "off",
         "prefer-destructuring": "off",
         "linebreak-style": "off",
-        "padded-blocks":"off"
+        "padded-blocks":"off",
+        "max-len": "off"
     },
     "globals": {
         "doc": true,
         "fetch": true,
-        "window": true
+        "window": true,
+        "alert": true
     }
 };
