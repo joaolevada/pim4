@@ -1,5 +1,7 @@
 package br.unip.ads.pim4.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,12 +14,8 @@ public interface AtendenteRepository extends CrudRepository<Atendente, String> {
 	
 	Iterable<Atendente> findAll();
 	
-	Atendente findById(Id id);
+	Optional<Atendente> findById(Id id);
 	
-	Atendente findByPessoaEmailAndSenha(EMail email, String senha);
-	
-	// Cliente findByCpfNumero();
-	
-	// Cliente findByEmailEndereco();
+	Optional<Atendente> findByPessoaEmailAndSenha(EMail email, String senha);
 	
 }

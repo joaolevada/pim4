@@ -25,10 +25,10 @@ router.on({
 
     doc('#app').html('<bread-crumb></bread-crumb> <novo-chamado></novo-chamado>');
   },
-  'encerrar-chamado': () => {
+  // 'encerrar-chamado': () => {
 
-    doc('#app').html('<bread-crumb></bread-crumb> <encerrar-chamado></encerrar-chamado>');
-  },
+  //   doc('#app').html('<bread-crumb></bread-crumb> <encerrar-chamado></encerrar-chamado>');
+  // },
   'novo-cliente': () => {
     doc('#app').html('<bread-crumb></bread-crumb> <novo-cliente></novo-cliente>');
   },
