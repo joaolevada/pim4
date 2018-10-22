@@ -6,17 +6,17 @@ export class ClienteServices {
   }
 
   async cria(token) {
+    this.token = token;
+    this.isOk = '';
+    this.header = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: this.token,
+      },
+      body: JSON.stringify(this.Cliente),
+    };
     try {
-      this.token = token;
-      this.isOk = '';
-      this.header = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: this.token,
-        },
-        body: JSON.stringify(this.Cliente),
-      };
 
       this.response = await fetch(API_URL, this.header);
 
@@ -30,10 +30,9 @@ export class ClienteServices {
 
       }
 
-      return this.isOk;
-
     } catch (error) {
-      throw new Error('Não foi possivel criar um Novo Cliente');
+      console.error(error);
     }
+    return this.isOk;
   }
 }

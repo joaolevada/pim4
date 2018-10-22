@@ -3,6 +3,8 @@ import { tag, template } from 'slim-js/Decorators';
 import CPF from 'gerador-validador-cpf';
 import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
+import { Cliente } from './model/Cliente';
+import { ClienteServices } from './services/ClienteServices';
 
 const tpl = require('./novo-cliente.html');
 
@@ -41,7 +43,7 @@ class NovoCliente extends Slim {
     this.validaCell();
     this.validaTell();
 
-    this.salvar.addEventListener('click', async (e) => {
+    this.salvar.addEventListener('click', (e) => {
       const verifica = [this.cpfIsValid, this.emailIsValid, this.nomeIsValid, this.sobrenomeIsValid, this.cellIsValid, this.tellIsValid];
 
       if (verifica.includes('form-control is-invalid')) {
@@ -50,12 +52,17 @@ class NovoCliente extends Slim {
 
       } else if (verifica.includes('form-control is-valid')) {
 
+        // const { ClienteServices } = await import('./services/ClienteServices');
 
-        const { ClienteServices } = await import('./services/ClienteServices');
+        // const ClientValid = this.criaCliente();
+
+        // const clienteService = new ClienteServices(ClientValid);
 
         const ClientValid = this.criaCliente();
 
         const clienteService = new ClienteServices(ClientValid);
+
+        clienteService.cria('token');
         console.log(clienteService);
 
       } else {
@@ -65,9 +72,9 @@ class NovoCliente extends Slim {
 
   }
 
-  async criaCliente() {
+  criaCliente() {
 
-    const { Cliente } = await import('./model/Cliente');
+    // const { Cliente } = await import('./model/Cliente');
 
     const cliente = new Cliente(this.nome.value, this.sobrenome.value, this.cpf.value,
       this.email.value, this.formatTell(this.tell.value), this.formatTell(this.cell.value));
