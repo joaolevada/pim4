@@ -1,10 +1,8 @@
 import { Slim } from 'slim-js';
 import { tag, template } from 'slim-js/Decorators';
 import CPF from 'gerador-validador-cpf';
-import 'jquery-mask-plugin'; // Todo validations
+import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
-import Cliente from './model/Cliente';
-
 
 const tpl = require('./novo-cliente.html');
 
@@ -43,13 +41,23 @@ class NovoCliente extends Slim {
     this.validaCell();
     this.validaTell();
 
-    this.salvar.addEventListener('click', (e) => {
+    this.salvar.addEventListener('click', async (e) => {
       const verifica = [this.cpfIsValid, this.emailIsValid, this.nomeIsValid, this.sobrenomeIsValid, this.cellIsValid, this.tellIsValid];
+
       if (verifica.includes('form-control is-invalid')) {
+
         this.showSnackbar(3000, 'Preencha os campos corretamente !');
+
       } else if (verifica.includes('form-control is-valid')) {
-        const cliente = this.criaCliente();
-        console.log(cliente);
+
+
+        const { ClienteServices } = await import('./services/ClienteServices');
+
+        const ClientValid = this.criaCliente();
+
+        const clienteService = new ClienteServices(ClientValid);
+        console.log(clienteService);
+
       } else {
         this.showSnackbar(3000, 'Preencha todos os campos !');
       }
@@ -57,10 +65,13 @@ class NovoCliente extends Slim {
 
   }
 
-  criaCliente() {
-    this.Cliente = new Cliente(this.nome.value, this.sobrenome.value, this.cpf.value,
+  async criaCliente() {
+
+    const { Cliente } = await import('./model/Cliente');
+
+    const cliente = new Cliente(this.nome.value, this.sobrenome.value, this.cpf.value,
       this.email.value, this.formatTell(this.tell.value), this.formatTell(this.cell.value));
-    return this.Cliente;
+    return cliente;
   }
 
   validaCPF() {
