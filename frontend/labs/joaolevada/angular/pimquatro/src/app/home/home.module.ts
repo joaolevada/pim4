@@ -11,7 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     CommonModule,
     LayoutModule,
     HomeRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
   ],
   declarations: [DashboardComponent, NavigatorComponent]
 })

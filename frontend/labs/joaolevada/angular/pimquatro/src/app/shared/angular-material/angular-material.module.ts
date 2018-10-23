@@ -8,6 +8,8 @@ import { MatButtonModule, MatSidenavContainer, MatToolbarModule, MatSidenavModul
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatIconModule,
+    MatButtonModule
   ],
   exports: [
     MatButtonModule,
