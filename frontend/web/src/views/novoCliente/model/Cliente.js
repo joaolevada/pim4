@@ -1,4 +1,4 @@
-class Cliente {
+export class Cliente {
   constructor(nome, sobrenome, cpf, email, telefone, celular) {
     this.nome = nome;
     this.sobrenome = sobrenome;
@@ -8,4 +8,3 @@ class Cliente {
     this.celular = celular;
   }
 }
-export default Cliente;

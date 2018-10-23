@@ -11,12 +11,14 @@ module.exports = {
         "prefer-destructuring": "off",
         "linebreak-style": "off",
         "padded-blocks":"off",
-        "max-len": "off"
+        "max-len": "off",
+        "import/prefer-default-export": "off"
     },
     "globals": {
         "doc": true,
         "fetch": true,
         "window": true,
-        "alert": true
+        "alert": true,
+        "localStorage": true,
     }
 };

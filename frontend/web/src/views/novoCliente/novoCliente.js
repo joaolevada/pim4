@@ -1,10 +1,11 @@
 import { Slim } from 'slim-js';
 import { tag, template } from 'slim-js/Decorators';
 import CPF from 'gerador-validador-cpf';
-import 'jquery-mask-plugin'; // Todo validations
+import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
-import Cliente from './model/Cliente';
 
+// import { Cliente } from './model/Cliente';
+// import { ClienteServices } from './services/ClienteServices';
 
 const tpl = require('./novo-cliente.html');
 
@@ -16,6 +17,8 @@ class NovoCliente extends Slim {
     this.formControl = 'form-control';
     this.formInvalid = 'form-control is-invalid';
     this.formValid = 'form-control is-valid';
+    this.sucess = '#28a746e5';
+    this.danger = '#dc3546e3';
 
     this.cpfIsValid = this.formControl;
     this.emailIsValid = this.formControl;
@@ -43,24 +46,40 @@ class NovoCliente extends Slim {
     this.validaCell();
     this.validaTell();
 
-    this.salvar.addEventListener('click', (e) => {
+    this.salvar.addEventListener('click', async (e) => {
       const verifica = [this.cpfIsValid, this.emailIsValid, this.nomeIsValid, this.sobrenomeIsValid, this.cellIsValid, this.tellIsValid];
+
       if (verifica.includes('form-control is-invalid')) {
+
         this.showSnackbar(3000, 'Preencha os campos corretamente !');
+
       } else if (verifica.includes('form-control is-valid')) {
-        const cliente = this.criaCliente();
-        console.log(cliente);
+
+        const { ClienteServices } = await import('./services/ClienteServices');
+        const { Cliente } = await import('./model/Cliente');
+        const token = localStorage.getItem('token');
+
+        const ClientValid = new Cliente(this.nome.value,
+          this.sobrenome.value, this.cpf.value,
+          this.email.value, this.formatTell(this.tell.value),
+          this.formatTell(this.cell.value));
+
+        const clienteService = new ClienteServices(ClientValid);
+
+        const isOk = await clienteService.cria(token);
+
+        if (isOk) {
+          this.showSnackbar(3000, 'Cadastro efetuado com sucesso !', this.sucess);
+        } else {
+          this.showSnackbar(3000, 'Cadastro não pode ser realizado com sucesso !', this.danger);
+        }
+        console.log(isOk);
+
       } else {
-        this.showSnackbar(3000, 'Preencha todos os campos !');
+        this.showSnackbar(3000, 'Preencha os campos corretamente !', this.danger);
       }
     });
 
-  }
-
-  criaCliente() {
-    this.Cliente = new Cliente(this.nome.value, this.sobrenome.value, this.cpf.value,
-      this.email.value, this.formatTell(this.tell.value), this.formatTell(this.cell.value));
-    return this.Cliente;
   }
 
   validaCPF() {
@@ -111,9 +130,10 @@ class NovoCliente extends Slim {
     });
   }
 
-  showSnackbar(time, msg) {
+  showSnackbar(time, msg, color) {
     this.msg = msg;
     this.snackbar.className = 'show';
+    this.color = `background-color:${color}`;
     setTimeout(() => {
       this.snackbar.className = this.snackbar.className.replace('show', '');
     }, time);
