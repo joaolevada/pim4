@@ -18,6 +18,7 @@ module.exports = {
         "doc": true,
         "fetch": true,
         "window": true,
-        "alert": true
+        "alert": true,
+        "localStorage": true,
     }
 };
