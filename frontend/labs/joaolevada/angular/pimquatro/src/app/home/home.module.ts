@@ -4,12 +4,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { AngularMaterialModule } from '../shared/angular-material/angular-material.module';
 import { NavigatorComponent } from './navigator/navigator.component';
-import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   imports: [
     CommonModule,
-    LayoutModule,
     HomeRoutingModule,
     AngularMaterialModule,
   ],
