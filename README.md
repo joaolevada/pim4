@@ -1,7 +1,7 @@
 # PIM 4
 Unip, ADS, Araraquara, Projeto Integrado Multidisciplinar, Quarto Semestre, 2018
 
-Em 18-outubro-2018, estabelecemos uma revisão no diagrams de casos de uso. É importante manter a seguinte sequência visual na próxima revisão:
+Em 18-outubro-2018, estabelecemos uma revisão no diagrama de casos de uso. É importante manter a seguinte sequência visual na próxima revisão:
 
 Ator - Atendente
 
