@@ -4,9 +4,6 @@ import CPF from 'gerador-validador-cpf';
 import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
 
-// import { Cliente } from './model/Cliente';
-// import { ClienteServices } from './services/ClienteServices';
-
 const tpl = require('./novo-cliente.html');
 
 @tag('novo-cliente')
@@ -51,35 +48,45 @@ class NovoCliente extends Slim {
 
       if (verifica.includes('form-control is-invalid')) {
 
+        // const a = await httpServices.get('https://viacep.com.br/ws/01001000/json/');
         this.showSnackbar(3000, 'Preencha os campos corretamente !');
+
 
       } else if (verifica.includes('form-control is-valid')) {
 
         const { ClienteServices } = await import('./services/ClienteServices');
-        const { Cliente } = await import('./model/Cliente');
-        const token = localStorage.getItem('token');
 
-        const ClientValid = new Cliente(this.nome.value,
-          this.sobrenome.value, this.cpf.value,
-          this.email.value, this.formatTell(this.tell.value),
-          this.formatTell(this.cell.value));
+        const clienteValid = await this.clienteBuilder();
 
-        const clienteService = new ClienteServices(ClientValid);
+        const clienteService = new ClienteServices();
 
-        const isOk = await clienteService.cria(token);
+        // console.log(clienteValid);
+
+        const isOk = await clienteService.criar(clienteValid);
 
         if (isOk) {
           this.showSnackbar(3000, 'Cadastro efetuado com sucesso !', this.sucess);
         } else {
           this.showSnackbar(3000, 'Cadastro não pode ser realizado com sucesso !', this.danger);
         }
-        console.log(isOk);
+        // console.log(isOk);
 
       } else {
         this.showSnackbar(3000, 'Preencha os campos corretamente !', this.danger);
       }
     });
 
+  }
+
+  async clienteBuilder() {
+    const { Cliente } = await import('./model/Cliente');
+    const cliente = new Cliente(
+      this.nome.value,
+      this.sobrenome.value, this.cpf.value,
+      this.email.value, this.formatTell(this.tell.value),
+      this.formatTell(this.cell.value),
+    );
+    return cliente;
   }
 
   validaCPF() {
