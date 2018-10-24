@@ -34,23 +34,28 @@ class NovoCliente extends Slim {
       this.nomeIsValid = this.formValid;
     });
 
+    this.cell.addEventListener('blur', () => {
+      this.cellIsValid = this.formValid;
+    });
+
+    this.tell.addEventListener('blur', () => {
+      this.tellIsValid = this.formValid;
+    });
+
     this.sobrenome.addEventListener('blur', () => {
       this.sobrenomeIsValid = this.formValid;
     });
 
     this.validaCPF();
     this.validaEmail();
-    this.validaCell();
-    this.validaTell();
 
     this.salvar.addEventListener('click', async (e) => {
-      const verifica = [this.cpfIsValid, this.emailIsValid, this.nomeIsValid, this.sobrenomeIsValid, this.cellIsValid, this.tellIsValid];
+      const verifica = [this.cpfIsValid, this.emailIsValid];
 
       if (verifica.includes('form-control is-invalid')) {
 
         // const a = await httpServices.get('https://viacep.com.br/ws/01001000/json/');
-        this.showSnackbar(3000, 'Preencha os campos corretamente !');
-
+        this.showSnackbar(3000, 'Preencha os campos corretamente !', this.danger);
 
       } else if (verifica.includes('form-control is-valid')) {
 
@@ -62,7 +67,7 @@ class NovoCliente extends Slim {
 
         // console.log(clienteValid);
 
-        const isOk = await clienteService.criar(clienteValid);
+        const isOk = await clienteService.create(clienteValid);
 
         if (isOk) {
           this.showSnackbar(3000, 'Cadastro efetuado com sucesso !', this.sucess);
@@ -113,28 +118,6 @@ class NovoCliente extends Slim {
   formatTell(tell) {
     this.tellFotmat = tell.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
     return this.tellFotmat;
-  }
-
-  validaCell() {
-    this.cell.addEventListener('blur', () => {
-      if (String(this.cell.value).length === 16) {
-        this.cellIsValid = this.formValid;
-        // this.tell.value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
-      } else {
-        this.cellIsValid = this.formInvalid;
-      }
-    });
-  }
-
-  validaTell() {
-    this.tell.addEventListener('blur', () => {
-      if (String(this.tell.value).length === 14) {
-        this.tellIsValid = this.formValid;
-        // this.tell.value.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
-      } else {
-        this.tellIsValid = this.formInvalid;
-      }
-    });
   }
 
   showSnackbar(time, msg, color) {
