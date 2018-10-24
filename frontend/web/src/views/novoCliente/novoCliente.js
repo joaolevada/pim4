@@ -3,6 +3,7 @@ import { tag, template } from 'slim-js/Decorators';
 import CPF from 'gerador-validador-cpf';
 import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
+// import { Http } from '../../services/httpServices';
 
 const tpl = require('./novo-cliente.html');
 
@@ -54,7 +55,8 @@ class NovoCliente extends Slim {
 
       if (verifica.includes('form-control is-invalid')) {
 
-        // const a = await httpServices.get('https://viacep.com.br/ws/01001000/json/');
+        // const a = await Http.get('https://viacep.com.br/ws/01001000/json/');
+        // console.log(a);
         this.showSnackbar(3000, 'Preencha os campos corretamente !', this.danger);
 
       } else if (verifica.includes('form-control is-valid')) {

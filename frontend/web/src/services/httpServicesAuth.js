@@ -16,20 +16,15 @@ export class HttpAuth {
      * @param {string} token - Token de autenticação
      */
   static async get(url, token) {
-    this.url = url;
-    this.token = token;
-    this.header = { method: 'GET', headers: { 'Content-Type': 'application/json', Authorization: this.token } };
-
+    const header = { method: 'GET', headers: { 'Content-Type': 'application/json', Authorization: token } };
+    let data;
     try {
-
-      this.res = await fetch(this.url, this.header);
-      this.data = await this.res.ok ? this.res.json() : false;
-
+      const res = await fetch(url, header);
+      data = await res.ok ? res.json() : false;
     } catch (error) {
       // console.error(error)
     }
-
-    return this.data;
+    return data;
   }
 
   /**
@@ -43,26 +38,15 @@ export class HttpAuth {
      */
 
   static async post(url, token, object) {
-    this.url = url;
-    this.token = token;
-    this.object = object;
-    this.isOk = '';
-    this.header = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: this.token,
-      },
-      body: JSON.stringify(this.object),
-    };
+    let isOk = '';
+    const header = { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: token }, body: JSON.stringify(object) };
     try {
-
-      this.res = await fetch(this.url, this.header);
-      this.isOk = !!this.res.ok;
+      const res = await fetch(url, header);
+      isOk = !!res.ok;
 
     } catch (error) {
-    //   console.error(error);
+      // console.error(error);
     }
-    return this.isOk;
+    return isOk;
   }
 }

@@ -15,16 +15,14 @@ export class Http {
    * @param {string} url - Url para a requisição http.
    */
   static async get(url) {
-    this.url = url;
-    this.header = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+    const header = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
+    let data;
     try {
-
-      this.res = await fetch(this.url, this.header);
-      this.data = await this.res.ok ? this.res.json() : false;
-
+      const res = await fetch(url, this.header);
+      data = await res.ok ? res.json() : false;
     } catch (error) {
       // console.error(error)
     }
-    return this.data;
+    return data;
   }
 }
