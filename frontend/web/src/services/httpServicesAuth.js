@@ -38,7 +38,7 @@ export class HttpAuth {
      */
 
   static async post(url, token, object) {
-    let isOk = '';
+    let isOk;
     const header = { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: token }, body: JSON.stringify(object) };
     try {
       const res = await fetch(url, header);

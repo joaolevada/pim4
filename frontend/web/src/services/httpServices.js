@@ -18,7 +18,7 @@ export class Http {
     const header = { method: 'GET', headers: { 'Content-Type': 'application/json' } };
     let data;
     try {
-      const res = await fetch(url, this.header);
+      const res = await fetch(url, header);
       data = await res.ok ? res.json() : false;
     } catch (error) {
       // console.error(error)

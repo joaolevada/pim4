@@ -6,8 +6,7 @@ export class ClienteServices {
   }
 
   async create(url, Cliente) {
-    this.Cliente = Cliente;
-    this.isOk = await HttpAuth.post(url, this.token, Cliente);
-    return this.isOk;
+    const isOk = await HttpAuth.post(url, this.token, Cliente);
+    return isOk;
   }
 }
