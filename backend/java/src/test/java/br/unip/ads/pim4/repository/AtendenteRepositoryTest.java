@@ -24,7 +24,7 @@ public class AtendenteRepositoryTest {
 
 		Id novoId = new Id(Id.proximo());
 		Cpf novoCpf = new Cpf(Cpf.gerarCpf());
-		EMail novoEmail = new EMail("contato@isp.com.br");
+		EMail novoEmail = new EMail("atendente@pimquatro.com");
 		Pessoa novaPessoa = new Pessoa("Atendente Stub da Silva", novoCpf, novoEmail);
 		Atendente novoAtendente = new Atendente(novoId, novaPessoa, "123456");
 		atendenteRepo.save(novoAtendente);

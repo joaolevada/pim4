@@ -80,8 +80,19 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 	@Override
 	public AtendenteResumoDto buscarPorEmailESenha(String email, String senha) {
 		EMail emailProcurado = new EMail(email);
-		Atendente atendenteCompleto = atendenteRepo.findByPessoaEmailAndSenha(emailProcurado, senha).get();
-		return AtendenteDtoAssembler.toDto(atendenteCompleto);
+		try {
+			Atendente atendenteCompleto = atendenteRepo.findByPessoa_Email(emailProcurado).get();
+			if (atendenteCompleto == null) {
+				return null;
+			}
+			if (atendenteCompleto.getSenha().compareTo(senha) == 0) {
+				return AtendenteDtoAssembler.toDto(atendenteCompleto);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {			
+			throw e;
+		}		
 	}
 
 	@Override

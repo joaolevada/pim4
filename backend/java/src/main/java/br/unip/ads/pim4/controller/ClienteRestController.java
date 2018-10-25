@@ -17,7 +17,6 @@ import br.unip.ads.pim4.application.cliente.ClienteAppService;
 import br.unip.ads.pim4.application.cliente.dto.AtualizaClienteDto;
 import br.unip.ads.pim4.application.cliente.dto.ClienteResumoDto;
 import br.unip.ads.pim4.application.cliente.dto.NovoClienteDto;
-import br.unip.ads.pim4.application.cliente.dto.assembly.ClienteDtoAssembler;
 import br.unip.ads.pim4.config.SwaggerConfig;
 import io.swagger.annotations.Api;
 

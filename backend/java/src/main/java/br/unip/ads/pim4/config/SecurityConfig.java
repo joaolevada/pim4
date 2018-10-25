@@ -26,10 +26,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		// Atribui o conceito de Stateless (API REST livre de estado/sessao)
-		 http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and()
+			
+		// Endpoins abertos
+			.authorizeRequests()
+			.antMatchers(HttpMethod.POST, "/api/atendentes").permitAll()
+			// Evitar 401 no método OPTIONS: https://stackoverflow.com/a/44115120/3072570
+			.antMatchers(HttpMethod.OPTIONS).permitAll()			
+			.and()
+			
 		// Restringe acesso atravez do conceito Basic Authentication na API REST
-		http.authorizeRequests()
+			.authorizeRequests()					
 			.antMatchers("/api/**").authenticated()
 			 // https://stackoverflow.com/a/44115120/3072570
 			.antMatchers(HttpMethod.OPTIONS).permitAll()

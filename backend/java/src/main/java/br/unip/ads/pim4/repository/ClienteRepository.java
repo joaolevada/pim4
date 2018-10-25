@@ -9,14 +9,14 @@ import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.Id;
 
 @Repository
-public interface ClienteRepository extends CrudRepository<Cliente, String> {
+public interface ClienteRepository extends CrudRepository<Cliente, Id> {
 	
 	Iterable<Cliente> findAll();
 	
 	Optional<Cliente> findById(Id id);
 	
-	// Cliente findByCpfNumero();
+	// Cliente findByCpf_Numero();
 	
-	// Cliente findByEmailEndereco();
+	// Cliente findByEmail_Endereco();
 	
 }

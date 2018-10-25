@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
 
-public interface ChamadoRepository extends CrudRepository<Chamado, String> {
+public interface ChamadoRepository extends CrudRepository<Chamado, Protocolo> {
 	
 	Iterable<Chamado> findAll();
 	

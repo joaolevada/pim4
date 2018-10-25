@@ -10,12 +10,12 @@ import br.unip.ads.pim4.domain.model.EMail;
 import br.unip.ads.pim4.domain.model.Id;
 
 @Repository
-public interface AtendenteRepository extends CrudRepository<Atendente, String> {
+public interface AtendenteRepository extends CrudRepository<Atendente, Id> {
 	
 	Iterable<Atendente> findAll();
 	
 	Optional<Atendente> findById(Id id);
 	
-	Optional<Atendente> findByPessoaEmailAndSenha(EMail email, String senha);
+	Optional<Atendente> findByPessoa_Email(EMail email);
 	
 }
