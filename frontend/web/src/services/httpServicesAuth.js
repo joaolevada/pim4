@@ -26,7 +26,6 @@ export class HttpAuth {
     }
     return data;
   }
-
   /**
      * Retorna true se a requisição for sucesso e false se falha.
      * @static

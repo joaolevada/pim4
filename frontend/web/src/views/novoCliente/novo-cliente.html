@@ -6,12 +6,14 @@
 
       <div class="form-group col-md-6">
         <label for="nome">Nome</label>
-        <input autocomplete="off" type="text" bind:class="nomeIsValid" s:id="nome" id="nome" placeholder="Nome">
+        <input autocomplete="off" type="text" bind:class="nomeIsValid" s:id="nome" id="nome" placeholder="">
+        <div s:if="nomeIsValid" class="invalid-feedback">Campo obrigatório !</div>
       </div>
 
       <div class="form-group col-md-6">
         <label for="sobrenome">Sobrenome</label>
-        <input autocomplete="off" type="text" bind:class="sobrenomeIsValid" s:id="sobrenome" id="sobrenome" placeholder="Sobrenome">
+        <input autocomplete="off" type="text" bind:class="sobrenomeIsValid" s:id="sobrenome" id="sobrenome" placeholder="">
+        <div s:if="sobrenomeIsValid" class="invalid-feedback">Por favor Insira um Telefone valido !</div>
       </div>
 
     </div>
@@ -27,7 +29,7 @@
       <div class="form-group col-md-6">
         <div class="form-group ">
           <label for="email">Email</label>
-          <input autocomplete="off" type="email" bind:class="emailIsValid" s:id="email" id="email" placeholder="exemplo@gmail.com">
+          <input autocomplete="off" type="email" bind:class="emailIsValid" s:id="email" id="email" placeholder="">
           <div s:if="emailIsValid" class="invalid-feedback">Por favor Insira um Email valido !</div>
         </div>
       </div>
@@ -151,5 +153,4 @@
       opacity: 0;
     }
   }
-
 </style>
