@@ -1,11 +1,18 @@
 package br.unip.ads.pim4.domain.model.chamado;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
@@ -28,15 +35,16 @@ public class Chamado {
 	@Embedded
 	private Id idCliente;
 	
-	@Embedded
-	private Iterable<EventoChamado> eventos;
+	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
+	@JoinColumn(name="protocolo_chamado")
+	private Set<EventoChamado> eventos;
 	
 	public Chamado() {
 		// Persistence
 	}
 
 	public Chamado(Protocolo protocolo, LocalDateTime dataAbertura, LocalDateTime dataEncerramento, String assunto,
-			Id idCliente, Iterable<EventoChamado> eventos) {
+			Id idCliente, Set<EventoChamado> eventos) {
 		super();
 		this.protocolo = protocolo;
 		this.dataAbertura = dataAbertura;
@@ -82,7 +90,7 @@ public class Chamado {
 		return eventos;
 	}
 
-	public void setEventos(Iterable<EventoChamado> eventos) {
+	public void setEventos(Set<EventoChamado> eventos) {
 		this.eventos = eventos;
 	}
 

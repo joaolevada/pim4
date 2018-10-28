@@ -2,12 +2,14 @@ package br.unip.ads.pim4.domain.model.chamado.builder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
-import br.unip.ads.pim4.domain.model.chamado.evento.EventoAbertura;
 import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
+import br.unip.ads.pim4.domain.model.chamado.evento.TipoEvento;
 
 public class ChamadoBuilder {
 	
@@ -15,7 +17,7 @@ public class ChamadoBuilder {
 	private LocalDateTime dataAbertura;
 	private LocalDateTime dataEncerramento;
 	private Id idCliente;
-	private Iterable<EventoChamado> eventos;
+	private Set<EventoChamado> eventos;
 	private Protocolo protocolo;	
 	
 	public ChamadoBuilder comAssunto(String assunto) {
@@ -38,7 +40,7 @@ public class ChamadoBuilder {
 		return this;
 	}
 	
-	public ChamadoBuilder comEventos(Iterable<EventoChamado> eventos) {
+	public ChamadoBuilder comEventos(Set<EventoChamado> eventos) {
 		this.eventos = eventos;
 		return this;
 	}
@@ -50,10 +52,15 @@ public class ChamadoBuilder {
 	
 	public ChamadoBuilder comEventoDeAbertura(Id idAtendente, String descricaoProblema) {
 		if (eventos == null) {
-			eventos = new ArrayList<>();
+			eventos = new HashSet<>();
 		}
-		EventoAbertura eventoAbertura = new EventoAbertura(idAtendente, descricaoProblema);
-		((ArrayList<EventoChamado>) eventos).add(eventoAbertura);
+		EventoChamado eventoAbertura = new EventoChamado(
+				new Id(Id.proximo()), 
+				LocalDateTime.now(), 
+				descricaoProblema, 
+				idAtendente, 
+				TipoEvento.ABERTURA);
+		((HashSet<EventoChamado>) eventos).add(eventoAbertura);
 		return this;
 	}
 	
