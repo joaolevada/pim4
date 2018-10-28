@@ -36,7 +36,7 @@ public class ChamadoRepositoryTest {
 	public void createChamado() {
 		
 		Pessoa pessoa = new Pessoa("Atendente Sauro", new Cpf(Cpf.gerarCpf()), new EMail("sauro@pimquatro.com"));
-		Atendente atendente = new Atendente(new Id(Id.proximo()), pessoa, "1234456");
+		Atendente atendente = new Atendente(new Id(Id.proximo()), pessoa, "123456");
 		atendenteRepo.save(atendente);
 				
 		Protocolo protocolo = new Protocolo(Protocolo.proximo());
@@ -46,9 +46,13 @@ public class ChamadoRepositoryTest {
 		clienteRepo.save(cliente);
 		
 		Set<EventoChamado> eventos = new HashSet<>();
-		eventos.add(new EventoChamado(new Id(Id.proximo()), LocalDateTime.now(), "Teste de descrição detalhada do problema", atendente.getId(), TipoEvento.ABERTURA));
+		EventoChamado eventoAbertura = new EventoChamado(
+				LocalDateTime.now(), 
+				"Teste de descrição detalhada do evento.", 
+				atendente, TipoEvento.ABERTURA);
+		eventos.add(eventoAbertura);
 
-		Chamado novoChamado = new Chamado(protocolo, dataAbertura, null, "Assunto teste", cliente.getId(), eventos);
+		Chamado novoChamado = new Chamado(protocolo, dataAbertura, null, "Assunto teste", cliente, eventos);
 		chamadoRepo.save(novoChamado);
 	}
 

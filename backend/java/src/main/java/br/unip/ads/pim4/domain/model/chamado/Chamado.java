@@ -4,17 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
-import br.unip.ads.pim4.domain.model.Id;
+import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
 
 @Entity
@@ -32,11 +29,12 @@ public class Chamado {
 	@Column(nullable = false)
 	private String assunto;
 	
-	@Embedded
-	private Id idCliente;
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, optional=false)	
+	private Cliente cliente;
 	
-	@OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
-	@JoinColumn(name="protocolo_chamado")
+	// @OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
+	// @JoinColumn(name="protocoloChamado")
+	@ElementCollection(fetch=FetchType.EAGER)
 	private Set<EventoChamado> eventos;
 	
 	public Chamado() {
@@ -44,13 +42,13 @@ public class Chamado {
 	}
 
 	public Chamado(Protocolo protocolo, LocalDateTime dataAbertura, LocalDateTime dataEncerramento, String assunto,
-			Id idCliente, Set<EventoChamado> eventos) {
+			Cliente cliente, Set<EventoChamado> eventos) {
 		super();
 		this.protocolo = protocolo;
 		this.dataAbertura = dataAbertura;
 		this.dataEncerramento = dataEncerramento;
 		this.assunto = assunto;
-		this.idCliente = idCliente;
+		this.cliente = cliente;
 		this.eventos = eventos;
 	}
 
@@ -78,12 +76,12 @@ public class Chamado {
 		this.assunto = assunto;
 	}
 
-	public Id getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Id idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Iterable<EventoChamado> getEventos() {

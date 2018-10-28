@@ -30,7 +30,7 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<String> criar(NovoChamadoDto novoChamado) {
 		String protocolo = chamadoAppService.criar(novoChamado);
 		URI location = super.criarUriPorId(protocolo);
-		// TODO Tratar exceção
+		// TODO Tratar exceÃ§Ã£o
 		return ResponseEntity.created(location).build();
 	}
 	
@@ -40,13 +40,19 @@ public class ChamadoRestController extends AbstractRestController {
 		return ResponseEntity.ok().body(chamadoEncontrado);
 	}
 	
+	@GetMapping
+	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodos() {
+		Iterable<ChamadoResumoDto> todosChamados = chamadoAppService.buscarTodos();
+		return ResponseEntity.ok().body(todosChamados);
+	}
+	
 	// TODO Atualizar chamado - PutMapping
 	// TODO Transferir chamado - PutMapping
 	// TODO Encerrar chamado - PutMapping
 	
 	@DeleteMapping("{protocolo}")
 	public ResponseEntity<Void> excluir(@PathVariable("protocolo") String protocolo) {
-		// TODO Tratar exceção
+		// TODO Tratar exceÃ§Ã£o
 		chamadoAppService.excluir(protocolo);
 		return ResponseEntity.ok().build();
 	}

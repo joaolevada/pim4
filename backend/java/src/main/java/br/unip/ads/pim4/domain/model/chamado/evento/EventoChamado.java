@@ -2,21 +2,22 @@ package br.unip.ads.pim4.domain.model.chamado.evento;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
-import br.unip.ads.pim4.domain.model.Id;
-import br.unip.ads.pim4.domain.model.chamado.Protocolo;
+import javax.persistence.ManyToOne;
 
-@Entity
+import br.unip.ads.pim4.domain.model.Atendente;
+
+@Embeddable
 public class EventoChamado {	
 
-	@EmbeddedId	
-	private Id id;
+//	@EmbeddedId	
+//	private Id id;
 	
 	@Column(nullable = false)
 	private LocalDateTime data;
@@ -25,28 +26,27 @@ public class EventoChamado {
 	@Lob
 	private String descricao;
 	
-	@Column(nullable = false)
-	private Id idAtendente;
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, optional=false)	
+	private Atendente atendente;
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoEvento tipo;
 	
-	@Column(nullable=false)
-	private Protocolo protocoloChamado;	
-	
+//	@Column(nullable=false)
+//	private Protocolo protocoloChamado;	
 	
 	public EventoChamado() {
 		// Persistence
 	}	
 	
 	
-	public EventoChamado(Id id, LocalDateTime data, String descricao, Id idAtendente, TipoEvento tipo) {
+	public EventoChamado(LocalDateTime data, String descricao, Atendente atendente, TipoEvento tipo) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.data = data;
 		this.descricao = descricao;
-		this.idAtendente = idAtendente;
+		this.atendente = atendente;
 		this.tipo = tipo;
 	}
 
@@ -66,13 +66,13 @@ public class EventoChamado {
 		return super.hashCode();
 	}
 
-	public Id getId() {
-		return id;
-	}
-	
-	public void setId(Id id) {
-		this.id = id;
-	}
+//	public Id getId() {
+//		return id;
+//	}
+//	
+//	public void setId(Id id) {
+//		this.id = id;
+//	}
 
 	public LocalDateTime getData() {
 		return data;
@@ -90,12 +90,12 @@ public class EventoChamado {
 		this.descricao = descricao;
 	}
 
-	public Id getIdAtendente() {
-		return idAtendente;
+	public Atendente getAtendente() {
+		return atendente;
 	}
 
-	public void setIdAtendente(Id idAtendente) {
-		this.idAtendente = idAtendente;
+	public void setAtedente(Atendente atendente) {
+		this.atendente = atendente;
 	}	
 	
 	public TipoEvento getTipo() {

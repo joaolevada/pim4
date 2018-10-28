@@ -9,6 +9,8 @@ import br.unip.ads.pim4.application.AbstractAppService;
 import br.unip.ads.pim4.application.chamado.dto.ChamadoResumoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.assembly.ChamadoDtoAssembly;
+import br.unip.ads.pim4.domain.model.Atendente;
+import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
@@ -22,23 +24,23 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	
 	@Autowired
 	private ChamadoRepository chamadoRepo;
-	
+	@Autowired
+	private AtendenteRepository atendenteRepo;
 	@Autowired
 	private ClienteRepository clienteRepo;
 	
-	@Autowired
-	private AtendenteRepository atendenteRepo;
-
 	@Override
 	public String criar(NovoChamadoDto novoChamado) {
-		Id idAtendente = new Id(novoChamado.getIdAtendente());
-		Id idCliente = new Id(novoChamado.getIdCliente());
+		/* TODO lancar excecao se o Atendente não for encontrado. */
+		Atendente atendente = atendenteRepo.findById(new Id(novoChamado.getIdAtendente())).get();
+		/* TODO lançar exceção se o Cliente não for encontrado. */
+		Cliente cliente = clienteRepo.findById(new Id(novoChamado.getIdCliente())).get();
 		Protocolo novoProtocolo = new Protocolo(Protocolo.proximo());		
 		ChamadoBuilder builder = new ChamadoBuilder()
 				.comAssunto(novoChamado.getAssunto())
 				.comDataAbertura(LocalDateTime.now())
-				.comIdCliente(idCliente)		
-				.comEventoDeAbertura(idAtendente, novoChamado.getDescricaoProblema())
+				.comCliente(cliente)		
+				.comEventoDeAbertura(atendente, novoChamado.getDescricaoProblema())
 				.comProtocolo(novoProtocolo);				
 		Chamado chamadoAberto = builder.build();
 		// TODO Tratar exceções
@@ -50,9 +52,8 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	public ChamadoResumoDto buscar(String protocolo) {
 		Protocolo protocoloBuscado = new Protocolo(protocolo);
 		// TODO Tratar exceções
-		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();
-		ChamadoDtoAssembly chamadoDtoAsm = new ChamadoDtoAssembly(atendenteRepo, clienteRepo);
-		ChamadoResumoDto chamadoResumido = chamadoDtoAsm.toDto(chamadoCompleto);
+		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();		
+		ChamadoResumoDto chamadoResumido = ChamadoDtoAssembly.toDto(chamadoCompleto);
 		return chamadoResumido;
 	}
 	
@@ -68,9 +69,8 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 
 	@Override
 	public Iterable<ChamadoResumoDto> buscarTodos() {
-		Iterable<Chamado> todosChamadosCompletos = chamadoRepo.findAll();
-		ChamadoDtoAssembly chamadoDtoAsm = new ChamadoDtoAssembly(atendenteRepo, clienteRepo);
-		Iterable<ChamadoResumoDto> chamadosResumidos = chamadoDtoAsm.toDtoList(todosChamadosCompletos);
+		Iterable<Chamado> todosChamadosCompletos = chamadoRepo.findAll();		
+		Iterable<ChamadoResumoDto> chamadosResumidos = ChamadoDtoAssembly.toDtoList(todosChamadosCompletos);
 		return chamadosResumidos;
 	}
 

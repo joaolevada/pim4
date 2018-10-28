@@ -26,15 +26,15 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.basePackage("br.unip.ads.pim4.controller"))
 				.build()
 				.apiInfo(apiInfo())
-				.tags(new Tag(TAG_CHAMADO, "Operações relacionadas ao domínio de Chamados")
-					, new Tag(TAG_CLIENTE, "Operações relacionadas ao domínio de Clientes")
-					, new Tag(TAG_ATENDENTE, "Operações relacionadas ao domínio de Atendentes"));
+				.tags(new Tag(TAG_CHAMADO, "OperaÃ§Ãµes relacionadas ao domÃ­nio de Chamados")
+					, new Tag(TAG_CLIENTE, "OperaÃ§Ãµes relacionadas ao domÃ­nio de Clientes")
+					, new Tag(TAG_ATENDENTE, "OperaÃ§Ãµes relacionadas ao domÃ­nio de Atendentes"));
 	}
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("Documentação API REST PIM (fantastic) Four")
-				.version("0.0.1")
+				.title("PIM Quatro DocumentaÃ§ao API REST")
+				.version("0.0.3")
 				.build();
 	}
 
