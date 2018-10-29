@@ -1,11 +1,13 @@
 package br.unip.ads.pim4.application.chamado;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.unip.ads.pim4.application.AbstractAppService;
+import br.unip.ads.pim4.application.chamado.dto.AtualizaChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.ChamadoResumoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.assembly.ChamadoDtoAssembly;
@@ -15,6 +17,8 @@ import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
 import br.unip.ads.pim4.domain.model.chamado.builder.ChamadoBuilder;
+import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
+import br.unip.ads.pim4.domain.model.chamado.evento.TipoEvento;
 import br.unip.ads.pim4.repository.AtendenteRepository;
 import br.unip.ads.pim4.repository.ChamadoRepository;
 import br.unip.ads.pim4.repository.ClienteRepository;
@@ -72,6 +76,32 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 		Iterable<Chamado> todosChamadosCompletos = chamadoRepo.findAll();		
 		Iterable<ChamadoResumoDto> chamadosResumidos = ChamadoDtoAssembly.toDtoList(todosChamadosCompletos);
 		return chamadosResumidos;
+	}
+
+	@Override
+	public void atualizarChamado(AtualizaChamadoDto dto) {
+		// TODO se não encontrar o chamado, lançar exceção
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(dto.getProtocolo())).get();
+		Set<EventoChamado> eventos = chamado.getEventos();
+		LocalDateTime data = null;
+		Atendente atendenteDoUltimoEvento = null;
+		for (EventoChamado e : eventos) {
+			
+			if (data == null || data.isBefore(e.getData())) {
+				data = e.getData();
+				atendenteDoUltimoEvento = e.getAtendente();
+			}
+			
+		}
+		EventoChamado eventoAtualizacao = new EventoChamado(
+				LocalDateTime.now(), 
+				dto.getDescricao(), 
+				atendenteDoUltimoEvento, 
+				TipoEvento.ATUALIZACAO);
+		eventos.add(eventoAtualizacao);
+		chamado.setEventos(eventos);
+		// TODO tratar exceção
+		chamadoRepo.save(chamado);
 	}
 
 }

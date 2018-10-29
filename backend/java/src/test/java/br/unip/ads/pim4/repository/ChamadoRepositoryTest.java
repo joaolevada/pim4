@@ -1,5 +1,7 @@
 package br.unip.ads.pim4.repository;
 
+import static org.junit.Assert.fail;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,6 +56,34 @@ public class ChamadoRepositoryTest {
 
 		Chamado novoChamado = new Chamado(protocolo, dataAbertura, null, "Assunto teste", cliente, eventos);
 		chamadoRepo.save(novoChamado);
+	}
+	
+	@Test
+	public void updateAtualizarChamado() {
+		this.createChamado();
+		
+		// Criar um evento de atualizacao para o primeiro chamado retornado pelo repositório
+		Iterable<Chamado> todosChamados = chamadoRepo.findAll();
+		Chamado c = todosChamados.iterator().next();
+		if (c == null) {
+			fail("Nenhum chamado na coleção.");
+		}
+		Set<EventoChamado> evs = c.getEventos();
+		EventoChamado eventoAtualizacao = new EventoChamado(
+				LocalDateTime.now(), 
+				"Teste de descrição da atualização do evento", 
+				evs.iterator().next().getAtendente(), 
+				TipoEvento.ATUALIZACAO
+				);
+		evs.add(eventoAtualizacao);
+		c.setEventos(evs);
+		chamadoRepo.save(c);
+	}
+	
+	@Test void updateTransferirChamado() {
+		this.createChamado();
+		// TODO Implementar teste de transferencia de chamado!
+		// Criar um evento de transferencia para o primeiro chamado retornado pelo repositório
 	}
 
 }

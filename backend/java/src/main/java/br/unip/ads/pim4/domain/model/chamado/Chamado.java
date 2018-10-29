@@ -84,7 +84,7 @@ public class Chamado {
 		this.cliente = cliente;
 	}
 
-	public Iterable<EventoChamado> getEventos() {
+	public Set<EventoChamado> getEventos() {
 		return eventos;
 	}
 

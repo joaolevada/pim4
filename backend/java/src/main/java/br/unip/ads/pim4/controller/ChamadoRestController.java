@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 import br.unip.ads.pim4.application.chamado.ChamadoAppService;
+import br.unip.ads.pim4.application.chamado.dto.AtualizaChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.ChamadoResumoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
 import br.unip.ads.pim4.config.SwaggerConfig;
@@ -27,10 +30,10 @@ public class ChamadoRestController extends AbstractRestController {
 	private ChamadoAppService chamadoAppService;
 	
 	@PostMapping
-	public ResponseEntity<String> criar(NovoChamadoDto novoChamado) {
-		String protocolo = chamadoAppService.criar(novoChamado);
+	public ResponseEntity<String> criar(@RequestBody NovoChamadoDto dto) {
+		String protocolo = chamadoAppService.criar(dto);
 		URI location = super.criarUriPorId(protocolo);
-		// TODO Tratar exceÃ§Ã£o
+		// TODO Tratar exceção
 		return ResponseEntity.created(location).build();
 	}
 	
@@ -47,6 +50,12 @@ public class ChamadoRestController extends AbstractRestController {
 	}
 	
 	// TODO Atualizar chamado - PutMapping
+	@PutMapping("{protocolo}")
+	public ResponseEntity<Void> atualizarChamado(@RequestBody AtualizaChamadoDto dto) {
+		// TODO Tratar exceções
+		chamadoAppService.atualizarChamado(dto);
+		return ResponseEntity.ok().build();
+	}
 	// TODO Transferir chamado - PutMapping
 	// TODO Encerrar chamado - PutMapping
 	
