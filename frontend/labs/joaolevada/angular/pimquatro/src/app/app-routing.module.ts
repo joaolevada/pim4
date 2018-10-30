@@ -5,7 +5,12 @@ const routes: Routes = [
   /*
   * Módulo raiz da interface de usuário
   */
-  { path: 'home', loadChildren: './home/home.module#HomeModule' }
+  { path: 'home', loadChildren: './home/home.module#HomeModule' },
+
+  /**
+   * Módulo Atendente CRUD
+   */
+  { path: 'atendente', loadChildren: './atendente/atendente.module#AtendenteModule' }
 
 ];
 

@@ -7,7 +7,11 @@ import {
   MatListModule,
   MatGridListModule,
   MatMenuModule,
-  MatCardModule
+  MatCardModule,
+  MatFormFieldModule,
+  MatOptionModule,
+  MatRadioModule,
+  MatSelectModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -24,6 +28,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatGridListModule,
     MatMenuModule,
     MatCardModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatSelectModule,
   ],
   exports: [
     LayoutModule,
@@ -32,9 +42,17 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatIconModule,
+    MatButtonModule,
     MatGridListModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatSelectModule,
   ],
   declarations: []
 })
