@@ -14,7 +14,7 @@ import { AngularMaterialModule } from './shared/angular-material/angular-materia
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,    
+    AngularMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
