@@ -6,29 +6,30 @@ Em 18-outubro-2018, estabelecemos uma revisão no diagrama de casos de uso. É i
 Ator - Atendente
 
 1. Cadastrar-se
-2. Fazer Login
-3. Cadastrar cliente
-4. Abrir chamado
-5. a. Buscar chamado por protocolo
-5. b. Buscar chamado por cliente
-6. Visualizar chamado
-7. a. Atualizar chamado
-7. b. Encaminhar chamado
-7. c. Encerrar chamado
+1. Fazer Login
+1. Cadastrar cliente
+1. Abrir chamado
+1. Chamado
+   1. Buscar chamado por protocolo
+   1. Buscar chamado por cliente
+   1. Visualizar chamado
+   1. Atualizar chamado
+   1. Encaminhar chamado
+   1. Encerrar chamado
 
 Ainda temos de considerar:
 
-Recuperar senha
-Alterar senha
+* Recuperar senha
+* Alterar senha
 
-Buscar atendente
-Visualizar atendente
-Alterar atendente
-Excluir atendente
+* Buscar atendente
+* Visualizar atendente
+* Alterar atendente
+* Excluir atendente
 
-Buscar cliente
-Visualizar cliente
-Alterar cliente
-Excluir cliente
+* Buscar cliente
+* Visualizar cliente
+* Alterar cliente
+* Excluir cliente
 
-Excluir chamado
+* Excluir chamado
