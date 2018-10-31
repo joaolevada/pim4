@@ -17,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import br.unip.ads.pim4.application.chamado.ChamadoAppService;
 import br.unip.ads.pim4.application.chamado.dto.AtualizaChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.ChamadoResumoDto;
+import br.unip.ads.pim4.application.chamado.dto.EncerraChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
+import br.unip.ads.pim4.application.chamado.dto.TransfereChamadoDto;
 import br.unip.ads.pim4.config.SwaggerConfig;
 import io.swagger.annotations.Api;
 
@@ -33,7 +35,7 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<String> criar(@RequestBody NovoChamadoDto dto) {
 		String protocolo = chamadoAppService.criar(dto);
 		URI location = super.criarUriPorId(protocolo);
-		// TODO Tratar exce��o
+		// TODO Tratar exce��o
 		return ResponseEntity.created(location).build();
 	}
 	
@@ -47,21 +49,32 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodos() {
 		Iterable<ChamadoResumoDto> todosChamados = chamadoAppService.buscarTodos();
 		return ResponseEntity.ok().body(todosChamados);
-	}
-	
-	// TODO Atualizar chamado - PutMapping
-	@PutMapping("{protocolo}")
+	}	
+
+	@PutMapping("atualizar")
 	public ResponseEntity<Void> atualizarChamado(@RequestBody AtualizaChamadoDto dto) {
-		// TODO Tratar exce��es
+		// TODO Tratar exce��es
 		chamadoAppService.atualizarChamado(dto);
 		return ResponseEntity.ok().build();
+	}	
+	
+	@PutMapping("transferir")
+	public ResponseEntity<Void> transferirChamado(@RequestBody TransfereChamadoDto dto) {
+		// TODO Tratar exceções
+		chamadoAppService.transferirChamado(dto);
+		return ResponseEntity.ok().build();
+	}	
+
+	@PutMapping("encerrar")
+	public ResponseEntity<Void> encerrarChamado(@RequestBody EncerraChamadoDto dto) {
+		// TODO Tratar exceções
+		chamadoAppService.encerrarChamado(dto);
+		return ResponseEntity.ok().build();
 	}
-	// TODO Transferir chamado - PutMapping
-	// TODO Encerrar chamado - PutMapping
 	
 	@DeleteMapping("{protocolo}")
 	public ResponseEntity<Void> excluir(@PathVariable("protocolo") String protocolo) {
-		// TODO Tratar exceção
+		// TODO Tratar exceções
 		chamadoAppService.excluir(protocolo);
 		return ResponseEntity.ok().build();
 	}

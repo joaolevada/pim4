@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
+import br.unip.ads.pim4.domain.model.Atendente;
 import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
 
@@ -94,6 +95,26 @@ public class Chamado {
 
 	public Protocolo getProtocolo() {
 		return protocolo;
-	}	
+	}
+	
+	public Atendente responsavel() {
+		
+		if (getEventos().isEmpty()) {
+			return null;
+		}
+		
+		// Retornar o atendente do evento mais recente;
+		LocalDateTime data = null;
+		Atendente atendenteDoUltimoEvento = null;
+		for (EventoChamado e : getEventos()) {			
+			if (data == null || data.isBefore(e.getData())) {
+				data = e.getData();
+				atendenteDoUltimoEvento = e.getAtendente();
+			}			
+		}
+		
+		return atendenteDoUltimoEvento;
+		
+	}
 
 }
