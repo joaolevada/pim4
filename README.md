@@ -9,12 +9,12 @@ Ator - Atendente
 2. Fazer Login
 3. Cadastrar cliente
 4. Abrir chamado
-5.a. Buscar chamado por protocolo
-5.b. Buscar chamado por cliente
+5. a. Buscar chamado por protocolo
+5. b. Buscar chamado por cliente
 6. Visualizar chamado
-7.a. Atualizar chamado
-7.b. Encaminhar chamado
-7.c. Encerrar chamado
+7. a. Atualizar chamado
+7. b. Encaminhar chamado
+7. c. Encerrar chamado
 
 Ainda temos de considerar:
 
