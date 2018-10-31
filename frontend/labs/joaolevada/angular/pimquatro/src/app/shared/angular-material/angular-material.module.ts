@@ -11,48 +11,43 @@ import {
   MatFormFieldModule,
   MatOptionModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatInputModule,
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   imports: [
     LayoutModule,
-    MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatIconModule,
     MatButtonModule,
     MatGridListModule,
     MatMenuModule,
-    MatCardModule,
-    MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatOptionModule,
     MatRadioModule,
     MatSelectModule,
+    MatInputModule,
   ],
   exports: [
     LayoutModule,
-    MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatIconModule,
     MatButtonModule,
     MatGridListModule,
     MatMenuModule,
-    MatCardModule,
-    MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatOptionModule,
     MatRadioModule,
     MatSelectModule,
+    MatInputModule,
   ],
   declarations: []
 })
