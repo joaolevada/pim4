@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { AtendenteService } from '../../service/atendente.service';
+import { AtendenteResumoDto } from '../../model/atendente-resumo-dto';
 
 @Component({
   selector: 'app-read-atendente-all',
   templateUrl: './read-atendente-all.component.html',
   styleUrls: ['./read-atendente-all.component.sass'],
 })
-export class ReadAtendenteAllComponent {
+export class ReadAtendenteAllComponent implements OnInit {
+
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  cards = this._breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
@@ -29,5 +32,22 @@ export class ReadAtendenteAllComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  atendentes: AtendenteResumoDto[];
+
+  constructor(
+    private _breakpointObserver: BreakpointObserver,
+    private _service: AtendenteService
+  ) { }
+
+  ngOnInit(): void {
+    this._carregarAtendentes();
+  }
+
+  private _carregarAtendentes(): Promise<void> {
+    return this._service.buscar().then(response => {
+      this.atendentes = response;
+      return Promise.resolve();
+    });
+  }
+
 }

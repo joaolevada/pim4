@@ -5,9 +5,9 @@ import { ReadAtendenteComponent } from './view/read-atendente/read-atendente.com
 import { ReadAtendenteAllComponent } from './view/read-atendente-all/read-atendente-all.component';
 
 const routes: Routes = [
-  {path: 'create', component: CreateAtendenteComponent},
-  {path: 'read', component: ReadAtendenteAllComponent},
-  {path: 'read/:id', component: ReadAtendenteComponent}
+  { path: '', component: ReadAtendenteAllComponent },
+  { path: 'create', component: CreateAtendenteComponent },
+  { path: 'read/:id', component: ReadAtendenteComponent }
 ];
 
 @NgModule({
