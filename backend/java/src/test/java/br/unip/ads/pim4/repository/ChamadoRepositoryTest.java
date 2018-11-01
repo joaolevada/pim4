@@ -80,7 +80,8 @@ public class ChamadoRepositoryTest {
 		chamadoRepo.save(c);
 	}
 	
-	@Test void updateTransferirChamado() {
+	@Test
+	public void updateTransferirChamado() {
 		this.createChamado();
 		// TODO Implementar teste de transferencia de chamado!
 		// Criar um evento de transferencia para o primeiro chamado retornado pelo repositório

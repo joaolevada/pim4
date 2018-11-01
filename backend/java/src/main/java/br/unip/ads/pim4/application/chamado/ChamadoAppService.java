@@ -16,10 +16,10 @@ public interface ChamadoAppService {
 	
 	public Iterable<ChamadoResumoDto> buscarTodos();
 
-	public void atualizarChamado(AtualizaChamadoDto dto);
+	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto);
 	
-	public void transferirChamado(TransfereChamadoDto dto);
+	public void transferirChamado(String protocolo, TransfereChamadoDto dto);
 	
-	public void encerrarChamado(EncerraChamadoDto dto);
+	public void encerrarChamado(String protocolo, EncerraChamadoDto dto);
 	
 }

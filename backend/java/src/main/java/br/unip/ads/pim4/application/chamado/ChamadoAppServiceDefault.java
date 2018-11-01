@@ -79,9 +79,10 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	}
 
 	@Override
-	public void atualizarChamado(AtualizaChamadoDto dto) {
-		// TODO se nï¿½o encontrar o chamado, lanï¿½ar exceï¿½ï¿½o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(dto.getProtocolo())).get();				
+	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) {
+		// TODO se não encontrar chamado, levantar exceção
+		// TODO se o chamado estiver encerrado, levantar exceção
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();				
 		EventoChamado eventoAtualizacao = new EventoChamado(
 				LocalDateTime.now(), 
 				dto.getDescricao(), 
@@ -93,9 +94,10 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	}
 
 	@Override
-	public void transferirChamado(TransfereChamadoDto dto) {
-		// TODO se nÃ£o encontrar Chamado, levantar exceÃ§Ã£o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(dto.getProtocolo())).get();		
+	public void transferirChamado(String protocolo, TransfereChamadoDto dto) {
+		// TODO se não encontrar chamado, levantar exceção
+		// TODO se o chamado estiver encerrado, levantar exceção
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();		
 		// Criar o evento de transferencia
 		// TODO Se nÃ£o encontrar Atendente, levantar exceÃ§Ã£o		
 		Atendente atendente = atendenteRepo.findById(new Id(dto.getAtendenteId())).get();		
@@ -106,9 +108,10 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	}
 
 	@Override
-	public void encerrarChamado(EncerraChamadoDto dto) {
-		// TODO se nÃ£o encontrar chamado, levantar exceÃ§Ã£o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(dto.getProtocolo())).get();		
+	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) {
+		// TODO se não encontrar chamado, levantar exceção
+		// TODO se o chamado já estiver encerrado, levantar exceção
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();		
 		// Criar o evento de encerramento
 		LocalDateTime encerradoEm = LocalDateTime.now();
 		EventoChamado eventoEncerramento = new EventoChamado(
