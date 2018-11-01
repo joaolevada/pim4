@@ -28,7 +28,7 @@ public class Id implements Serializable {
 		this.id = id;
 	}
 
-	public String toString() {
+	public String asString() {
 		return id;
 	}
 	

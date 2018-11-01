@@ -27,7 +27,7 @@ public class Protocolo implements Serializable {
 		this.numero = numero;
 	}
 	
-	public String toString() {
+	public String asString() {
 		return this.numero;
 	}
 	

@@ -17,16 +17,16 @@ public class EMail {
 		this.endereco = endereco;
 	}
 	
-	public String toString() {
+	public String asString() {
 		return this.endereco;
 	}
 	
 	public Boolean isValid() {
-		/* TODO implementar validação do endereço de e-mail. A verificação deve ser o mais simples 
-		 * possível. Não usar verificações complexas com horríveis, e impossíveis de manter, expressões 
+		/* TODO implementar validaï¿½ï¿½o do endereï¿½o de e-mail. A verificaï¿½ï¿½o deve ser o mais simples 
+		 * possï¿½vel. Nï¿½o usar verificaï¿½ï¿½es complexas com horrï¿½veis, e impossï¿½veis de manter, expressï¿½es 
 		 * regulares.
-		 * Também podemos terceirizar esta responsabilidade para alguma biblioteca.
-		 * Se um email válido for realmente importante para aplicação, usar validação de email por link.
+		 * Tambï¿½m podemos terceirizar esta responsabilidade para alguma biblioteca.
+		 * Se um email vï¿½lido for realmente importante para aplicaï¿½ï¿½o, usar validaï¿½ï¿½o de email por link.
 		 */
 		return true;		
 	}

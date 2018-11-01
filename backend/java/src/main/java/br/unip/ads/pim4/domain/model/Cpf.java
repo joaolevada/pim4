@@ -17,20 +17,20 @@ public class Cpf {
 		this.numero = numero;
 	}
 	
-	public String toString() {
+	public String asString() {
 	  return this.numero;
 	}
 	
 	public Boolean isValido() {
 		/* TODO implementar validacao do CPF. Recomendo delegarmos esta inteligencia para alguma
-		 * biblioteca pública e disponível no repositório Maven. Não deve ser difícil de encontrar. 
+		 * biblioteca pï¿½blica e disponï¿½vel no repositï¿½rio Maven. Nï¿½o deve ser difï¿½cil de encontrar. 
 		*/
 		return true;
 	}
 	
 	public static String gerarCpf() {
 		
-		/* TODO Implementar a geração de CPFs válidos aleatoriamente.
+		/* TODO Implementar a geraï¿½ï¿½o de CPFs vï¿½lidos aleatoriamente.
 		 * 
 		 */
 		
