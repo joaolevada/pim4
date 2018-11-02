@@ -1,17 +1,15 @@
 const form = doc('form');
 const btnLogar = doc('#logar');
+$('#cpf').mask('000.000.000-00', { reverse: true });
 
 validaForm(form)
-
 
 document.addEventListener('keypress', function (e) {
     if (e.which == 13) {
 
         if (!btnLogar.hasAttribute('disabled')) {
 
-            getUser(API_URL, form);
-
-            // console.log(localStorage.getItem('token'))
+            cadastrar(API_URL, form);
 
         } else {
 
@@ -24,9 +22,7 @@ btnLogar.addEventListener('click', e => {
 
     if (!btnLogar.hasAttribute('disabled')) {
 
-        getUser(API_URL, form);
-
-        // console.log(localStorage.getItem('token'))
+        cadastrar(API_URL, form);
 
     } else {
 

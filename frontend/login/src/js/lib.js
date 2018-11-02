@@ -6,7 +6,7 @@ function validaForm(form) {
             v ? toggleAttr(form.email, 'invalid', 'valid') : toggleAttr(form.email, 'valid', 'invalid')
         });
 
-        bootstrapValidate('#password', 'min:8:A senha deve conter no minimo 8 digitos !', (v) => {
+        bootstrapValidate('#password', 'min:6:A senha deve conter no minimo 6 digitos !', (v) => {
             v ? toggleAttr(form.password, 'invalid', 'valid') : toggleAttr(form.password, 'valid', 'invalid')
         });
 
@@ -51,7 +51,9 @@ async function getUser(URL, form) {
     progress.classList.remove('d-none');
 
     try {
-        const userToken = btoa(`${form.email.value}:${form.password.value}`);
+        const userToken = `Basic ${btoa(`${form.email.value}:${form.password.value}`)}`
+
+        // console.log(userToken);
 
         const HEADER = {
             method: "GET",
@@ -62,12 +64,12 @@ async function getUser(URL, form) {
         };
 
         const response = await fetch(URL, HEADER);
+        // const res = await response.json()
 
         if (response.ok) {
-            const user = await response.json();
-            localStorage.setItem('token', user.token);
+            localStorage.setItem('token', userToken);
             progress.classList.add('d-none');
-            window.location = URL_APP;
+            window.location = APP_URL;
 
         } else {
             form.reset()

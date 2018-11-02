@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" href="./src/imgs/support.png" type="image/png">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="./src/style/bootstrap.min.css">
+  <link rel="stylesheet" href="./src/style/style.css">
+
+  <title>PimQuatro</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row rowbg1  d-flex justify-content-center "></div>
+    <div class="row rowbg bg-light"></div>
+
+    <div class="container-fluid hero-container d-flex flex-column">
+
+      <div class="row logo-hero w-100 align-self-center justify-content-center  mt-5">
+        <h1 class="text-light text-expand">Pim</h1>
+        <h1 class="text-light text-expand font-weight-light">Quatro</h1>
+      </div>
+
+      <div class="row align-self-center  mt-3">
+
+        <div class="center shadow-1-no-hover bg-light fade-in">
+
+          <div class="w-100 progress d-none ">
+            <div class="progress-bar"></div>
+          </div>
+
+          <img class="mt-4" src="./src/imgs/support.svg" width="80" height="80" alt="Logo">
+
+          <hr>
+
+          <form autocomplete="off">
+
+            <div class="form-row mt-4  text-left">
+              <div class="col-md-6 mb-3">
+                <label for="nome">Nome</label>
+                <input type="text" required class="form-control" aria-describedby="nomeHelp" name="nome" id="nome" placeholder="Seu nome">
+                <small id="nomeHelp" class="invalid-feedback d-none">Email ou Senha Inválidos.</small>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="email">Email</label>
+                <input type="email" required class="form-control" aria-describedby="emailHelp" name="email" id="email" placeholder="Seu email">
+                <small id="emailHelp" class="invalid-feedback d-none">Email ou Senha Inválidos.</small>
+              </div>
+            </div>
+
+            <div class="form-row text-left">
+              <div class="col-md-6 mb-3">
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" class="form-control" id="cpf" aria-describedby="cpfHelp" data-mask="###.###.###-##" placeholder="Seu cpf">
+                <small id="cpfHelp" class="invalid-feedback d-none">Insira um cpf válido</small>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="senha">Senha</label>
+                <input type="senha" name="senha" class="form-control" id="senha" placeholder="Sua senha">
+              </div>
+            </div>
+
+            <div class="form-row mt-3 text-left" id="toggle">
+              <div class="col-md-12 mt-1 mb-1 d-flex justify-content-center">
+                <button type="submit" disabled id="logar" class="btn btn-primary-color shadow-1-no-hover ">Efetuar Cadastro</button>
+              </div>
+            </div>
+
+          </form>
+          
+        </div>
+     
+
+      </div>
+
+    </div>
+
+    <div id="snackbar"></div>
+
+  </div>
+
+  <script src="./src/js/jquery.min.js"></script>
+  <script src="./src/js/popper.min.js"></script>
+  <script src="./src/js/bootstrap.min.js"></script>
+  <script src="./src/js/variables.js"></script>
+  <script src="./src/js/validate.js"></script>
+  <script src="./src/js/jqueryMask.js"></script>
+  <script src="./src/js/cpfValidate.js"></script>
+  <script src="./src/js/lib.js"></script>
+  <script src="./src/js/index.js"></script>
+</body>
+
+</html>
