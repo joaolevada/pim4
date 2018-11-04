@@ -11,7 +11,7 @@ class Cadastro extends Component {
       progress: 'w-100 progress d-none'
     }
   }
-  
+
   renderProgressBar(show) {
     this.setState({progress: show})
   }

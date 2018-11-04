@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 
-class Snackbar extends Component {
-  render() {
-    return (
-        <div id="snackbar" className={this.props.show} style={{backgroundColor: this.props.cor}} >{this.props.msg}</div>
-    );
-  }
+const Snackbar = props => {
+  let { show, cor, msg } = props;
+  return <div id="snackbar" className={ show } style={ { backgroundColor: cor } } >{ msg }</div>
 }
 
 export default Snackbar;
