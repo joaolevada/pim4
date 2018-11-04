@@ -1,0 +1,163 @@
+.rowbg1{
+  height: 45vh;
+  background-color: #2480b6
+}
+
+.rowbg {
+  height: 55vh;
+}
+.center {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+  
+.shadow-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.shadow-1-no-hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.shadow-1:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.shadow-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.shadow-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.shadow-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.shadow-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+.progress{
+  /* padding-bottom: 1rem; */
+  height: 3px;
+  /* position: relative; */
+  background-color:#343a4000; 
+  /* position: fixed; */
+  top: 0;
+  left: 0; 
+}
+
+.progress .progress-bar{
+ /* position: absolute; */
+ height: 3px;
+ width: 20%;
+ background-color:#0277bd;
+ border-radius:5px; 
+ animation: progress-animation 1s ease-in-out infinite alternate-reverse both;
+}
+
+@keyframes progress-animation{
+0% {
+  -webkit-transform: translateX(-1rem);
+  transform: translateX(-1rem);
+}
+100% {
+  -webkit-transform: translateX(14.5rem);
+  transform: translateX(14.5rem);
+}
+}
+
+
+.text-expand {
+-webkit-animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+        animation: text-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.2s both;
+}
+
+@keyframes text-expand {
+0% {
+  letter-spacing: -0.5em;
+  opacity: 0;
+}
+40% {
+  opacity: 0.6;
+}
+100% {
+  opacity: 1;
+}
+}
+
+.fade-in {
+-webkit-animation: fade-in 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.47s both;
+        animation: fade-in 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.47s both;
+}
+@keyframes fade-in {
+0% {
+  -webkit-transform: translateX(-50px);
+          transform: translateX(-50px);
+  opacity: 0;
+}
+100% {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  opacity: 1;
+}
+}
+@keyframes attention {
+0% {
+  -webkit-transform: translateX(-20px);
+          transform: translateX(-20px);
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+  opacity: 1;
+}
+24% {
+  opacity: 1;
+}
+40% {
+  -webkit-transform: translateX(-26px);
+          transform: translateX(-26px);
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+}
+65% {
+  -webkit-transform: translateX(-13px);
+          transform: translateX(-13px);
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+}
+82% {
+  -webkit-transform: translateX(-6.5px);
+          transform: translateX(-6.5px);
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+}
+93% {
+  -webkit-transform: translateX(-4px);
+          transform: translateX(-4px);
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+}
+25%,
+55%,
+75%,
+87%,
+98% {
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+}
+100% {
+  -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  opacity: 1;
+}
+}

@@ -1,0 +1,106 @@
+.hero-container {
+  /* height: 27rem; */
+  width: 21rem;
+  min-height: 436px;
+  border-radius: 5px;
+}
+
+.hero-container-cadastro {
+  /* height: 27rem; */
+  width: 40rem;
+  min-height: 436px;
+  border-radius: 5px;
+  overflow: auto;
+}
+.img-center {
+  position: relative;
+  left: 36%;
+}
+.img-center-cadastro {
+  position: relative;
+  left: 42%;
+}
+
+@media screen and (max-width: 540px){
+  hr {
+    display: none;
+  }
+  .img-center-cadastro {
+    position: relative;
+    left: 42%;
+    display: none;
+  }
+
+}
+.progress{
+  position: fixed;
+  height: 3px;
+  background-color:#343a4000; 
+  top: -1000;
+  left: 0; 
+}
+
+.progress .progress-bar{
+ height: 3px;
+ width: 20%;
+ background-color:#0277bd;
+ border-radius:5px; 
+ animation: progress-animation 1s ease-in-out infinite alternate-reverse both;
+}
+
+@keyframes progress-animation{
+0% {
+  
+  transform: translateX(10%);
+}
+100% {
+  
+  transform: translateX(390%);
+}
+}
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 75%; /* Set a default minimum width */
+  /* margin-left: -125px; Divide value of min-width by 2 */
+  /* background-color: #333; Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 10px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  transform: translate(-50%, 0);
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+ However, delay the fade out process for 2.5 seconds */
+ animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

@@ -1,7 +1,0 @@
-
-Cadastre-se:
-  ✔ Validações dos campos cpf e nome. @started(18-11-02 13:56) @done(18-11-02 13:56) @lasted(27s)
-  ✔ Tirar o modal. @started(18-11-02 15:36) @done(18-11-02 15:36) @lasted(46s)
-  ✔ Criar snackbar para feedback do post @started(18-11-02 14:56) @done(18-11-02 14:56) @lasted(8s)
-  ✔ Testar o cadastro com a api. @started(18-11-02 15:37) @done(18-11-02 17:55) @lasted(2h18m7s)
-  ✔ Arrumar a tela de login no responsivo. @done(18-11-02 17:55)
