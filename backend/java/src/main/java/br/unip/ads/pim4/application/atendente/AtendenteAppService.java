@@ -3,14 +3,15 @@ package br.unip.ads.pim4.application.atendente;
 import br.unip.ads.pim4.application.atendente.dto.AtendenteResumoDto;
 import br.unip.ads.pim4.application.atendente.dto.AtualizaAtendenteDto;
 import br.unip.ads.pim4.application.atendente.dto.NovoAtendenteDto;
+import br.unip.ads.pim4.domain.DomainException;
 
 public interface AtendenteAppService {	
 	
-	public String criar(NovoAtendenteDto novoAtendente);
+	public String criar(NovoAtendenteDto dto) throws DomainException;
 	
 	public AtendenteResumoDto buscar(String id);
 	
-	public void atualizar(String id, AtualizaAtendenteDto dadosAtualizados);
+	public void atualizar(String id, AtualizaAtendenteDto dto);
 	
 	public void excluir(String id);
 	

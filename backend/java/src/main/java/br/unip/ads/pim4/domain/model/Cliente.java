@@ -3,6 +3,7 @@ package br.unip.ads.pim4.domain.model;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Cliente {	
@@ -11,6 +12,7 @@ public class Cliente {
 	private Id id;
 	
 	@Embedded
+	@NotNull
 	private Pessoa pessoa;
 	
 	public Cliente() {

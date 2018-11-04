@@ -1,5 +1,7 @@
 package br.unip.ads.pim4.application.atendente;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import br.unip.ads.pim4.application.atendente.dto.AtendenteResumoDto;
 import br.unip.ads.pim4.application.atendente.dto.AtualizaAtendenteDto;
 import br.unip.ads.pim4.application.atendente.dto.NovoAtendenteDto;
 import br.unip.ads.pim4.application.atendente.dto.assembly.AtendenteDtoAssembler;
+import br.unip.ads.pim4.domain.DomainException;
 import br.unip.ads.pim4.domain.model.Atendente;
 import br.unip.ads.pim4.domain.model.Cpf;
 import br.unip.ads.pim4.domain.model.EMail;
@@ -22,21 +25,37 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 	private AtendenteRepository atendenteRepo;
 
 	@Override
-	public String criar(NovoAtendenteDto novoAtendente) {
+	public String criar(NovoAtendenteDto dto) throws DomainException {
 		
-		// TODO regras de validação para criar um Atendente serão implementadas aqui.
-		// TODO levantar exceção caso alguma das regras de validação seja violada.
-		// TODO validação de CPF pode ser chamada aqui.
-		// TODO validação de email (simples, por favor) pode ser chamada aqui.
-		// TODO não permitir atendente sem nome.
+		// TODO regras de validaï¿½ï¿½o para criar um Atendente serï¿½o implementadas aqui.
+		// TODO levantar exceï¿½ï¿½o caso alguma das regras de validaï¿½ï¿½o seja violada.
+		// TODO validaï¿½ï¿½o de CPF pode ser chamada aqui.
+		// TODO validaï¿½ï¿½o de email (simples, por favor) pode ser chamada aqui.
+		// TODO nï¿½o permitir atendente sem nome.
 		// TODO validar o tamanho das colunas
 		
 		Id novoId = new Id(Id.proximo());
-		Cpf novoCpf = new Cpf(novoAtendente.getCpf());
-		EMail novoEmail = new EMail(novoAtendente.getEmail());		
-		Pessoa novaPessoa = new Pessoa(novoAtendente.getNome(), novoCpf, novoEmail);		
 		
-		Atendente atendentePersist = new Atendente(novoId, novaPessoa, novoAtendente.getSenha());
+ 
+		Cpf novoCpf = new Cpf(dto.getCpf());
+		// NÃ£o permitir CPF duplicado
+		// ValidaÃ§Ã£o de CPF estÃ¡ delegada Ã  biblioteca Caelum
+		boolean cpfEncontrado = atendenteRepo.findByPessoa_Cpf(novoCpf).isPresent();
+		if (cpfEncontrado) {
+			throw new DomainException(String.format(
+					"O CPF \"%s\" jÃ¡ foi cadastrado.", dto.getCpf()));
+		}		
+		
+		EMail novoEmail = new EMail(dto.getEmail());		
+		boolean emailEncontrado = atendenteRepo.findByPessoa_Email(novoEmail).isPresent();
+		if (emailEncontrado) {
+			throw new DomainException(String.format(
+					"O E-mail \"%s\" jÃ¡ foi cadastrado.", dto.getEmail()));
+		}
+		
+		Pessoa novaPessoa = new Pessoa(dto.getNome(), novoCpf, novoEmail);
+		
+		Atendente atendentePersist = new Atendente(novoId, novaPessoa, dto.getSenha());
 		atendenteRepo.save(atendentePersist);
 		return atendentePersist.getId().toString();
 				
@@ -61,9 +80,9 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 		atendentePersist.setPessoa(novaPessoa);
 		atendentePersist.setSenha(dadosAtualizados.getSenha());
 		
-		// TODO Considerar validações nos dados. Levantar exceções em caso de dados inválidos.
+		// TODO Considerar validaï¿½ï¿½es nos dados. Levantar exceï¿½ï¿½es em caso de dados invï¿½lidos.
 		// TODO Verificar o tamanho das colunas.
-		// TODO Verificar se o novo email digitado não está duplicado.
+		// TODO Verificar se o novo email digitado nï¿½o estï¿½ duplicado.
 		atendenteRepo.save(atendentePersist);
 		
 	}
@@ -97,9 +116,9 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 
 	@Override
 	public void excluir(String id) {
-		/* TODO A exclusao de um Atendente tem de passar por validações.
-		 * A exclusão de um atendente, por exemplo, vai deixar chamados órfãos.
-		 * Esta situação deve ser considerada.
+		/* TODO A exclusao de um Atendente tem de passar por validaï¿½ï¿½es.
+		 * A exclusï¿½o de um atendente, por exemplo, vai deixar chamados ï¿½rfï¿½os.
+		 * Esta situaï¿½ï¿½o deve ser considerada.
 		 */
 		Id idProcurado = new Id(id);
 		Atendente atendente = atendenteRepo.findById(idProcurado).get();

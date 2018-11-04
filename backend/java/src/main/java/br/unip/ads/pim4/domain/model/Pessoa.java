@@ -1,19 +1,23 @@
 package br.unip.ads.pim4.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Pessoa {	
 	
 	@Column(nullable = false, length = 50)
+	@NotNull
 	private String nome;	
 	
 	@Embedded
+	@NotNull
 	private Cpf cpf;
 	
 	@Embedded
+	@NotNull	
 	private EMail email;		
 	
 	public Pessoa() {

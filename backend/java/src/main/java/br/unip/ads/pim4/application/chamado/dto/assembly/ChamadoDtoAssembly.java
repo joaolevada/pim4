@@ -11,10 +11,10 @@ import br.unip.ads.pim4.domain.model.chamado.Chamado;
 public class ChamadoDtoAssembly {	
 
 	public static ChamadoResumoDto toDto(Chamado chamadoCompleto) {
-		// TODO Tratar caso onde o cliente não foi mais encontrado. Criar um "fantasma"		
+		// TODO Tratar caso onde o cliente nï¿½o foi mais encontrado. Criar um "fantasma"		
 		ClienteResumoDto clienteDto = ClienteDtoAssembler.toDto(chamadoCompleto.getCliente());		
 		Iterable<EventoChamadoDto> eventosDto = EventoChamadoDtoAssembly.toDtoList(chamadoCompleto.getEventos());		
-		return new ChamadoResumoDto(chamadoCompleto.getProtocolo().toString(), chamadoCompleto.getDataAbertura(),
+		return new ChamadoResumoDto(chamadoCompleto.getProtocolo().asString(), chamadoCompleto.getDataAbertura(),
 				chamadoCompleto.getDataEncerramento(), chamadoCompleto.getAssunto(), clienteDto, eventosDto);
 	}
 	

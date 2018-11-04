@@ -8,7 +8,7 @@ import br.unip.ads.pim4.domain.model.Atendente;
 public class AtendenteDtoAssembler {
 	
 	public static AtendenteResumoDto toDto(Atendente atendenteCompleto) {
-		AtendenteResumoDto atendenteResumido = new AtendenteResumoDto(atendenteCompleto.getId().toString(), atendenteCompleto.getPessoa().getNome(), atendenteCompleto.getPessoa().getEmail().toString());
+		AtendenteResumoDto atendenteResumido = new AtendenteResumoDto(atendenteCompleto.getId().asString(), atendenteCompleto.getPessoa().getNome(), atendenteCompleto.getPessoa().getEmail().asString());
 		return atendenteResumido;
 	}
 	

@@ -35,7 +35,7 @@ public class Chamado {
 	
 	// @OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	// @JoinColumn(name="protocoloChamado")
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch=FetchType.EAGER)	
 	private Set<EventoChamado> eventos;
 	
 	public Chamado() {

@@ -41,4 +41,9 @@ dependencies {
 	// Swagger (documentacao da API REST)
 	implementation('io.springfox:springfox-swagger2:2.9.2')
 	implementation('io.springfox:springfox-swagger-ui:2.9.2')
+	
+	// Dependências do domínio
+	// -- Caelum, validação de CPF
+	implementation('br.com.caellum.stella:caelum-stella-core:2.1.2')
+	implementation('br.com.caellum.stella:caelum-stella-bean-validation:2.1.2')
 }
