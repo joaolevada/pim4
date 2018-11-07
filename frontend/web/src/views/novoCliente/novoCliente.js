@@ -8,7 +8,9 @@ import {
 import CPF from 'gerador-validador-cpf';
 import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
+import Snackbar from '../../components/snackbar/snackbar.component';
 // import { Http } from '../../services/httpServices';
+
 
 const tpl = require('./novo-cliente.html');
 
@@ -81,23 +83,20 @@ class NovoCliente extends Slim {
         const isOk = await clienteService.create(clienteValid);
 
         if (isOk) {
-          this.showSnackbar(3000, 'Cadastro efetuado com sucesso !', this.sucess);
+          this.snackbar.show('Cadastro efetuado com sucesso !', this.sucess);
         } else {
-          this.showSnackbar(3000, 'Cadastro não pode ser realizado com sucesso !', this.danger);
+          this.snackbar.show('Cadastro não pode ser realizado com sucesso !', this.danger);
         }
-        // console.log(isOk);
 
       } else {
-        this.showSnackbar(3000, 'Preencha os campos corretamente !', this.danger);
+        this.snackbar.show('Preencha os campos corretamente !', this.danger);
       }
     });
 
   }
 
   async clienteBuilder() {
-    const {
-      Cliente,
-    } = await import('./model/Cliente');
+    const { Cliente } = await import('./model/Cliente');
     const cliente = new Cliente(
       this.nome.value,
       this.sobrenome.value, this.cpf.value,
@@ -131,15 +130,6 @@ class NovoCliente extends Slim {
   formatTell(tell) {
     this.tellFotmat = tell.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
     return this.tellFotmat;
-  }
-
-  showSnackbar(time, msg, color) {
-    this.msg = msg;
-    this.snackbar.className = 'show';
-    this.color = `background-color:${color}`;
-    setTimeout(() => {
-      this.snackbar.className = this.snackbar.className.replace('show', '');
-    }, time);
   }
 }
 
