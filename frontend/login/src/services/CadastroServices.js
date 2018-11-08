@@ -8,7 +8,7 @@ export class CadastroServices {
             response.msg = 'Cadastro efetuado com sucesso !';
             response.status = res.ok;
         } else {
-            response.msg = 'Cadastrao nao pode ser efetudado com sucesso !';
+            response.msg = 'Cadastro nao pode ser efetuado com sucesso !';
             response.status = false;
         }
         return response;
