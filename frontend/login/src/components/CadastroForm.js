@@ -40,19 +40,19 @@ class CadastroForm extends Component {
       if (response.status) {
         renderProgressBar('w-100 progress d-none');
         form.reset();
-        this.setState({ show: 'show', msg: response.msg, cor: 'green' });
+        this.setState({ show: 'show', msg: response.msg, cor: '#5cb85c' });
         setTimeout(() => this.setState({ show: '' }), 1600);
-        setTimeout(() => this.setState({ navigate: true }), 2000);
+        setTimeout(() => this.setState({ navigate: true }), 3000);
 
       } else {
         renderProgressBar('w-100 progress d-none');
-        this.setState({ show: 'show', msg: response.msg, cor: 'red' })
-        setTimeout(() => this.setState({ show: '' }), 5000);
+        this.setState({ show: 'show', msg: response.msg, cor: '#d9534f' })
+        setTimeout(() => this.setState({ show: '' }), 3000);
       }
 
     } else {
-      this.setState({ show: 'show', msg: 'Preencha os campos !', cor: 'red' })
-      setTimeout(() => this.setState({ show: '' }), 5000);
+      this.setState({ show: 'show', msg: 'Preencha os campos !', cor: '#d9534f' })
+      setTimeout(() => this.setState({ show: '' }), 3000);
     }
   }
 

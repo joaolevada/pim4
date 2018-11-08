@@ -33,13 +33,13 @@ class LoginForm extends Component {
 
       } else {
         renderProgressBar('w-100 progress d-none');
-        this.setState({ show: 'show', msg: response.msg, cor: 'red' })
-        setTimeout(() => this.setState({ show: '' }), 5000);
+        this.setState({ show: 'show', msg: response.msg, cor: '#d9534f' })
+        setTimeout(() => this.setState({ show: '' }), 3000);
       }
 
     } else {
-      this.setState({ show: 'show', msg: 'Preencha os campos !', cor: 'red' })
-      setTimeout(() => this.setState({ show: '' }), 5000);
+      this.setState({ show: 'show', msg: 'Preencha os campos !', cor: '#d9534f' })
+      setTimeout(() => this.setState({ show: '' }), 3000);
     }
   }
 
