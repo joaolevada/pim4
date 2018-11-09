@@ -41,8 +41,8 @@ class CadastroForm extends Component {
         renderProgressBar('w-100 progress d-none');
         form.reset();
         this.setState({ show: 'show', msg: response.msg, cor: '#5cb85c' });
-        setTimeout(() => this.setState({ show: '' }), 1600);
-        setTimeout(() => this.setState({ navigate: true }), 3000);
+        setTimeout(() => this.setState({ show: '' }), 3000);
+        setTimeout(() => this.setState({ navigate: true }), 3500);
 
       } else {
         renderProgressBar('w-100 progress d-none');
@@ -145,7 +145,7 @@ class CadastroForm extends Component {
               <small id="senhaHelp" className="invalid-feedback">A senha deve conter no minimo 6 digitos !</small>
             </div>
           </div>
-          <div className="W-100 d-flex flex-column justify-content-center mt-4">
+          <div className="W-  100 d-flex flex-column justify-content-center mt-4">
             <button type="button" onClick={this.handleClick} className="btn btn-primary">Efetuar Cadastro</button>
             <small className="mt-3 align-self-center">Já possui uma conta ? <Link to="/">Entre aqui</Link></small>
           </div>

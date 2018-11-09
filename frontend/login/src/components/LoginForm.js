@@ -28,9 +28,7 @@ class LoginForm extends Component {
       const response = await LoginServices.getUser(email.value, senha.value);
 
       if (response.status) {
-        window.location = 'http://localhost:8081';
         renderProgressBar('w-100 progress d-none');
-
       } else {
         renderProgressBar('w-100 progress d-none');
         this.setState({ show: 'show', msg: response.msg, cor: '#d9534f' })

@@ -44,6 +44,6 @@ dependencies {
 	
 	// Dependências do domínio
 	// -- Caelum, validação de CPF
-	implementation('br.com.caellum.stella:caelum-stella-core:2.1.2')
-	implementation('br.com.caellum.stella:caelum-stella-bean-validation:2.1.2')
+	implementation('br.com.caelum.stella:caelum-stella-core:2.1.2')
+	implementation('br.com.caelum.stella:caelum-stella-bean-validation:2.1.2')
 }
