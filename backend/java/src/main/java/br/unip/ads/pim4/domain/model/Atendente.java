@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Atendente {
@@ -15,6 +19,9 @@ public class Atendente {
 	private Pessoa pessoa;
 	
 	@Column(nullable = false, length = 36)
+	@NotNull
+	@NotEmpty
+	@Length(min = 6, max = 36)
 	private String senha;
 	
 	public Atendente() {

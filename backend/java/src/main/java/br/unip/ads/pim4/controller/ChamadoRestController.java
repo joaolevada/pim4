@@ -23,6 +23,7 @@ import br.unip.ads.pim4.application.chamado.dto.EncerraChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.TransfereChamadoDto;
 import br.unip.ads.pim4.config.SwaggerConfig;
+import br.unip.ads.pim4.domain.DomainException;
 import io.swagger.annotations.Api;
 
 @Api(tags = SwaggerConfig.TAG_CHAMADO)
@@ -34,7 +35,7 @@ public class ChamadoRestController extends AbstractRestController {
 	private ChamadoAppService chamadoAppService;
 	
 	@PostMapping
-	public ResponseEntity<String> criar(@RequestBody NovoChamadoDto dto) {
+	public ResponseEntity<String> criar(@RequestBody NovoChamadoDto dto) throws DomainException {
 		String protocolo = chamadoAppService.criar(dto);
 		URI location = super.criarUriPorId(protocolo);
 		// TODO Tratar exceï¿½ï¿½o
@@ -54,29 +55,25 @@ public class ChamadoRestController extends AbstractRestController {
 	}	
 
 	@PutMapping("{protocolo}/atualizar")
-	public ResponseEntity<Void> atualizarChamado(@PathParam("protocolo") String protocolo, @RequestBody AtualizaChamadoDto dto) {
-		// TODO Tratar exceções
+	public ResponseEntity<Void> atualizarChamado(@PathParam("protocolo") String protocolo, @RequestBody AtualizaChamadoDto dto) throws DomainException {
 		chamadoAppService.atualizarChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}	
 	
 	@PutMapping("{protocolo}/transferir")
-	public ResponseEntity<Void> transferirChamado(@PathParam("protocolo") String protocolo, @RequestBody TransfereChamadoDto dto) {
-		// TODO Tratar exceções
+	public ResponseEntity<Void> transferirChamado(@PathParam("protocolo") String protocolo, @RequestBody TransfereChamadoDto dto) throws DomainException {
 		chamadoAppService.transferirChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}	
 
 	@PutMapping("{protocolo}/encerrar")
-	public ResponseEntity<Void> encerrarChamado(@PathParam("protocolo") String protocolo, @RequestBody EncerraChamadoDto dto) {
-		// TODO Tratar exceções
+	public ResponseEntity<Void> encerrarChamado(@PathParam("protocolo") String protocolo, @RequestBody EncerraChamadoDto dto) throws DomainException {
 		chamadoAppService.encerrarChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}
 	
 	@DeleteMapping("{protocolo}")
-	public ResponseEntity<Void> excluir(@PathVariable("protocolo") String protocolo) {
-		// TODO Tratar exceÃ§Ãµes
+	public ResponseEntity<Void> excluir(@PathVariable("protocolo") String protocolo) throws DomainException {
 		chamadoAppService.excluir(protocolo);
 		return ResponseEntity.ok().build();
 	}

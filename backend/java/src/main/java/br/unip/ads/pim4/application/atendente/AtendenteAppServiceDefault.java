@@ -18,44 +18,37 @@ import br.unip.ads.pim4.repository.AtendenteRepository;
 
 @Service
 public class AtendenteAppServiceDefault extends AbstractAppService implements AtendenteAppService {
+	
+	private String VALIDACAO_CPF_DUPLICADO = "O CPF informado já foi cadastrado.";
+	private String VALIDACAO_EMAIL_DUPLICADO = "O e-mail informado já foi cadastrado.";
+	private String VALIDACAO_SENHA_NAOVERIFICADA = "A senha anterior informada está incorreta.";
 
 	@Autowired
 	private AtendenteRepository atendenteRepo;
 
 	@Override
-	public String criar(NovoAtendenteDto dto) throws DomainException {
+	public String criar(NovoAtendenteDto dto) throws DomainException { 
 		
-		// TODO regras de valida��o para criar um Atendente ser�o implementadas aqui.
-		// TODO levantar exce��o caso alguma das regras de valida��o seja violada.
-		// TODO valida��o de CPF pode ser chamada aqui.
-		// TODO valida��o de email (simples, por favor) pode ser chamada aqui.
-		// TODO n�o permitir atendente sem nome.
-		// TODO validar o tamanho das colunas
-		
-		Id novoId = new Id(Id.proximo());
-		
- 
-		Cpf novoCpf = new Cpf(dto.getCpf());
+		Id id = new Id(Id.proximo()); 
+		Cpf cpf = new Cpf(dto.getCpf());
 		// Não permitir CPF duplicado
 		// Validação de CPF está delegada à biblioteca Caelum
-		boolean cpfEncontrado = atendenteRepo.findByPessoa_Cpf(novoCpf).isPresent();
+		boolean cpfEncontrado = atendenteRepo.findByPessoa_Cpf(cpf).isPresent();
 		if (cpfEncontrado) {
-			throw new DomainException(String.format(
-					"O CPF \"%s\" já foi cadastrado.", dto.getCpf()));
+			throw new DomainException(VALIDACAO_CPF_DUPLICADO);
 		}		
 		
-		EMail novoEmail = new EMail(dto.getEmail());		
-		boolean emailEncontrado = atendenteRepo.findByPessoa_Email(novoEmail).isPresent();
+		EMail email = new EMail(dto.getEmail());		
+		boolean emailEncontrado = atendenteRepo.findByPessoa_Email(email).isPresent();
 		if (emailEncontrado) {
-			throw new DomainException(String.format(
-					"O E-mail \"%s\" já foi cadastrado.", dto.getEmail()));
+			throw new DomainException(VALIDACAO_EMAIL_DUPLICADO);
 		}
 		
-		Pessoa novaPessoa = new Pessoa(dto.getNome(), novoCpf, novoEmail);
+		Pessoa pessoa = new Pessoa(dto.getNome(), cpf, email);
 		
-		Atendente atendentePersist = new Atendente(novoId, novaPessoa, dto.getSenha());
-		atendenteRepo.save(atendentePersist);
-		return atendentePersist.getId().toString();
+		Atendente atendente = new Atendente(id, pessoa, dto.getSenha());
+		atendenteRepo.save(atendente);
+		return atendente.getId().toString();
 				
 	}
 
@@ -67,21 +60,39 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 	}
 
 	@Override
-	public void atualizar(String id, AtualizaAtendenteDto dadosAtualizados) {
+	public void atualizar(String id, AtualizaAtendenteDto dto) throws DomainException {		
 		
 		Id idBuscado = new Id(id);
-		Atendente atendentePersist = atendenteRepo.findById(idBuscado).get();		
+		Atendente atendenteParaAtualizar = atendenteRepo.findById(idBuscado).get();
+		boolean alterouCPF = !atendenteParaAtualizar.getPessoa().getCpf().asString().equals(dto.getCpf());
+		if (alterouCPF) {
+			Atendente outroAtendente = atendenteRepo.findByPessoa_Cpf(new Cpf(dto.getCpf())).get();
+			// Se encontrar outro atendente com o mesmo CPF, levantar exceção
+			if (!atendenteParaAtualizar.equals(outroAtendente)) {
+				throw new DomainException(VALIDACAO_CPF_DUPLICADO);
+			}
+		}
+		boolean alterouEMail = !atendenteParaAtualizar.getPessoa().getEmail().asString().equals(dto.getEmail());
+		if (alterouEMail) {
+			Atendente outroAtendente = atendenteRepo.findByPessoa_Email(new EMail(dto.getEmail())).get();
+			// Se encontrar outro atendente com o mesmo email, levantar exceção
+			if (!atendenteParaAtualizar.equals(outroAtendente)) {
+				throw new DomainException(VALIDACAO_EMAIL_DUPLICADO);
+			}
+		}
 		
-		Cpf novoCpf = new Cpf(dadosAtualizados.getCpf());
-		EMail novoEmail = new EMail(dadosAtualizados.getEmail());
-		Pessoa novaPessoa = new Pessoa(dadosAtualizados.getNome(), novoCpf, novoEmail);
-		atendentePersist.setPessoa(novaPessoa);
-		atendentePersist.setSenha(dadosAtualizados.getSenha());
+		// Validar a alteração da senha. Verificar se a senha antiga confere
+		if (!atendenteParaAtualizar.getSenha().equals(dto.getSenhaAntiga())) {
+			throw new DomainException(VALIDACAO_SENHA_NAOVERIFICADA);
+		}
 		
-		// TODO Considerar valida��es nos dados. Levantar exce��es em caso de dados inv�lidos.
-		// TODO Verificar o tamanho das colunas.
-		// TODO Verificar se o novo email digitado n�o est� duplicado.
-		atendenteRepo.save(atendentePersist);
+		Cpf novoCpf = new Cpf(dto.getCpf());
+		EMail novoEmail = new EMail(dto.getEmail());
+		Pessoa novaPessoa = new Pessoa(dto.getNome(), novoCpf, novoEmail);
+		atendenteParaAtualizar.setPessoa(novaPessoa);
+		atendenteParaAtualizar.setSenha(dto.getSenha());		
+		
+		atendenteRepo.save(atendenteParaAtualizar);
 		
 	}
 

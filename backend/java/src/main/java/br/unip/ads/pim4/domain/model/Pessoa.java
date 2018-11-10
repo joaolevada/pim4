@@ -3,13 +3,18 @@ package br.unip.ads.pim4.domain.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 @Embeddable
 public class Pessoa {	
 	
 	@Column(nullable = false, length = 50)
 	@NotNull
+	@NotEmpty
+	@Length(max = 50)
 	private String nome;	
 	
 	@Embedded

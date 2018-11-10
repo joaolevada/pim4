@@ -11,7 +11,7 @@ public interface AtendenteAppService {
 	
 	public AtendenteResumoDto buscar(String id);
 	
-	public void atualizar(String id, AtualizaAtendenteDto dto);
+	public void atualizar(String id, AtualizaAtendenteDto dto) throws DomainException;
 	
 	public void excluir(String id);
 	

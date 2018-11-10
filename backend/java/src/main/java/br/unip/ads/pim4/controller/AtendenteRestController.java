@@ -57,7 +57,7 @@ public class AtendenteRestController extends AbstractRestController {
 
 	@PutMapping("{id}")
 	public ResponseEntity<Void> atualizar(@PathVariable("id") String id,
-			@RequestBody AtualizaAtendenteDto dadosAtualizados) {
+			@RequestBody AtualizaAtendenteDto dadosAtualizados) throws DomainException {
 
 		atendenteAppService.atualizar(id, dadosAtualizados);
 		return ResponseEntity.ok().build();

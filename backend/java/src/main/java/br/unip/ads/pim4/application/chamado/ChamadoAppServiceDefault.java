@@ -11,6 +11,7 @@ import br.unip.ads.pim4.application.chamado.dto.EncerraChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.NovoChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.TransfereChamadoDto;
 import br.unip.ads.pim4.application.chamado.dto.assembly.ChamadoDtoAssembly;
+import br.unip.ads.pim4.domain.DomainException;
 import br.unip.ads.pim4.domain.model.Atendente;
 import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.Id;
@@ -25,29 +26,36 @@ import br.unip.ads.pim4.repository.ClienteRepository;
 
 @Service
 public class ChamadoAppServiceDefault extends AbstractAppService implements ChamadoAppService {
-	
+
+	private String VALIDACAO_ATENDENTE_NAO_ENCONTRADO = "O atendente informado n√£o foi encontrado.";
+	private String VALIDACAO_CLIENTE_NAO_ENCONTRADO = "O cliente informado n√£o foi encontrado.";
+	private String VALIDACAO_CHAMADO_NAO_ENCONTRADO = "O chamado informado n√£o foi encontrado.";
+	private String VALIDACAO_CHAMADO_ENCERRADO_TRA = "Chamado encerrado n√£o pode ser transferido.";
+	private String VALIDACAO_CHAMADO_ENCERRADO_ATU = "Chamado encerrado n√£o pode receber atualiza√ß√µes.";
+	private String VALIDACAO_CHAMADO_ENCERRADO_ENC = "O chamado j√° foi encerrado.";
+
 	@Autowired
 	private ChamadoRepository chamadoRepo;
 	@Autowired
 	private AtendenteRepository atendenteRepo;
 	@Autowired
 	private ClienteRepository clienteRepo;
-	
+
 	@Override
-	public String criar(NovoChamadoDto novoChamado) {
-		/* TODO lancar excecao se o Atendente nÔøΩo for encontrado. */
-		Atendente atendente = atendenteRepo.findById(new Id(novoChamado.getIdAtendente())).get();
-		/* TODO lanÔøΩar exceÔøΩÔøΩo se o Cliente nÔøΩo for encontrado. */
-		Cliente cliente = clienteRepo.findById(new Id(novoChamado.getIdCliente())).get();
-		Protocolo novoProtocolo = new Protocolo(Protocolo.proximo());		
-		ChamadoBuilder builder = new ChamadoBuilder()
-				.comAssunto(novoChamado.getAssunto())
-				.comDataAbertura(LocalDateTime.now())
-				.comCliente(cliente)		
-				.comEventoDeAbertura(atendente, novoChamado.getDescricaoProblema())
-				.comProtocolo(novoProtocolo);				
+	public String criar(NovoChamadoDto novoChamado) throws DomainException {
+
+		Atendente atendente = atendenteRepo.findById(new Id(novoChamado.getIdAtendente()))
+				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));
+
+		Cliente cliente = clienteRepo.findById(new Id(novoChamado.getIdCliente()))
+				.orElseThrow(() -> new DomainException(VALIDACAO_CLIENTE_NAO_ENCONTRADO));
+
+		Protocolo novoProtocolo = new Protocolo(Protocolo.proximo());
+		ChamadoBuilder builder = new ChamadoBuilder().comAssunto(novoChamado.getAssunto())
+				.comDataAbertura(LocalDateTime.now()).comCliente(cliente)
+				.comEventoDeAbertura(atendente, novoChamado.getDescricaoProblema()).comProtocolo(novoProtocolo);
 		Chamado chamadoAberto = builder.build();
-		// TODO Tratar exceÔøΩÔøΩes
+
 		chamadoRepo.save(chamadoAberto);
 		return chamadoAberto.getProtocolo().toString();
 	}
@@ -55,75 +63,85 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public ChamadoResumoDto buscar(String protocolo) {
 		Protocolo protocoloBuscado = new Protocolo(protocolo);
-		// TODO Tratar exceÔøΩÔøΩes
-		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();		
+		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();
 		ChamadoResumoDto chamadoResumido = ChamadoDtoAssembly.toDto(chamadoCompleto);
 		return chamadoResumido;
 	}
-	
 
 	@Override
-	public void excluir(String protocolo) {
+	public void excluir(String protocolo) throws DomainException {
 		Protocolo protocoloBuscado = new Protocolo(protocolo);
-		// TODO Tratar exceÔøΩÔøΩes
-		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();
-		// TODO Considerar inconsistÔøΩncias que pode ocorrer apÔøΩs a exclusÔøΩo de um chamado.
+		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado)
+				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
+		/* TODO: S√≥ permitir exclus√£o de chamados encerrados? */
 		chamadoRepo.delete(chamadoCompleto);
 	}
 
 	@Override
 	public Iterable<ChamadoResumoDto> buscarTodos() {
-		Iterable<Chamado> todosChamadosCompletos = chamadoRepo.findAll();		
+		Iterable<Chamado> todosChamadosCompletos = chamadoRepo.findAll();
 		Iterable<ChamadoResumoDto> chamadosResumidos = ChamadoDtoAssembly.toDtoList(todosChamadosCompletos);
 		return chamadosResumidos;
 	}
 
 	@Override
-	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) {
-		// TODO se n„o encontrar chamado, levantar exceÁ„o
-		// TODO se o chamado estiver encerrado, levantar exceÁ„o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();				
-		EventoChamado eventoAtualizacao = new EventoChamado(
-				LocalDateTime.now(), 
-				dto.getDescricao(), 
-				chamado.responsavel(), 
-				TipoEvento.ATUALIZACAO);
-		chamado.getEventos().add(eventoAtualizacao);		
-		// TODO tratar exce√ß√£o
+	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) throws DomainException {		
+
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
+		
+		if (chamado.isEncerrado()) {
+			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ATU);
+		}
+				
+		EventoChamado eventoAtualizacao = new EventoChamado(LocalDateTime.now(), dto.getDescricao(),
+				chamado.responsavel(), TipoEvento.ATUALIZACAO);
+		chamado.getEventos().add(eventoAtualizacao);
+
 		chamadoRepo.save(chamado);
+		
 	}
 
 	@Override
-	public void transferirChamado(String protocolo, TransfereChamadoDto dto) {
-		// TODO se n„o encontrar chamado, levantar exceÁ„o
-		// TODO se o chamado estiver encerrado, levantar exceÁ„o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();		
-		// Criar o evento de transferencia
-		// TODO Se n√£o encontrar Atendente, levantar exce√ß√£o		
-		Atendente atendente = atendenteRepo.findById(new Id(dto.getAtendenteId())).get();		
-		EventoChamado eventoTransferencia = new EventoChamado(LocalDateTime.now(), dto.getDescricao(), atendente, TipoEvento.TRANSFERENCIA);
+	public void transferirChamado(String protocolo, TransfereChamadoDto dto) throws DomainException {
+		
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
+		
+		Atendente atendente = atendenteRepo.findById(new Id(dto.getAtendenteId()))
+				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));		
+		
+		if (chamado.isEncerrado()) {
+			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_TRA);
+		}
+		
+		EventoChamado eventoTransferencia = new EventoChamado(LocalDateTime.now(), dto.getDescricao(), atendente,
+				TipoEvento.TRANSFERENCIA);
 		chamado.getEventos().add(eventoTransferencia);		
-		// TODO tratar exce√ß√£o
+		
 		chamadoRepo.save(chamado);
+		
 	}
 
 	@Override
-	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) {
-		// TODO se n„o encontrar chamado, levantar exceÁ„o
-		// TODO se o chamado j· estiver encerrado, levantar exceÁ„o
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo)).get();		
+	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) throws DomainException {
+		
+		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
+		
+		if (chamado.isEncerrado()) {
+			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ENC);
+		}
+		
 		// Criar o evento de encerramento
 		LocalDateTime encerradoEm = LocalDateTime.now();
-		EventoChamado eventoEncerramento = new EventoChamado(
-				encerradoEm,
-				dto.getDescricao(),
-				chamado.responsavel(),
-				TipoEvento.ENCERRAMENTO
-				);
+		EventoChamado eventoEncerramento = new EventoChamado(encerradoEm, dto.getDescricao(), chamado.responsavel(),
+				TipoEvento.ENCERRAMENTO);
 		chamado.getEventos().add(eventoEncerramento);
-		// Ajustar o atributo que indica o atendimento encerrado	
+		// Ajustar o atributo que indica o atendimento encerrado
 		chamado.setDataEncerramento(encerradoEm);
-		chamadoRepo.save(chamado);		
+		
+		chamadoRepo.save(chamado);
 	}
 
 }
