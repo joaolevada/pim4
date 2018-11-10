@@ -34,12 +34,24 @@ public class Pessoa {
 		return this.nome;
 	}
 	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public Cpf getCpf() {
 		return this.cpf;
 	}
 	
+	public void setCpf(Cpf cpf) {
+		this.cpf = cpf;
+	}
+	
 	public EMail getEmail() {
 		return this.email;
+	}
+	
+	public void setEmail(EMail email) {
+		this.email = email;
 	}
 	
 	

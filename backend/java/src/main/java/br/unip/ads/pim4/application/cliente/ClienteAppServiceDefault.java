@@ -24,7 +24,7 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 	public void atualizarCliente(Cliente clienteParaAtualizar, AtualizaClienteDto dto) {
 		
 		/*
-		 * TODO Considerar validações de cpf e email antes de atualizar os dados do Cliente.
+		 * TODO Considerar validaï¿½ï¿½es de cpf e email antes de atualizar os dados do Cliente.
 		 */
 	
 		Cpf novoCpf = new Cpf(dto.getCpf());
@@ -74,9 +74,10 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 		Pessoa novaPessoa = new Pessoa(dadosAtualizados.getNome(), novoCpf, novoEmail);
 		clientePersist.setPessoa(novaPessoa);
 		/*
-		 * TODO Aplicar regras de validação. Inclusive considerando a possível duplicidade de 
-		 * EMail.		
-		 */
+		 * TODO NÃ£o permitir duplicidade de CPF 
+		 * TODO NÃ£o permitir duplicidade de EMail		 		
+		 */		
+		// clienteRepo.fin
 		clienteRepo.save(clientePersist);		
 	}
 
@@ -85,7 +86,7 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 		Id idProcurado = new Id(id);
 		Cliente clientePersist = clienteRepo.findById(idProcurado).get();
 		/*
-		 * TODO Considerar consistência dos dados. Como ficam os chamados de um cliente excluído?
+		 * TODO Considerar consistï¿½ncia dos dados. Como ficam os chamados de um cliente excluï¿½do?
 		 */
 		clienteRepo.delete(clientePersist);
 	}

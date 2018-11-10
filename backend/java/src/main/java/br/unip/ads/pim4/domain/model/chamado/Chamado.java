@@ -86,6 +86,9 @@ public class Chamado {
 	}
 
 	public Set<EventoChamado> getEventos() {
+		/** 
+		 * TODO: Retornar os eventos em ordem cronológica
+		 */
 		return eventos;
 	}
 

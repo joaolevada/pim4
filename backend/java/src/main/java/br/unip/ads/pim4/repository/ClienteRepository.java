@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import br.unip.ads.pim4.domain.model.Cliente;
+import br.unip.ads.pim4.domain.model.Cpf;
+import br.unip.ads.pim4.domain.model.EMail;
 import br.unip.ads.pim4.domain.model.Id;
 
 @Repository
@@ -15,8 +17,8 @@ public interface ClienteRepository extends CrudRepository<Cliente, Id> {
 	
 	Optional<Cliente> findById(Id id);
 	
-	// Cliente findByCpf_Numero();
+	Optional<Cliente> findByPessoaCpf(Cpf cpf);
 	
-	// Cliente findByEmail_Endereco();
+	Optional<Cliente> findByPessoaEmail(EMail email);
 	
 }

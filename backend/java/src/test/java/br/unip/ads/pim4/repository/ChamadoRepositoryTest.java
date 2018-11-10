@@ -62,16 +62,16 @@ public class ChamadoRepositoryTest {
 	public void updateAtualizarChamado() {
 		this.createChamado();
 		
-		// Criar um evento de atualizacao para o primeiro chamado retornado pelo repositório
+		// Criar um evento de atualizacao para o primeiro chamado retornado pelo repositï¿½rio
 		Iterable<Chamado> todosChamados = chamadoRepo.findAll();
 		Chamado c = todosChamados.iterator().next();
 		if (c == null) {
-			fail("Nenhum chamado na coleção.");
+			fail("Nenhum chamado na coleï¿½ï¿½o.");
 		}
 		Set<EventoChamado> evs = c.getEventos();
 		EventoChamado eventoAtualizacao = new EventoChamado(
 				LocalDateTime.now(), 
-				"Teste de descrição da atualização do evento", 
+				"Teste de descriï¿½ï¿½o da atualizaï¿½ï¿½o do evento", 
 				evs.iterator().next().getAtendente(), 
 				TipoEvento.ATUALIZACAO
 				);
@@ -84,7 +84,7 @@ public class ChamadoRepositoryTest {
 	public void updateTransferirChamado() {
 		this.createChamado();
 		// TODO Implementar teste de transferencia de chamado!
-		// Criar um evento de transferencia para o primeiro chamado retornado pelo repositório
-	}
+		// Criar um evento de transferencia para o primeiro chamado retornado pelo repositï¿½rio
+	}	
 
 }

@@ -1,7 +1,5 @@
 package br.unip.ads.pim4.application.atendente;
 
-import javax.validation.ValidationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,9 +114,9 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 
 	@Override
 	public void excluir(String id) {
-		/* TODO A exclusao de um Atendente tem de passar por valida��es.
-		 * A exclus�o de um atendente, por exemplo, vai deixar chamados �rf�os.
-		 * Esta situa��o deve ser considerada.
+		/* TODO A exclusao de um Atendente tem de passar por validações.
+		 * A exclusão de um atendente, por exemplo, vai deixar chamados orfãos.
+		 * Esta situação deve ser considerada.
 		 */
 		Id idProcurado = new Id(id);
 		Atendente atendente = atendenteRepo.findById(idProcurado).get();
