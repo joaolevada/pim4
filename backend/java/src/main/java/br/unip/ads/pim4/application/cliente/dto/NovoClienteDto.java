@@ -5,16 +5,20 @@ public class NovoClienteDto {
 	private String nome;
 	private String cpf;
 	private String email;
+	private String telefoneMovel;
+	private String telefoneFixo;
 	
 	public NovoClienteDto() {
 		// rest
 	}
 
-	public NovoClienteDto(String nome, String cpf, String email) {
+	public NovoClienteDto(String nome, String cpf, String email, String telefoneMovel, String telefoneFixo) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		this.telefoneMovel = telefoneMovel;
+		this.telefoneFixo = telefoneFixo;
 	}
 
 	public String getNome() {
@@ -39,6 +43,24 @@ public class NovoClienteDto {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}	
+	}
+
+	public String getTelefoneMovel() {
+		return telefoneMovel;
+	}
+
+	public void setTelefoneMovel(String telefoneMovel) {
+		this.telefoneMovel = telefoneMovel;
+	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+	
+	
 
 }

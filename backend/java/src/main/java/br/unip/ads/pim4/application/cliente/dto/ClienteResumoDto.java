@@ -6,16 +6,22 @@ public class ClienteResumoDto {
 	private String nome;	
 	private String email;	
 	private String cpf;
+	private String telefoneMovel;
+	private String telefoneFixo;
 	
 	public ClienteResumoDto() {
 		// rest
 	}
-	
-	public ClienteResumoDto(String id, String nome, String email, String cpf) {
+
+	public ClienteResumoDto(String id, String nome, String email, String cpf, String telefoneMovel,
+			String telefoneFixo) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpf = cpf;
+		this.telefoneMovel = telefoneMovel;
+		this.telefoneFixo = telefoneFixo;
 	}
 
 	public String getId() {
@@ -33,7 +39,14 @@ public class ClienteResumoDto {
 	public String getCpf() {
 		return cpf;
 	}
-	
+
+	public String getTelefoneMovel() {
+		return telefoneMovel;
+	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
 	 
 
 }

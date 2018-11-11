@@ -13,6 +13,8 @@ import br.unip.ads.pim4.domain.model.Cpf;
 import br.unip.ads.pim4.domain.model.EMail;
 import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.Pessoa;
+import br.unip.ads.pim4.domain.model.TelefoneFixo;
+import br.unip.ads.pim4.domain.model.TelefoneMovel;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,7 +28,9 @@ public class ClienteRepositoryTest {
 		Cpf cpf = new Cpf(Cpf.gerarCpf());
 		EMail email = new EMail("atendente@pimquatro.com");
 		Pessoa pessoa = new Pessoa("Atendente da Silva", cpf, email);
-		Cliente cliente = new Cliente(id, pessoa);
+		TelefoneMovel movel = new TelefoneMovel("16993069000");
+		TelefoneFixo fixo = new TelefoneFixo("1633069000");
+		Cliente cliente = new Cliente(id, pessoa, movel, fixo);
 		return cliente;
 	}
 	

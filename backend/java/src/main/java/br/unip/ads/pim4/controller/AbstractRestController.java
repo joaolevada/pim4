@@ -13,8 +13,8 @@ import br.unip.ads.pim4.model.dto.ApiErrorDto;
 @RestControllerAdvice
 public abstract class AbstractRestController {
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ApiErrorDto> handleUnknowException(Exception ex) {
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<ApiErrorDto> handleUnknowException(RuntimeException ex) {
 		return ResponseEntity.badRequest().body(new ApiErrorDto(ex.getMessage()) );
 	}
 	
