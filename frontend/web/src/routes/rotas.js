@@ -38,7 +38,20 @@ router.on({
 });
 
 // rota principal
-router.on(() => doc('#app').html('<home-teste></home-teste>'));
+router.on(() => {
+  // if(localStorage.getItem('token')) {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   doc('#userlogado').html(user[0].nome);
+  //   doc('#app').html('<home-teste></home-teste>')  
+  // } else {
+  //   window.location = 'http://localhost:3000/';
+  // }
+  const userJson = '[{"id":"44eb2e73-d5e0-4a44-bef3-79a0f6e1e22e","nome":"Guilherme Revoredo","email":"guilherme11.gr@gmail.com"}]'
+  localStorage.setItem('user',userJson);
+  const user = JSON.parse(userJson);
+  doc('#userlogado').html(user[0].nome);
+  doc('#app').html('<home-teste></home-teste>')
+});
 
 // // getView com o template do 404
 

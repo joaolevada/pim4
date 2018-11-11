@@ -5,8 +5,10 @@ export class LoginServices {
     const response = {};
     const token = `Basic ${btoa(`${email}:${senha}`)}`;
     const res = await HttpServices.get('http://localhost:8080/api/atendentes', token);
-    console.log(res)
+    const data = res.data;
     if (res.ok) {
+      const user = data.filter((users) => users.email == email ? users : null);
+      localStorage.setItem('user', JSON.stringify(user));
       response.status = true;
       localStorage.setItem('token', token);
       window.location = 'http://localhost:3100';

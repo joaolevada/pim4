@@ -1,0 +1,6 @@
+
+Todo:
+  ✔ Corrigir textos invalidos do cadastro de Clientes @critical @started(18-11-10 21:00) @done(18-11-10 21:00) @lasted(53s)
+  ✔ Tratar a inserção de cpfs iguais no backend (Jhonny) @critical @done(18-11-11 17:27)
+  ✔ Travar botão salvar, para salvar apenas uma vez. @started(18-11-10 21:00) @done(18-11-10 21:07) @lasted(7m56s)
+  ☐ Concatenar nome e sobrenome ao cadastrar cliente. 

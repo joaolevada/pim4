@@ -1,3 +1,3 @@
-const API_URL = 'nada'; // todo url da api
+const API_URL = 'http://localhost:8080/api'; // todo url da api
 
 export default API_URL;

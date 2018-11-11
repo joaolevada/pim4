@@ -17,14 +17,17 @@ export class HttpAuth {
      */
   static async get(url, token) {
     const header = { method: 'GET', headers: { 'Content-Type': 'application/json', Authorization: token } };
-    let data;
+    const response = {};
     try {
       const res = await fetch(url, header);
-      data = await res.ok ? res.json() : false;
+
+      response.data = await res.ok ? res.json() : null;
+      response.res = res;
+
     } catch (error) {
       // console.error(error)
     }
-    return data;
+    return response;
   }
   /**
      * Retorna true se a requisição for sucesso e false se falha.
@@ -37,15 +40,16 @@ export class HttpAuth {
      */
 
   static async post(url, token, object) {
-    let isOk;
     const header = { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: token }, body: JSON.stringify(object) };
+    const response = {};
     try {
       const res = await fetch(url, header);
-      isOk = !!res.ok;
-
+      const r = await !res.ok ? await res.json() : { message: 'Cadastro efetuado com sucesso !' };
+      response.ok = res.ok;
+      response.msg = r.message;
     } catch (error) {
       // console.error(error);
     }
-    return isOk;
+    return response;
   }
 }

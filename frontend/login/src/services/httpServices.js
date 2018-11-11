@@ -21,7 +21,7 @@ export class HttpServices {
     const header = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(object) };
     try {
       const response = await fetch(url, header);
-      const res = !response.ok ? await response.json() : { message: 'Cadastro Efetuado com sucesso !'};
+      const res = !response.ok ? await response.json() : { message: 'Cadastro efetuado com sucesso !'};
       console.log(res);
       const r = {
         ok: response.ok,

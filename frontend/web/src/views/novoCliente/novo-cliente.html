@@ -1,7 +1,7 @@
 <div class="container p-4 shadow-1 fade-in">
   <h5 class="mb-4">Novo Cliente</h5>
 
-  <form bind autocomplete="off">
+  <form bind s:id="form" autocomplete="off">
     <div class="form-row">
 
       <div class="form-group col-md-6">
@@ -13,7 +13,7 @@
       <div class="form-group col-md-6">
         <label for="sobrenome">Sobrenome</label>
         <input autocomplete="off" type="text" bind:class="sobrenomeIsValid" s:id="sobrenome" id="sobrenome" placeholder="">
-        <div s:if="sobrenomeIsValid" class="invalid-feedback">Por favor Insira um Telefone valido !</div>
+        <div s:if="sobrenomeIsValid" class="invalid-feedback">Campo obrigatório !</div>
       </div>
 
     </div>
@@ -62,6 +62,4 @@
 
   </form>
   <snack-bar s:id="snackbar"></snack-bar>
-  <!-- <div bind s:id="snackbar" bind:style="color" id="snackbar">{{msg}}</div> -->
-
 </div>
