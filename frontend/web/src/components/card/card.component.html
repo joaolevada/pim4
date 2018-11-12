@@ -1,10 +1,30 @@
-<div s:if="!data" style="width:100%" class="progress"><div class="progress-bar "></div></div></div>
-
-<div s:repeat="data as item" class="card m-2" style="width: 18rem;">
-    <img s:if="item.avatar" bind:src="item.avatar" class="card-img-top" alt="Card image cap">
-    <img s:if="!item.avatar" src="http://asianinteriorservices.com/wp-content/uploads/2018/04/noImg.png" class="card-img-top" alt="Card image cap">
-    <div class="card-body">
-        <p bind s:if="item.first_name" class="card-text">{{item.first_name}} {{item.last_name}}</p>
-        <p bind s:if="!item.first_name" class="card-text">No descriptions</p>
-    </div>
+<div s:if="!data" style="width:100%" class="progress">
+  <div class="progress-bar "></div>
 </div>
+
+<div id="cardHero" class="list-group d-flex w-100 flex-row justify-content-around flex-wrap">
+  <a bind s:repeat="data as item" href="#" class="list-group-item fade-in m-1 list-group-item-action flex-column align-items-start ">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{item.cliente.nome}}</h5>
+      <small>{{item.data}}</small>
+    </div>
+    <p class="mb-1">{{item.assunto}}</p>
+    <div class="d-flex justify-content-between">
+      <small class="protocolo">Protocolo: {{item.protocolo}}</small> 
+      <small class="cpf">CPF: {{item.cliente.cpf}}</small>
+    </div>
+  </a>
+
+</div>
+
+<style>
+  .list-group-item {
+    width: 48%;
+  }
+  @media (max-width: 990px) {
+    .list-group-item {
+      width: 100%;
+    }
+
+  }
+</style>

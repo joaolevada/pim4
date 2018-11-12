@@ -3,7 +3,7 @@ export class Cliente {
     this.nome = `${nome} ${sobrenome}`;
     this.cpf = cpf;
     this.email = email;
-    this.telefone = telefone;
-    this.celular = celular;
+    this.telefoneFixo = telefone;
+    this.telefoneMovel = celular;
   }
 }

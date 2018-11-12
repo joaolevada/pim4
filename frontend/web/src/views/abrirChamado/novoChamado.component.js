@@ -59,8 +59,12 @@ class NovoChamado extends Slim {
 
         if (response.ok) {
           this.form.reset();
+          this.descricaoIsValid = this.formControl;
+          this.assuntoIsValid = this.formControl;
           this.snackbar.show(response.msg, sucess);
         } else {
+          this.descricaoIsValid = this.formControl;
+          this.assuntoIsValid = this.formControl;
           this.snackbar.show(response.msg, danger);
         }
         abrir.removeAttribute('disabled');

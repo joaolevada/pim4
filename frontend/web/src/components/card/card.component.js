@@ -1,5 +1,6 @@
 import { Slim } from 'slim-js';
 import { tag, template } from 'slim-js/Decorators';
+import CPF from 'gerador-validador-cpf';
 
 const tpl = require('./card.component.html');
 
@@ -8,39 +9,18 @@ const tpl = require('./card.component.html');
 
 class CardComponent extends Slim {
   async onBeforeCreated() {
-    this.teste = 'On BeforeCreated';
-    // alert(this.teste);
-    try {
-      const URL = 'https://reqres.in/api/users?per_page=12';
-
-      const response = await fetch(URL);
-      const res = await response.json();
-      this.data = res.data;
-      // console.log(this.data)
-    } catch (err) {
-      doc('#app').html(`<h3 class="text-center mt-5">Houve um erro ao carregar o conteudo <br> Provavelmente você esta offline :/ <br> ${err}</h3>`);
-    }
+    this.data = '';
   }
 
-  onCreated() {
-    this.teste = 'On Created';
-    this.url = window.location.href;
-    // alert(this.url);
-  }
-
-  onRender() {
-    this.teste = 'On Render';
-    // alert(this.teste);
-  }
-
-  onAdded() {
-    this.teste = 'On Added';
-    // alert(this.teste);
-  }
-
-  onRemoved() {
-    this.teste = 'On Removed';
-    // alert(this.teste);
+  setData(data) {
+    this.data = data.map((item) => {
+      const dataFormatada = new Date(item.dataAbertura);
+      const data = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
+      item['data'] = data;
+      const cpf = CPF.format(item.cliente.cpf);
+      item.cliente.cpf = cpf;
+      return item;
+    })
   }
 }
 

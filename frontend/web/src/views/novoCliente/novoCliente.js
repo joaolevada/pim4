@@ -72,8 +72,22 @@ class NovoCliente extends Slim {
 
         if (response.ok) {
           this.form.reset();
+          this.cpfIsValid = this.formControl;
+          this.emailIsValid = this.formControl;
+          this.nomeIsValid = this.formControl;
+          this.sobrenomeIsValid = this.formControl;
+          this.cellIsValid = this.formControl;
+          this.tellIsValid = this.formControl;
+          this.salvar.removeAttribute('disabled');
           this.snackbar.show(response.msg, this.sucess);
         } else {
+          this.salvar.removeAttribute('disabled');
+          this.cpfIsValid = this.formControl;
+          this.emailIsValid = this.formControl;
+          this.nomeIsValid = this.formControl;
+          this.sobrenomeIsValid = this.formControl;
+          this.cellIsValid = this.formControl;
+          this.tellIsValid = this.formControl;
           this.snackbar.show(response.msg, this.danger);
         }
 
@@ -91,7 +105,8 @@ class NovoCliente extends Slim {
       this.nome.value,
       this.sobrenome.value,
       CPF.format(this.cpf.value, 'digits'),
-      this.email.value, this.formatTell(this.tell.value),
+      this.email.value,
+      this.formatTell(this.tell.value),
       this.formatTell(this.cell.value),
     );
     return cliente;
