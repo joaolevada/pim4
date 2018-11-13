@@ -11,7 +11,7 @@ import br.unip.ads.pim4.application.atendente.AtendenteAppService;
 @SpringBootTest
 public class AtendenteAppServiceTest {
 	
-	@Autowired
-	private AtendenteAppService atendenteService;
+	//@Autowired
+	//private AtendenteAppService atendenteService;
 
 }

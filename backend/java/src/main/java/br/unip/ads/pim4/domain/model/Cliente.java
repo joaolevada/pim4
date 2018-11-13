@@ -1,7 +1,6 @@
 package br.unip.ads.pim4.domain.model;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
