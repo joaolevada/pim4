@@ -24,8 +24,8 @@ public class ClienteRepositoryTest {
 	private ClienteRepository clienteRepo;
 	
 	private Cliente internalCreateCliente() {
-		Id id = new Id(Id.proximo());
-		Cpf cpf = new Cpf(Cpf.gerarCpf());
+		Id id = Id.proximo();
+		Cpf cpf = Cpf.gerarCpf();
 		EMail email = new EMail("atendente@pimquatro.com");
 		Pessoa pessoa = new Pessoa("Atendente da Silva", cpf, email);
 		TelefoneMovel movel = new TelefoneMovel("16993069000");

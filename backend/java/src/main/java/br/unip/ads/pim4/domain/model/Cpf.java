@@ -29,9 +29,9 @@ public class Cpf {
 		return this.numero;
 	}
 
-	public static String gerarCpf() {
+	public static Cpf gerarCpf() {
 
-		return "30086440071";
+		return new Cpf("30086440071");
 
 	}
 

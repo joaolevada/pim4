@@ -29,7 +29,7 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 	@Override
 	public String criar(NovoAtendenteDto dto) throws DomainException { 
 		
-		Id id = new Id(Id.proximo()); 
+		Id id = Id.proximo(); 
 		Cpf cpf = new Cpf(dto.getCpf());
 		// Não permitir CPF duplicado
 		// Validação de CPF está delegada à biblioteca Caelum

@@ -39,7 +39,7 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 
 	public Cliente criarCliente(NovoClienteDto dto) {
 
-		Id novoId = new Id(Id.proximo());
+		Id novoId = Id.proximo();
 		EMail novoEmail = new EMail(dto.getEmail());
 		Cpf novoCpf = new Cpf(dto.getCpf());
 		Pessoa novaPessoa = new Pessoa(dto.getNome(), novoCpf, novoEmail);
@@ -51,7 +51,7 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 
 	@Override
 	public String criar(NovoClienteDto novoCliente) throws DomainException {
-		Id proximoId = new Id(Id.proximo());
+		Id proximoId = Id.proximo();
 		Cpf novoCpf = new Cpf(novoCliente.getCpf());
 		EMail novoEMail = new EMail(novoCliente.getEmail());
 		Pessoa novaPessoa = new Pessoa(novoCliente.getNome(), novoCpf, novoEMail);

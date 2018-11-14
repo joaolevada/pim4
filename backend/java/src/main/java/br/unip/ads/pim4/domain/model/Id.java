@@ -32,8 +32,8 @@ public class Id implements Serializable {
 		return id;
 	}
 	
-	public static String proximo() {
-		return UUID.randomUUID().toString();
+	public static Id proximo() {
+		return new Id(UUID.randomUUID().toString());
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package br.unip.ads.pim4.domain.model.chamado;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -40,21 +41,18 @@ public class Chamado {
 	// orphanRemoval=true)
 	// @JoinColumn(name="protocoloChamado")
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Set<EventoChamado> eventos;
+	private Set<EventoChamado> eventos = new HashSet<>();
 
 	public Chamado() {
 		// Persistence
 	}
 
-	public Chamado(Protocolo protocolo, LocalDateTime dataAbertura, LocalDateTime dataEncerramento, String assunto,
-			Cliente cliente, Set<EventoChamado> eventos) {
+	public Chamado(Protocolo protocolo, String assunto,
+			Cliente cliente) {
 		super();
-		this.protocolo = protocolo;
-		this.dataAbertura = dataAbertura;
-		this.dataEncerramento = dataEncerramento;
+		this.protocolo = protocolo;		
 		this.assunto = assunto;
-		this.cliente = cliente;
-		this.eventos = eventos;
+		this.cliente = cliente;		
 	}
 
 	public LocalDateTime getDataAbertura() {
@@ -126,6 +124,17 @@ public class Chamado {
 
 	public boolean isEncerrado() {
 		return !Objects.isNull(getDataEncerramento());
+	}
+
+	public void abrir(Atendente atendente, String descricao) throws DomainException {
+		if (isEncerrado()) {
+			throw new DomainException("Chamado encerrado não pode ser aberto.");
+		}
+		LocalDateTime abertoEm = LocalDateTime.now();
+		setDataAbertura(abertoEm);
+		EventoChamado eventoAbertura = new EventoChamado(abertoEm, descricao, atendente,
+				TipoEvento.ABERTURA);
+		getEventos().add(eventoAbertura);
 	}
 
 	public void atualizar(String descricao) throws DomainException {

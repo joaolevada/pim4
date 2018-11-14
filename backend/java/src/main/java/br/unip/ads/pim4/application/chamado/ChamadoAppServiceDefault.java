@@ -50,7 +50,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 		Cliente cliente = clienteRepo.findById(new Id(novoChamado.getIdCliente()))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CLIENTE_NAO_ENCONTRADO));
 
-		Protocolo novoProtocolo = new Protocolo(Protocolo.proximo());
+		Protocolo novoProtocolo = Protocolo.proximo();
 		ChamadoBuilder builder = new ChamadoBuilder().comAssunto(novoChamado.getAssunto())
 				.comDataAbertura(LocalDateTime.now()).comCliente(cliente)
 				.comEventoDeAbertura(atendente, novoChamado.getDescricaoProblema()).comProtocolo(novoProtocolo);

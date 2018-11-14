@@ -31,12 +31,12 @@ public class Protocolo implements Serializable {
 		return this.numero;
 	}
 	
-	public static String proximo() {		
+	public static Protocolo proximo() {		
 		LocalDateTime agora = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		String agoraString = agora.format(formatter);
 		String aleatoria = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
-		return agoraString + aleatoria; 
+		return new Protocolo(agoraString + aleatoria); 
 	}
 	
 	@Override

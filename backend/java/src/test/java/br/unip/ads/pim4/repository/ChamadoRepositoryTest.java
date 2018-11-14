@@ -41,55 +41,46 @@ public class ChamadoRepositoryTest {
 	@Autowired
 	private AtendenteRepository atendenteRepo;
 	
-	private Protocolo protocolo;
-	private Id atendenteId;
-	private Id outroAtendenteId;
-	private Id clienteId;
+	private static Protocolo protocolo = Protocolo.proximo();
+	private static Id atendenteId = Id.proximo();
+	private static Id outroAtendenteId = Id.proximo();
+	private static Id clienteId = Id.proximo();
 
 	@Test
-	public void a1createChamado() {
+	public void acreateChamado() throws DomainException {
 		
 		// Criar um Atendente
 		Atendente atendente = criarAtendente();		
 		
 		// Criar um Cliente
 		Pessoa pessoa;
-		pessoa = new Pessoa("Teste da Silva", new Cpf(Cpf.gerarCpf()), new EMail("testesilva@pimquatro.com"));
-		Cliente cliente = new Cliente(new Id(Id.proximo()), pessoa, null, null);
-		clienteRepo.save(cliente);
-		clienteId = cliente.getId();
+		pessoa = new Pessoa("Teste da Silva", Cpf.gerarCpf(), new EMail("testesilva@pimquatro.com"));
+		Cliente cliente = new Cliente(Id.proximo(), pessoa, null, null);
+		clienteRepo.save(cliente);		
 		
-		// Criando um Chamado
-		protocolo = new Protocolo(Protocolo.proximo());
-		LocalDateTime dataAbertura = LocalDateTime.now();
-		Set<EventoChamado> eventos = new HashSet<>();
-		EventoChamado eventoAbertura = new EventoChamado(
-				LocalDateTime.now(), 
-				"Teste de descrição detalhada do evento.", 
-				atendente, TipoEvento.ABERTURA);
-		eventos.add(eventoAbertura);
-		Chamado novoChamado = new Chamado(protocolo, dataAbertura, null, "Assunto teste", cliente, eventos);
+		// Criando um Chamado e abrindo um chamado		
+		Chamado novoChamado = new Chamado(protocolo, "Assunto teste", cliente);
+		novoChamado.abrir(atendente, "Descrição detalhada do problema teste");
 		chamadoRepo.save(novoChamado);
 		
 	}
 
 	private Atendente criarAtendente() {
 		// Criando um Atendente
-		Pessoa pessoa = new Pessoa("Atendente Sauro", new Cpf(Cpf.gerarCpf()), new EMail("sauro@pimquatro.com"));
-		Atendente atendente = new Atendente(new Id(Id.proximo()), pessoa, "123456");
-		atendenteRepo.save(atendente);
-		atendenteId = atendente.getId();
+		Pessoa pessoa = new Pessoa("Atendente Sauro", Cpf.gerarCpf(), new EMail("sauro@pimquatro.com"));
+		Atendente atendente = new Atendente(Id.proximo(), pessoa, "123456");
+		atendenteRepo.save(atendente);		
 		return atendente;
 	}
 	
 	@Test
-	public void aReadFindByProtocolo() {
+	public void bReadFindByProtocolo() {
 		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
 		assertNotNull("Nennum chamado encontrado.", chamado);
 	}
 	
 	@Test
-	public void bUpdateAtualizarChamado() throws DomainException {
+	public void cUpdateAtualizarChamado() throws DomainException {
 		
 		assertNotNull("Execute o teste de criar chamado.", protocolo);
 		
@@ -102,16 +93,19 @@ public class ChamadoRepositoryTest {
 		
 		chamado = null;
 		chamado = chamadoRepo.findByProtocolo(protocolo).get();
-		assertEquals(1, chamado.getEventos().size());
+		// Eventos = 2, abertura e atualização
+		assertEquals(2, chamado.getEventos().size());
 	}
 	
 	@Test
-	public void cUpdateTransferirChamado() throws DomainException {
+	public void dUpdateTransferirChamado() throws DomainException {
 		
-		Atendente outroAtendente = criarAtendente();
+		Atendente outroAtendente = new Atendente(
+				outroAtendenteId, 
+				new Pessoa("Outro atendente", Cpf.gerarCpf(), new EMail("outroatendente@pimquatro.com")),				
+				"123456");
 		outroAtendente.getPessoa().setNome("Outro Atendente Souza");
-		atendenteRepo.save(outroAtendente);
-		outroAtendenteId = outroAtendente.getId();
+		atendenteRepo.save(outroAtendente);		
 		
 		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
 		assertNotNull("Execute o teste de criar chamado.", chamado);
@@ -119,12 +113,13 @@ public class ChamadoRepositoryTest {
 		chamadoRepo.save(chamado);
 		chamado = null;
 		chamado = chamadoRepo.findByProtocolo(protocolo).get();
-		assertTrue("O chamado deveria ter mais de um evento.", chamado.getEventos().size() > 1);
+		// Eventos 3, abertura, atualização e transferência
+		assertTrue("O chamado deveria ter mais de um evento.", chamado.getEventos().size() > 2);
 		
 	}
 	
 	@Test
-	public void dUpdateEncerrarChamado() throws DomainException {
+	public void eUpdateEncerrarChamado() throws DomainException {
 		
 		assertNotNull("Execute o teste de criar chamado.", protocolo);
 		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
@@ -134,7 +129,8 @@ public class ChamadoRepositoryTest {
 		
 		chamado = null;
 		chamado = chamadoRepo.findByProtocolo(protocolo).get();
-		assertTrue("O chamado deveria ter mais de dois eventos.", chamado.getEventos().size() > 2);		
+		// Eventos = 4, abertura, atualização, transferência e encerramento.
+		assertTrue("O chamado deveria ter mais de dois eventos.", chamado.getEventos().size() > 3);		
 		
 	}
 	
