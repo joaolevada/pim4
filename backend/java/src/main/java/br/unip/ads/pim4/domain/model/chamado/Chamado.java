@@ -34,7 +34,7 @@ public class Chamado {
 	@Column(nullable = false)
 	private String assunto;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = false)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER, optional = false)
 	private Cliente cliente;
 
 	// @OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER,
@@ -47,12 +47,11 @@ public class Chamado {
 		// Persistence
 	}
 
-	public Chamado(Protocolo protocolo, String assunto,
-			Cliente cliente) {
+	public Chamado(Protocolo protocolo, String assunto, Cliente cliente) {
 		super();
-		this.protocolo = protocolo;		
+		this.protocolo = protocolo;
 		this.assunto = assunto;
-		this.cliente = cliente;		
+		this.cliente = cliente;
 	}
 
 	public LocalDateTime getDataAbertura() {
@@ -132,8 +131,7 @@ public class Chamado {
 		}
 		LocalDateTime abertoEm = LocalDateTime.now();
 		setDataAbertura(abertoEm);
-		EventoChamado eventoAbertura = new EventoChamado(abertoEm, descricao, atendente,
-				TipoEvento.ABERTURA);
+		EventoChamado eventoAbertura = new EventoChamado(abertoEm, descricao, atendente, TipoEvento.ABERTURA);
 		getEventos().add(eventoAbertura);
 	}
 

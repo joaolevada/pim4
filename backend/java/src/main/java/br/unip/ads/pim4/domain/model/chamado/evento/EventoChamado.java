@@ -14,51 +14,46 @@ import javax.persistence.ManyToOne;
 import br.unip.ads.pim4.domain.model.Atendente;
 
 @Embeddable
-public class EventoChamado {	
+public class EventoChamado {
 
 //	@EmbeddedId	
 //	private Id id;
-	
+
 	@Column(nullable = false)
 	private LocalDateTime data;
-	
+
 	@Column()
 	@Lob
 	private String descricao;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, optional=false)	
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER, optional = false)
 	private Atendente atendente;
-	
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoEvento tipo;
-	
+
 //	@Column(nullable=false)
 //	private Protocolo protocoloChamado;	
-	
+
 	public EventoChamado() {
 		// Persistence
-	}	
-	
-	
+	}
+
 	public EventoChamado(LocalDateTime data, String descricao, Atendente atendente, TipoEvento tipo) {
 		super();
-		//this.id = id;
+		// this.id = id;
 		this.data = data;
 		this.descricao = descricao;
 		this.atendente = atendente;
 		this.tipo = tipo;
 	}
 
-
-
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		return super.equals(obj);
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -96,8 +91,8 @@ public class EventoChamado {
 
 	public void setAtedente(Atendente atendente) {
 		this.atendente = atendente;
-	}	
-	
+	}
+
 	public TipoEvento getTipo() {
 		return tipo;
 	}
@@ -105,5 +100,5 @@ public class EventoChamado {
 	public void setTipo(TipoEvento tipo) {
 		this.tipo = tipo;
 	}
-	
+
 }
