@@ -38,7 +38,6 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<String> criar(@RequestBody NovoChamadoDto dto) throws DomainException {
 		String protocolo = chamadoAppService.criar(dto);
 		URI location = super.criarUriPorId(protocolo);
-		// TODO Tratar exce��o
 		return ResponseEntity.created(location).build();
 	}
 	

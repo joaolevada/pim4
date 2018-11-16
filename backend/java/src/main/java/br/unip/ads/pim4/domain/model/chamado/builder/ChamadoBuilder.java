@@ -65,6 +65,9 @@ public class ChamadoBuilder {
 	
 	public Chamado build() {
 		Chamado chamado = new Chamado(protocolo, assunto, cliente);
+		chamado.setEventos(eventos);
+		chamado.setDataAbertura(dataAbertura);
+		chamado.setDataEncerramento(dataEncerramento);
 		return chamado;
 	}
 

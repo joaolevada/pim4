@@ -74,7 +74,7 @@ public class ClienteAppServiceDefault extends AbstractAppService implements Clie
 		}
 
 		clienteRepo.save(clientePersist);
-		return clientePersist.getId().toString();
+		return clientePersist.getId().asString();
 	}
 
 	@Override

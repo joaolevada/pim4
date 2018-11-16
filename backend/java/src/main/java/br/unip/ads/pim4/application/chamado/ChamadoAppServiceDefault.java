@@ -57,7 +57,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 		Chamado chamadoAberto = builder.build();
 
 		chamadoRepo.save(chamadoAberto);
-		return chamadoAberto.getProtocolo().toString();
+		return chamadoAberto.getProtocolo().asString();
 	}
 
 	@Override

@@ -48,7 +48,7 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 		
 		Atendente atendente = new Atendente(id, pessoa, dto.getSenha());
 		atendenteRepo.save(atendente);
-		return atendente.getId().toString();
+		return atendente.getId().asString();
 				
 	}
 
