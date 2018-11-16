@@ -12,6 +12,10 @@ router.on({
 
     doc('#app').html('<bread-crumb></bread-crumb> <visualizar-chamado></visualizar-chamado>');
   },
+  'visualizar-chamado/:protocolo': (params) => {
+    // alert(params.protocolo)
+    doc('#app').html(`<bread-crumb></bread-crumb> <visualizar-chamado-id id="${params.protocolo}"></visualizar-chamado-id>`);
+  },
   'novo-cliente': () => {
     doc('#app').html('<bread-crumb></bread-crumb> <novo-cliente></novo-cliente>');
   },
@@ -25,15 +29,15 @@ router.on(() => {
   // if(localStorage.getItem('token')) {
   //   const user = JSON.parse(localStorage.getItem('user'));
   //   doc('#userlogado').html(user[0].nome);
-  //   doc('#app').html('<home-teste></home-teste>')  
+  //   doc('#app').html('<home-teste></home-teste>')
   // } else {
   //   window.location = 'http://localhost:3000/';
   // }
-  const userJson = '[{"id":"44eb2e73-d5e0-4a44-bef3-79a0f6e1e22e","nome":"Guilherme Revoredo","email":"guilherme11.gr@gmail.com"}]'
-  localStorage.setItem('user',userJson);
+  const userJson = '[{"id":"3d737590-50bd-4362-9826-1bad5eacad37","nome":"Guilherme Revoredo","email":"guilherme11.gr@gmail.com"}]';
+  localStorage.setItem('user', userJson);
   const user = JSON.parse(userJson);
   doc('#userlogado').html(user[0].nome);
-  doc('#app').html('<home-teste></home-teste>')
+  doc('#app').html('<home-teste></home-teste>');
 });
 
 // // getView com o template do 404

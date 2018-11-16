@@ -13,9 +13,14 @@ class Select extends Slim {
   async onBeforeCreated() {
     this.valid = 'form-control';
     this.getProps();
+    // eslint-disable-next-line
+    this.formInvalid = this.props.required == 'false' ? 'form-control' : 'form-control is-invalid';
+
     this.label = this.props.label;
+    this.placeholder = this.props.url == '/clientes' ? 'Nome ou CPF' : 'Nome';
+    // eslint-disable-next-line
     this.token = `Basic ${btoa('guilherme11.gr@gmail.com:mesmerize')}`;
-    this.res = await HttpAuth.get(`${API_URL}${this.props.url}`, this.token)
+    this.res = await HttpAuth.get(`${API_URL}${this.props.url}`, this.token);
     this.response = await this.res.data;
     this.SelectData = '';
     this.data = this.response.map((item) => {
@@ -24,33 +29,36 @@ class Select extends Slim {
         nome: item.nome,
         id: item.id,
         email: item.email,
-        nomeCpf: `${item.nome} ${item.cpf}`,
-      }
+        nomeCpf: this.props.url == '/clientes' ? `${item.nome} ${item.cpf}` : `${item.nome}`,
+      };
       return data;
-    })
+    });
   }
 
   onRender() {
     this.input.addEventListener('focusout', () => {
-      if(this.input.value) {
-        this.valid = 'form-control is-valid'
+      if (this.input.value) {
+        this.valid = 'form-control is-valid';
         const input = this.input.value;
         this.SelectData = this.data.filter((data) => {
+          // eslint-disable-next-line
           const item = data.nomeCpf == input ? data : false;
           return item;
-        })
+        });
       } else {
-        this.valid = 'form-control is-invalid'
+        this.valid = this.formInvalid;
       }
-    })
+    });
   }
+
   getData() {
     return this.SelectData;
   }
 
   isValid() {
-    return this.valid === 'form-control is-valid' ? true : false;
+    return this.valid === 'form-control is-valid';
   }
+
   getProps() {
     const attrsNames = this.getAttributeNames();
     this.props = {};

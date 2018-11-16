@@ -14,4 +14,31 @@ export class VisualizarServices {
     console.log(res);
     return res;
   }
+
+  async readByID(protocolo) {
+    const res = await HttpAuth.get(`${API_URL}/chamados/${protocolo}`, this.token);
+    console.log(res);
+    return res;
+  }
+
+  async transferir(protocolo, chamado) {
+    // console.log(protocolo)
+    const res = await HttpAuth.put(`${API_URL}/chamados/${protocolo}/transferir`, this.token, chamado);
+    console.log(res);
+    return res;
+  }
+
+  async atualizar(protocolo, chamado) {
+    // console.log(protocolo)
+    const res = await HttpAuth.put(`${API_URL}/chamados/${protocolo}/atualizar`, this.token, chamado);
+    console.log(res);
+    return res;
+  }
+
+  async encerrar(protocolo, chamado) {
+    // console.log(protocolo)
+    const res = await HttpAuth.put(`${API_URL}/chamados/${protocolo}/encerrar`, this.token, chamado);
+    console.log(res);
+    return res;
+  }
 }

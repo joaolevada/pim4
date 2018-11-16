@@ -48,12 +48,14 @@ class NovoChamado extends Slim {
         abrir.removeAttribute('disabled');
         this.snackbar.show('Preencha os campos corretamente !', danger);
       } else if (verifica.includes('form-control is-valid')) {
-     
+
         const { ChamadoServices } = await import('./services/ChamadoServices');
-        
+
         const chamado = await this.chamadoBuilder();
 
         const chamadoService = new ChamadoServices();
+
+        console.log(chamado);
 
         const response = await chamadoService.create(chamado);
 

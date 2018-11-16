@@ -1,6 +1,6 @@
 <div class="form-group">
   <label bind  for="exampleFormControlSelect1">{{label}}</label>
-  <input s:id="input" type="text" list="teste" bind:class="valid" id="" placeholder="Nome ou CPF">
+  <input s:id="input" type="text" list="teste" bind:class="valid" id="" bind:placeholder="placeholder">
   <div s:if="valid" class="invalid-feedback">Campo Obrigatório !</div>
   <datalist w-100 id="teste">
     <option s:repeat="data as item" bind>{{item.nomeCpf}}</option>

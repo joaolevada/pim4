@@ -15,12 +15,16 @@ class CardComponent extends Slim {
   setData(data) {
     this.data = data.map((item) => {
       const dataFormatada = new Date(item.dataAbertura);
-      const data = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
-      item['data'] = data;
+      const date = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
+      // eslint-disable-next-line
+      item['data'] = date;
+      // eslint-disable-next-line
+      item['urlProtocolo'] = `/#!/visualizar-chamado/${item.protocolo}`;
       const cpf = CPF.format(item.cliente.cpf);
+      // eslint-disable-next-line
       item.cliente.cpf = cpf;
       return item;
-    })
+    });
   }
 }
 

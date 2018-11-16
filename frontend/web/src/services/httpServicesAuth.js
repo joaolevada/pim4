@@ -52,4 +52,18 @@ export class HttpAuth {
     }
     return response;
   }
+
+  static async put(url, token, object) {
+    const header = { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: token }, body: JSON.stringify(object) };
+    const response = {};
+    try {
+      const res = await fetch(url, header);
+      const r = await !res.ok ? await res.json() : { message: 'Cadastro efetuado com sucesso !' };
+      response.ok = res.ok;
+      response.msg = r.message;
+    } catch (error) {
+      // console.error(error);
+    }
+    return response;
+  }
 }
