@@ -4,8 +4,8 @@ Todo:
   ✔ Tratar a inserção de cpfs iguais no backend (Jhonny) @critical @done(18-11-11 17:27)
   ✔ Travar botão salvar, para salvar apenas uma vez. @started(18-11-10 21:00) @done(18-11-10 21:07) @lasted(7m56s)
   ✔ Concatenar nome e sobrenome ao cadastrar cliente. @started(18-11-15 16:03) @done(18-11-15 16:03) @lasted(43s)
-  ☐ Formatar cpf , data e telefones na tela de visualizar chamado por protocolo
-  ☐ Deixar o botão transferir funcional.
-  ☐ Deixar o botão atualizar funcional.
-  ☐ Deixar o botão encerrar funcional.
+  ✔ Formatar cpf , data e telefones na tela de visualizar chamado por protocolo @started(18-11-17 16:22) @done(18-11-17 16:59) @lasted(37m24s)
+  ✔ Deixar o botão transferir funcional. @done(18-11-17 16:22)
+  ✔ Deixar o botão atualizar funcional. @done(18-11-17 16:22)
+  ✔ Deixar o botão encerrar funcional. @done(18-11-17 16:22)
   ✔ Resolver o problema do cpf do atendente no input select. @started(18-11-15 16:20) @done(18-11-15 16:20) @lasted(46s)

@@ -52,7 +52,8 @@ $theme-colors:( 'primary-light' : $primary-light,
 }
 .progress{
     height: 3px;
-    position: relative;
+    border-radius: 20px;
+    position: fixed;
     background-color:#343a4000; 
     position: fixed;
     top: 0;
@@ -62,31 +63,31 @@ $theme-colors:( 'primary-light' : $primary-light,
 .progress .progress-bar{
    position: absolute;
    height: 3px;
+   border-radius: 20px;
    width: 10%;
-   background-color:$primary-light;
-   animation: progress-animation .6s infinite;
+   background-color:#0187d4;
+   animation: progress-animation 1s infinite;
    animation-timing-function: ease-in-out;
 }
-
 
 @keyframes progress-animation{
     0% { transform: translateX(0vw); }
 
    
     20%{
-        background-color: $primary-light;
+        // background-color: $primary-light;
         width: 20%;
     }
    
     40%{
-        background-color:$primary-light;
+        // background-color:$primary-light;
         width: 80%;
     }
 
     
     100% { transform: translateX(100vw);
         width: 80%;
-        background-color:$primary-light;
+        // background-color:$primary-light;
     }
     
 }

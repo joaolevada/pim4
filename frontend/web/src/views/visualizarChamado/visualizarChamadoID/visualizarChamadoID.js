@@ -16,8 +16,21 @@ class VisualizarChamadoID extends Slim {
     this.danger = '#dc3546e3';
     const visualizarServices = new VisualizarServices();
     this.response = await visualizarServices.readByID(this.props.id);
-    this.data = await this.response.data;
+    this.data = this.formataDados(await this.response.data);
     this.eventos = this.data.eventos;
+  }
+
+  formataDados = (data) => {  /* eslint-disable */
+    data.cliente.cpf = CPF.format(data.cliente.cpf);
+    data.cliente.telefoneFixo = this.formataNumeroTelefone(String(data.cliente.telefoneFixo))
+    data.cliente.telefoneMovel = this.formataNumeroTelefone(String(data.cliente.telefoneMovel))
+    data.eventos = data.eventos.map((evento) => {
+      const dataFormatada = new Date(evento.data);
+      const date = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
+      evento.data = date;
+      return evento;
+    })
+    return data;
   }
 
   onRender() {
@@ -29,9 +42,8 @@ class VisualizarChamadoID extends Slim {
   encerrarChamado = async () => {
     this.encerrar.setAttribute('disabled', 'true');
     if (this.descricao.value) {
-      // console.log(selectData);
       const chamado = {
-        descricao: this.descricao.value,
+        descricao: this.descricaoEncerrar.value,
         protocolo: this.props.id,
       };
 
@@ -40,7 +52,7 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.encerrar(this.props.id, chamado);
 
       if (response.ok) {
-        this.form.reset();
+        this.formEncerrar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.encerrar.removeAttribute('disabled');
       } else {
@@ -58,7 +70,7 @@ class VisualizarChamadoID extends Slim {
     if (this.descricao.value) {
       // console.log(selectData);
       const chamado = {
-        descricao: this.descricao.value,
+        descricao: this.descricaoAtualizar.value,
       };
 
       const visualizarServices = new VisualizarServices();
@@ -66,7 +78,7 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.atualizar(this.props.id, chamado);
 
       if (response.ok) {
-        this.form.reset();
+        this.formAtualizar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.atualizar.removeAttribute('disabled');
       } else {
@@ -74,7 +86,7 @@ class VisualizarChamadoID extends Slim {
         this.atualizar.removeAttribute('disabled');
       }
     } else {
-      this.snackbar.show('Para transferir é necessário preencher o campo  Descrição', this.danger);
+      this.snackbar.show('Para atualizar é necessário preencher o campo  Descrição', this.danger);
       this.atualizar.removeAttribute('disabled');
     }
   }
@@ -83,7 +95,7 @@ class VisualizarChamadoID extends Slim {
     this.transferir.setAttribute('disabled', 'true');
     const selectData = this.select.getData();
 
-    if (selectData && this.descricao.value) {
+    if (selectData && this.descricaoTransferir.value) {
       // console.log(selectData);
       const chamado = {
         atendenteId: selectData[0].id,
@@ -95,7 +107,7 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.transferir(this.props.id, chamado);
 
       if (response.ok) {
-        this.form.reset();
+        this.formTransferir.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.transferir.removeAttribute('disabled');
       } else {
@@ -105,6 +117,27 @@ class VisualizarChamadoID extends Slim {
     } else {
       this.snackbar.show('Para transferir é necessário preencher o campo atendente e Descrição', this.danger);
       this.transferir.removeAttribute('disabled');
+    }
+  }
+
+  formataNumeroTelefone = (numero) => {
+    if (numero != 'null') {
+      let numeroFormatado;
+      if (numero.length === 10) {
+        const ddd = numero.substring(0, 2);
+        const parte1 = numero.substring(2, 6);
+        const parte2 = numero.substring(6, 12);
+        numeroFormatado = `(${ddd}) ${parte1} - ${parte2}`;
+      } else {
+        const ddd = numero.substring(0, 2);
+        const parte1 = numero.substring(2, 3);
+        const parte2 = numero.substring(3, 7);
+        const parte3 = numero.substring(7, 13);
+        numeroFormatado = `(${ddd}) ${parte1}  ${parte2} - ${parte3}`;
+      }
+      return numeroFormatado;
+    } else {
+      return '';
     }
   }
 

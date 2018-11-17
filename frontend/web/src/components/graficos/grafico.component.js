@@ -18,7 +18,6 @@ class Grafico extends Slim {
       this.pie = true;
     }
 
-
     window.addEventListener('resize', () => {
       const width = window.innerWidth;
 
@@ -27,13 +26,6 @@ class Grafico extends Slim {
       } else {
         this.pie = true;
       }
-
-      // pega a altura da resolução da tela
-
-      // const height = window.innerHeight;
-      //     console.log(height + ' + ' + width)
-      // console.log(this.pie);
-
     });
 
     const ctx = this.lineChart.getContext('2d');
@@ -50,11 +42,8 @@ class Grafico extends Slim {
 
     const lineChart = new Chart(ctx, {
 
-
-      // The type of chart we want to create
       type: 'line',
 
-      // The data for our dataset
       data: {
         pointDotRadius: 10,
         bezierCurve: false,
@@ -76,8 +65,6 @@ class Grafico extends Slim {
         ],
       },
 
-      // Configuration options go here
-      // Configuration options go here
       options: {
         responsive: true,
         title: {
@@ -109,11 +96,8 @@ class Grafico extends Slim {
 
     const pieChart = new Chart(ctxp, {
 
-
-      // The type of chart we want to create
       type: 'doughnut',
 
-      // The data for our dataset
       data: {
         pointDotRadius: 10,
         bezierCurve: false,
@@ -131,7 +115,6 @@ class Grafico extends Slim {
         ],
       },
 
-      // Configuration options go here
       options: {
         responsive: true,
         title: {
