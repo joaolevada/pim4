@@ -2,7 +2,7 @@
   <div class="progress-bar "></div>
 </div>
 <div class="container p-4 shadow-1 fade-in">
-  <h5 class="mb-4">Novo Cliente</h5>
+  <h5 class="mb-4">Novo Atendente</h5>
 
   <form bind s:id="form" autocomplete="off">
     <div class="form-row">
@@ -43,20 +43,11 @@
 
       <div class="form-group col-md-3 ">
         <div class="form-group ">
-          <label for="tell">Telefone</label>
-          <input autocomplete="off" type="tel" bind:class="tellIsValid" s:id="tell" id="tell" placeholder="" data-mask="(##) ####-####">
-          <div s:if="tellIsValid" class="invalid-feedback">Por favor Insira um Telefone valido !</div>
+          <label for="senha">Senha</label>
+          <input autocomplete="off" type="password" bind:class="senhaIsValid" s:id="senha" id="senha" placeholder="">
+          <div s:if="senhaIsValid" class="invalid-feedback">A senha deve conter no minimo 6 digitos !</div>
         </div>
       </div>
-
-      <div class="form-group col-md-3">
-        <div class="form-group ">
-          <label for="cell">Celular</label>
-          <input autocomplete="off" type="tel" bind:class="cellIsValid" s:id="cell" id="cell" placeholder="" data-mask="(##) # ####-####">
-          <div s:if="cellIsValid" class="invalid-feedback">Por favor Insira um Celular valido !</div>
-        </div>
-      </div>
-
     </div>
 
     <div class="w-100 p-3 mt-5 d-flex justify-content-end">

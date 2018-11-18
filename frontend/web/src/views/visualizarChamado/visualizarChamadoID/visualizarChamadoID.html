@@ -1,9 +1,11 @@
 <div s:if="!data" style="width:100%" class="progress">
   <div class="progress-bar "></div>
 </div>
+<div s:if="loading" style="width:100%" class="progress">
+  <div class="progress-bar "></div>
+</div>
 <div bind class="container  fade-in">
   <h4 s:if="data" class="text-secundary-dark">{{data.assunto}} - <small>{{data.protocolo}}</small></h4>
-
   <div s:if="data" class="row mt-2 fade-in">
     <div class="col-md-8">
       <h5>{{data.cliente.nome}}</h5>
@@ -21,7 +23,6 @@
           <small class="text-muted">{{eventos.atendente.email}}</small>
         </a>
       </div>
-
     </div>
     <div class="col-md-4 mt-4">
       <ul class="nav nav-tabs" id="myTab" role="tablist">

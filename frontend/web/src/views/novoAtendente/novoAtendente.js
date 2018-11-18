@@ -5,12 +5,12 @@ import 'jquery-mask-plugin';
 import validateEmail from '../../lib/validate';
 import Snackbar from '../../components/snackbar/snackbar.component';
 
-const tpl = require('./novo-cliente.html');
+const tpl = require('./novoAtendente.html');
 
-@tag('novo-cliente')
+@tag('novo-atendente')
 @template(tpl)
 
-class NovoCliente extends Slim {
+class NovoAtendente extends Slim {
   onBeforeCreated() {
     this.formControl = 'form-control';
     this.formInvalid = 'form-control is-invalid';
@@ -24,12 +24,10 @@ class NovoCliente extends Slim {
     this.nomeIsValid = this.formControl;
     this.sobrenomeIsValid = this.formControl;
     this.cellIsValid = this.formControl;
-    this.tellIsValid = this.formControl;
+    this.senhaIsValid = this.formControl;
   }
 
   onRender() {
-    doc('#cell').mask('(00) 0 0000-0000');
-    doc('#tell').mask('(00) 0000-0000');
     doc('#cpf').mask('000.000.000-00', { reverse: true });
 
     this.nome.addEventListener('blur', () => {
@@ -37,12 +35,9 @@ class NovoCliente extends Slim {
       else this.nomeIsValid = this.formInvalid;
     });
 
-    this.cell.addEventListener('blur', () => {
-      this.cellIsValid = this.formValid;
-    });
-
-    this.tell.addEventListener('blur', () => {
-      this.tellIsValid = this.formValid;
+    this.senha.addEventListener('blur', () => {
+      if (String(this.senha.value).length >= 6) this.senhaIsValid = this.formValid;
+      else this.senhaIsValid = this.formInvalid;
     });
 
     this.sobrenome.addEventListener('blur', () => {
@@ -56,7 +51,7 @@ class NovoCliente extends Slim {
     this.salvar.addEventListener('click', async (e) => {
       this.loading = true;
       this.salvar.setAttribute('disabled', 'true');
-      const verifica = [this.cpfIsValid, this.emailIsValid, this.sobrenomeIsValid, this.nomeIsValid];
+      const verifica = [this.cpfIsValid, this.emailIsValid, this.sobrenomeIsValid, this.nomeIsValid, this.senhaIsValid];
 
       if (verifica.includes('form-control is-invalid')) {
         this.loading = false;
@@ -65,13 +60,13 @@ class NovoCliente extends Slim {
 
       } else if (verifica.includes('form-control is-valid')) {
 
-        const { ClienteServices } = await import('./services/ClienteServices');
+        const { AtendenteServices } = await import('./services/AtendenteServices');
 
-        const clienteValid = await this.clienteBuilder();
+        const atendenteValid = await this.atendenteBuilder();
 
-        const clienteService = new ClienteServices();
+        const atendenteService = new AtendenteServices();
 
-        const response = await clienteService.create(clienteValid);
+        const response = await atendenteService.create(atendenteValid);
 
         if (response.ok) {
           this.loading = false;
@@ -80,21 +75,21 @@ class NovoCliente extends Slim {
           this.emailIsValid = this.formControl;
           this.nomeIsValid = this.formControl;
           this.sobrenomeIsValid = this.formControl;
-          this.cellIsValid = this.formControl;
-          this.tellIsValid = this.formControl;
+          this.senhaIsValid = this.formControl;
           this.salvar.removeAttribute('disabled');
           this.snackbar.show(response.msg, this.sucess);
+
         } else {
           this.loading = false;
-          this.form.reset();
           this.salvar.removeAttribute('disabled');
+          this.form.reset();
           this.cpfIsValid = this.formControl;
           this.emailIsValid = this.formControl;
           this.nomeIsValid = this.formControl;
           this.sobrenomeIsValid = this.formControl;
-          this.cellIsValid = this.formControl;
-          this.tellIsValid = this.formControl;
+          this.senhaIsValid = this.formControl;
           this.snackbar.show(response.msg, this.danger);
+
         }
 
       } else {
@@ -103,20 +98,18 @@ class NovoCliente extends Slim {
         this.snackbar.show('Preencha os campos corretamente !', this.danger);
       }
     });
-
   }
 
-  async clienteBuilder() {
-    const { Cliente } = await import('./model/Cliente');
-    const cliente = new Cliente(
+  async atendenteBuilder() {
+    const { Atendente } = await import('./model/Atendente');
+    const atendente = new Atendente(
       this.nome.value,
       this.sobrenome.value,
       CPF.format(this.cpf.value, 'digits'),
       this.email.value,
-      this.formatTell(this.tell.value),
-      this.formatTell(this.cell.value),
+      this.senha.value,
     );
-    return cliente;
+    return atendente;
   }
 
   validaCPF() {
@@ -139,11 +132,6 @@ class NovoCliente extends Slim {
       }
     });
   }
-
-  formatTell(tell) {
-    this.tellFotmat = tell.replace('(', '').replace(')', '').replace(' ', '').replace('-', '');
-    return this.tellFotmat;
-  }
 }
 
-export default NovoCliente;
+export default NovoAtendente;

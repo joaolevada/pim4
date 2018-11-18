@@ -14,6 +14,7 @@ class VisualizarChamadoID extends Slim {
     this.getProps();
     this.sucess = '#28a746e5';
     this.danger = '#dc3546e3';
+    this.loading = false;
     const visualizarServices = new VisualizarServices();
     this.response = await visualizarServices.readByID(this.props.id);
     this.data = this.formataDados(await this.response.data);
@@ -40,8 +41,9 @@ class VisualizarChamadoID extends Slim {
   }
 
   encerrarChamado = async () => {
+    this.loading = true;
     this.encerrar.setAttribute('disabled', 'true');
-    if (this.descricao.value) {
+    if (this.descricaoEncerrar.value) {
       const chamado = {
         descricao: this.descricaoEncerrar.value,
         protocolo: this.props.id,
@@ -52,23 +54,26 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.encerrar(this.props.id, chamado);
 
       if (response.ok) {
+        this.loading = false;
         this.formEncerrar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.encerrar.removeAttribute('disabled');
       } else {
+        this.loading = false;
         this.snackbar.show(response.msg, this.danger);
         this.encerrar.removeAttribute('disabled');
       }
     } else {
+      this.loading = false;
       this.snackbar.show('Para Encerrar é necessário preencher o campo  Descrição', this.danger);
       this.encerrar.removeAttribute('disabled');
     }
   }
 
   atualizarChamado = async () => {
+    this.loading = true;
     this.atualizar.setAttribute('disabled', 'true');
-    if (this.descricao.value) {
-      // console.log(selectData);
+    if (this.descricaoAtualizar.value) {
       const chamado = {
         descricao: this.descricaoAtualizar.value,
       };
@@ -78,20 +83,24 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.atualizar(this.props.id, chamado);
 
       if (response.ok) {
+        this.loading = false;
         this.formAtualizar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.atualizar.removeAttribute('disabled');
       } else {
+        this.loading = false;
         this.snackbar.show(response.msg, this.danger);
         this.atualizar.removeAttribute('disabled');
       }
     } else {
+      this.loading = false;
       this.snackbar.show('Para atualizar é necessário preencher o campo  Descrição', this.danger);
       this.atualizar.removeAttribute('disabled');
     }
   }
 
   tranferirChamado = async () => {
+    this.loading = true;
     this.transferir.setAttribute('disabled', 'true');
     const selectData = this.select.getData();
 
@@ -99,7 +108,7 @@ class VisualizarChamadoID extends Slim {
       // console.log(selectData);
       const chamado = {
         atendenteId: selectData[0].id,
-        descricao: this.descricao.value,
+        descricao: this.descricaoTransferir.value,
       };
 
       const visualizarServices = new VisualizarServices();
@@ -107,14 +116,17 @@ class VisualizarChamadoID extends Slim {
       const response = await visualizarServices.transferir(this.props.id, chamado);
 
       if (response.ok) {
+        this.loading = false;
         this.formTransferir.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.transferir.removeAttribute('disabled');
       } else {
+        this.loading = false;
         this.snackbar.show(response.msg, this.danger);
         this.transferir.removeAttribute('disabled');
       }
     } else {
+      this.loading = false;
       this.snackbar.show('Para transferir é necessário preencher o campo atendente e Descrição', this.danger);
       this.transferir.removeAttribute('disabled');
     }

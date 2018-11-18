@@ -18,6 +18,7 @@ class NovoChamado extends Slim {
     this.formValid = 'form-control is-valid';
     this.sucess = '#28a746e5';
     this.danger = '#dc3546e3';
+    this.loading = false;
 
     this.descricaoIsValid = this.formControl;
     this.assuntoIsValid = this.formControl;
@@ -40,11 +41,13 @@ class NovoChamado extends Slim {
     });
 
     abrir.addEventListener('click', async () => {
+      this.loading = true;
       abrir.setAttribute('disabled', 'true');
       const clienteIsValid = this.select.isValid();
       const verifica = [clienteIsValid, this.descricaoIsValid, this.assuntoIsValid];
 
       if (verifica.includes('form-control is-invalid')) {
+        this.loading = false;
         abrir.removeAttribute('disabled');
         this.snackbar.show('Preencha os campos corretamente !', danger);
       } else if (verifica.includes('form-control is-valid')) {
@@ -60,17 +63,21 @@ class NovoChamado extends Slim {
         const response = await chamadoService.create(chamado);
 
         if (response.ok) {
+          this.loading = false;
           this.form.reset();
           this.descricaoIsValid = this.formControl;
           this.assuntoIsValid = this.formControl;
           this.snackbar.show(response.msg, sucess);
         } else {
+          this.loading = false;
+          this.form.reset();
           this.descricaoIsValid = this.formControl;
           this.assuntoIsValid = this.formControl;
           this.snackbar.show(response.msg, danger);
         }
         abrir.removeAttribute('disabled');
       } else {
+        this.loading = false;
         this.snackbar.show('Preencha os campos corretamente !', danger);
         abrir.removeAttribute('disabled');
       }

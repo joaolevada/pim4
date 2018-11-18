@@ -19,8 +19,11 @@ router.on({
   'novo-cliente': () => {
     doc('#app').html('<bread-crumb></bread-crumb> <novo-cliente></novo-cliente>');
   },
-  home: () => {
-    doc('#app').html('<home-teste></home-teste>');
+  'novo-atendente': () => {
+    doc('#app').html('<bread-crumb></bread-crumb> <novo-atendente></novo-atendente>');
+  },
+  dashboard: () => {
+    doc('#app').html('<dash-board></dash-board>');
   },
 });
 
@@ -37,7 +40,7 @@ router.on(() => {
   localStorage.setItem('user', userJson);
   const user = JSON.parse(userJson);
   doc('#userlogado').html(user[0].nome);
-  doc('#app').html('<home-teste></home-teste>');
+  doc('#app').html('<dash-board></dash-board>');
 });
 
 // // getView com o template do 404

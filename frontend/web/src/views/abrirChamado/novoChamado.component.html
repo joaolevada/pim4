@@ -1,50 +1,36 @@
+<div s:if="loading" style="width:100%" class="progress">
+  <div class="progress-bar "></div>
+</div>
 <div class="container p-4 shadow-1 fade-in">
   <h5 class="text-secundary-dark">Novo Chamado</h5>
   <form s:id="form" action="">
-
     <div class="row">
-
       <div class="col-md-6">
-
         <fieldset>
           <select-input url="/clientes" label="Cliente" s:id="select"></select-input>
-
-
         </fieldset>
       </div>
-
       <div class="col-md-6 ">
-
         <fieldset>
           <div class="form-group">
             <label for="numero-cartao">Assunto</label>
             <input autocomplete="off" type="text" bind:class="assuntoIsValid" s:id="assunto" id="assunto" placeholder="">
             <div s:if="assuntoIsValid" class="invalid-feedback">Por favor Insira um Assunto !</div>
           </div>
-
         </fieldset>
-
       </div>
-
     </div>
-
     <div class="row mt-2">
-
       <div class="col-md-6">
-
         <div class="form-group">
           <label for="validade-cartao">Descrição do Problema</label>
           <textarea autocomplete="off" bind:class="descricaoIsValid" s:id="descricao" id="descricao" rows="5"></textarea>
         </div>
-
       </div>
-
     </div>
-
     <div class="w-100 p-3 d-flex justify-content-end">
       <button type="button" s:id="abrir" class="btn btn-primary-color shadow-1">Abrir Chamado</button>
     </div>
-
   </form>
   <snack-bar s:id="snackbar"></snack-bar>
 </div>
