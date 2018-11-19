@@ -5,10 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +22,6 @@ import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.Pessoa;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
-import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
-import br.unip.ads.pim4.domain.model.chamado.evento.TipoEvento;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -75,7 +69,7 @@ public class ChamadoRepositoryTest {
 	
 	@Test
 	public void bReadFindByProtocolo() {
-		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		Chamado chamado = chamadoRepo.findById(protocolo).get();
 		assertNotNull("Nennum chamado encontrado.", chamado);
 	}
 	
@@ -85,14 +79,14 @@ public class ChamadoRepositoryTest {
 		assertNotNull("Execute o teste de criar chamado.", protocolo);
 		
 		// Recuperar o chamado
-		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		Chamado chamado = chamadoRepo.findById(protocolo).get();
 		assertNotNull("Nenhum chamado encontrado.", chamado);
 		
 		chamado.atualizar("Teste de atualização de chamado");		
 		chamadoRepo.save(chamado);
 		
 		chamado = null;
-		chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		chamado = chamadoRepo.findById(protocolo).get();
 		// Eventos = 2, abertura e atualização
 		assertEquals(2, chamado.getEventos().size());
 	}
@@ -107,12 +101,12 @@ public class ChamadoRepositoryTest {
 		outroAtendente.getPessoa().setNome("Outro Atendente Souza");
 		atendenteRepo.save(outroAtendente);		
 		
-		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		Chamado chamado = chamadoRepo.findById(protocolo).get();
 		assertNotNull("Execute o teste de criar chamado.", chamado);
 		chamado.transferir(outroAtendente, "Teste de transferência de chamado.");
 		chamadoRepo.save(chamado);
 		chamado = null;
-		chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		chamado = chamadoRepo.findById(protocolo).get();
 		// Eventos 3, abertura, atualização e transferência
 		assertTrue("O chamado deveria ter mais de um evento.", chamado.getEventos().size() > 2);
 		
@@ -122,13 +116,13 @@ public class ChamadoRepositoryTest {
 	public void eUpdateEncerrarChamado() throws DomainException {
 		
 		assertNotNull("Execute o teste de criar chamado.", protocolo);
-		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		Chamado chamado = chamadoRepo.findById(protocolo).get();
 		assertNotNull("Não recuperou o chamado pelo protocolo.", chamado);
 		chamado.encerrar("Teste de encerradomento de chamado.");
 		chamadoRepo.save(chamado);
 		
 		chamado = null;
-		chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		chamado = chamadoRepo.findById(protocolo).get();
 		// Eventos = 4, abertura, atualização, transferência e encerramento.
 		assertTrue("O chamado deveria ter mais de dois eventos.", chamado.getEventos().size() > 3);		
 		
@@ -147,14 +141,14 @@ public class ChamadoRepositoryTest {
 	@Test
 	public void gDeleteChamado() {
 		assertNotNull("Execute o teste de criar chamado.", protocolo);
-		Chamado chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		Chamado chamado = chamadoRepo.findById(protocolo).get();
 		assertNotNull("Não recuperou o chamado pelo protocolo.", chamado);
 		
 		chamadoRepo.delete(chamado);
 		
 		// Não deve mais encontraro chamado pelo protocolo
 		chamado = null;
-		chamado = chamadoRepo.findByProtocolo(protocolo).get();
+		chamado = chamadoRepo.findById(protocolo).get();
 		assertNull("O chamado não foi excluído da persistência.", chamado);
 		
 		// O Atendente não deve ser excluído

@@ -12,7 +12,7 @@ public interface ChamadoRepository extends CrudRepository<Chamado, Protocolo> {
 	
 	Iterable<Chamado> findAll();
 	
-	Optional<Chamado> findByProtocolo(Protocolo protocolo);
+	Optional<Chamado> findById(Protocolo protocolo);
 	
 	Iterable<Chamado> findByCliente(Cliente cliente);
 

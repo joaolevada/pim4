@@ -63,7 +63,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public ChamadoResumoDto buscar(String protocolo) {
 		Protocolo protocoloBuscado = new Protocolo(protocolo);
-		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado).get();
+		Chamado chamadoCompleto = chamadoRepo.findById(protocoloBuscado).get();
 		ChamadoResumoDto chamadoResumido = ChamadoDtoAssembly.toDto(chamadoCompleto);
 		return chamadoResumido;
 	}
@@ -71,7 +71,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public void excluir(String protocolo) throws DomainException {
 		Protocolo protocoloBuscado = new Protocolo(protocolo);
-		Chamado chamadoCompleto = chamadoRepo.findByProtocolo(protocoloBuscado)
+		Chamado chamadoCompleto = chamadoRepo.findById(protocoloBuscado)
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
 		/* TODO: Só permitir exclusão de chamados encerrados? */
 		chamadoRepo.delete(chamadoCompleto);
@@ -87,7 +87,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) throws DomainException {		
 
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
 		
 		if (chamado.isEncerrado()) {
@@ -105,7 +105,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public void transferirChamado(String protocolo, TransfereChamadoDto dto) throws DomainException {
 		
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
 		
 		Atendente atendente = atendenteRepo.findById(new Id(dto.getAtendenteId()))
@@ -126,7 +126,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	@Override
 	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) throws DomainException {
 		
-		Chamado chamado = chamadoRepo.findByProtocolo(new Protocolo(protocolo))
+		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
 		
 		if (chamado.isEncerrado()) {

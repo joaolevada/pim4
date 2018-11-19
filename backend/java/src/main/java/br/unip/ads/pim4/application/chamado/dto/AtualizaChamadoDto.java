@@ -8,7 +8,7 @@ public class AtualizaChamadoDto {
 		// REST
 	}
 
-	public AtualizaChamadoDto(String protocolo, String descricao) {
+	public AtualizaChamadoDto(String descricao) {
 		super();
 		this.descricao = descricao;
 	}	

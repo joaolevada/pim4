@@ -9,7 +9,7 @@ public class TransfereChamadoDto {
 		// REST
 	}
 
-	public TransfereChamadoDto(String protocolo, String atendenteId, String descricao) {
+	public TransfereChamadoDto(String atendenteId, String descricao) {
 		super();
 		this.atendenteId = atendenteId;
 		this.descricao = descricao;
