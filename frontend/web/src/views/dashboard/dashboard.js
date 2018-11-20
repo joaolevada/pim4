@@ -14,15 +14,15 @@ class Dashboard extends Slim {
     const dashServices = new DashboardServices();
     this.response = await dashServices.read();
     this.data = await this.response.data;
-    const abertos = this.data.filter(chamado => (chamado.dataAbertura ? chamado : null));
+    const abertos = this.data.filter(chamado => (!chamado.dataEncerramento ? chamado : null));
     const encerrados = this.data.filter(chamado => (chamado.dataEncerramento ? chamado : null));
-    console.log(encerrados.length);
+    // console.log(encerrados.length);
     this.info = {
       total: this.data.length,
       abertos: abertos.length,
       encerrados: String(encerrados.length),
     };
-    console.log(this.data);
+    // console.log(this.data);
   }
 }
 

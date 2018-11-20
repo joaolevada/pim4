@@ -58,6 +58,7 @@ class VisualizarChamadoID extends Slim {
         this.formEncerrar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.encerrar.removeAttribute('disabled');
+        this.onBeforeCreated();
       } else {
         this.loading = false;
         this.snackbar.show(response.msg, this.danger);
@@ -87,6 +88,7 @@ class VisualizarChamadoID extends Slim {
         this.formAtualizar.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.atualizar.removeAttribute('disabled');
+        this.onBeforeCreated();
       } else {
         this.loading = false;
         this.snackbar.show(response.msg, this.danger);
@@ -120,6 +122,7 @@ class VisualizarChamadoID extends Slim {
         this.formTransferir.reset();
         this.snackbar.show(response.msg, this.sucess);
         this.transferir.removeAttribute('disabled');
+        this.onBeforeCreated();
       } else {
         this.loading = false;
         this.snackbar.show(response.msg, this.danger);
