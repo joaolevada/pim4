@@ -43,7 +43,7 @@ module.exports = {
         app: [
             './src/app.js',
             //Sass das views
-            './src/views/home/home.scss',
+            './src/views/dashboard/home.scss',
             './src/assets/scss/style.scss',
         ],
         vendors: ['./index.js',
