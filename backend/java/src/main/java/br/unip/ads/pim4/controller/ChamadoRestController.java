@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -54,19 +52,19 @@ public class ChamadoRestController extends AbstractRestController {
 	}	
 
 	@PutMapping("{protocolo}/atualizar")
-	public ResponseEntity<Void> atualizarChamado(@PathParam("protocolo") String protocolo, @RequestBody AtualizaChamadoDto dto) throws DomainException {
+	public ResponseEntity<Void> atualizarChamado(@PathVariable("protocolo") String protocolo, @RequestBody AtualizaChamadoDto dto) throws DomainException {
 		chamadoAppService.atualizarChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}	
 	
 	@PutMapping("{protocolo}/transferir")
-	public ResponseEntity<Void> transferirChamado(@PathParam("protocolo") String protocolo, @RequestBody TransfereChamadoDto dto) throws DomainException {
+	public ResponseEntity<Void> transferirChamado(@PathVariable("protocolo") String protocolo, @RequestBody TransfereChamadoDto dto) throws DomainException {
 		chamadoAppService.transferirChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}	
 
 	@PutMapping("{protocolo}/encerrar")
-	public ResponseEntity<Void> encerrarChamado(@PathParam("protocolo") String protocolo, @RequestBody EncerraChamadoDto dto) throws DomainException {
+	public ResponseEntity<Void> encerrarChamado(@PathVariable("protocolo") String protocolo, @RequestBody EncerraChamadoDto dto) throws DomainException {
 		chamadoAppService.encerrarChamado(protocolo, dto);
 		return ResponseEntity.ok().build();
 	}
@@ -75,7 +73,6 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<Void> excluir(@PathVariable("protocolo") String protocolo) throws DomainException {
 		chamadoAppService.excluir(protocolo);
 		return ResponseEntity.ok().build();
-	}
-	
+	}	
 
 }

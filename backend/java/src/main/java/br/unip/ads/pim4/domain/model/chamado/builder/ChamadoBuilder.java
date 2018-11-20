@@ -1,8 +1,8 @@
 package br.unip.ads.pim4.domain.model.chamado.builder;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import br.unip.ads.pim4.domain.model.Atendente;
 import br.unip.ads.pim4.domain.model.Cliente;
@@ -17,7 +17,7 @@ public class ChamadoBuilder {
 	private LocalDateTime dataAbertura;
 	private LocalDateTime dataEncerramento;
 	private Cliente cliente;
-	private Set<EventoChamado> eventos;
+	private SortedSet<EventoChamado> eventos = new TreeSet<>();
 	private Protocolo protocolo;	
 	
 	public ChamadoBuilder comAssunto(String assunto) {
@@ -40,7 +40,7 @@ public class ChamadoBuilder {
 		return this;
 	}
 	
-	public ChamadoBuilder comEventos(Set<EventoChamado> eventos) {
+	public ChamadoBuilder comEventos(SortedSet<EventoChamado> eventos) {
 		this.eventos = eventos;
 		return this;
 	}
@@ -51,15 +51,12 @@ public class ChamadoBuilder {
 	}
 	
 	public ChamadoBuilder comEventoDeAbertura(Atendente atendente, String descricaoProblema) {
-		if (eventos == null) {
-			eventos = new HashSet<>();
-		}
 		EventoChamado eventoAbertura = new EventoChamado(
 				LocalDateTime.now(), 
 				descricaoProblema, 
 				atendente, 
 				TipoEvento.ABERTURA);
-		((HashSet<EventoChamado>) eventos).add(eventoAbertura);
+		eventos.add(eventoAbertura);
 		return this;
 	}
 	

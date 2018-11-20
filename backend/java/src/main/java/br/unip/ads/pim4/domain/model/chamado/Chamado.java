@@ -1,9 +1,10 @@
 package br.unip.ads.pim4.domain.model.chamado;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 
 import br.unip.ads.pim4.domain.DomainException;
 import br.unip.ads.pim4.domain.model.Atendente;
@@ -41,7 +43,8 @@ public class Chamado {
 	// orphanRemoval=true)
 	// @JoinColumn(name="protocoloChamado")
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Set<EventoChamado> eventos = new HashSet<>();
+	@OrderBy("data")
+	private SortedSet<EventoChamado> eventos = new TreeSet<>();	
 
 	public Chamado() {
 		// Persistence
@@ -86,14 +89,11 @@ public class Chamado {
 		this.cliente = cliente;
 	}
 
-	public Set<EventoChamado> getEventos() {
-		/**
-		 * TODO: Retornar os eventos em ordem cronológica
-		 */
+	public Set<EventoChamado> getEventos() {		
 		return eventos;
 	}
 
-	public void setEventos(Set<EventoChamado> eventos) {
+	public void setEventos(SortedSet<EventoChamado> eventos) {
 		this.eventos = eventos;
 	}
 

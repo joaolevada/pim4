@@ -14,12 +14,12 @@ import javax.persistence.ManyToOne;
 import br.unip.ads.pim4.domain.model.Atendente;
 
 @Embeddable
-public class EventoChamado {
+public class EventoChamado implements Comparable<EventoChamado> {
 
 //	@EmbeddedId	
 //	private Id id;
 
-	@Column(nullable = false)
+	@Column(nullable = false)	
 	private LocalDateTime data;
 
 	@Column()
@@ -99,6 +99,19 @@ public class EventoChamado {
 
 	public void setTipo(TipoEvento tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override
+	public int compareTo(EventoChamado outro) {		
+		
+		if (getData().isBefore(outro.getData())) {
+			return -1;
+		} else if (getData().equals(outro.getData())) {
+			return 0;
+		} else {
+			return 1;
+		}
+		
 	}
 
 }

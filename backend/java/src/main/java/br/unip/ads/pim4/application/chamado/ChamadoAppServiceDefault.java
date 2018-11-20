@@ -18,8 +18,6 @@ import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
 import br.unip.ads.pim4.domain.model.chamado.builder.ChamadoBuilder;
-import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
-import br.unip.ads.pim4.domain.model.chamado.evento.TipoEvento;
 import br.unip.ads.pim4.repository.AtendenteRepository;
 import br.unip.ads.pim4.repository.ChamadoRepository;
 import br.unip.ads.pim4.repository.ClienteRepository;
@@ -93,11 +91,8 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 		if (chamado.isEncerrado()) {
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ATU);
 		}
-				
-		EventoChamado eventoAtualizacao = new EventoChamado(LocalDateTime.now(), dto.getDescricao(),
-				chamado.responsavel(), TipoEvento.ATUALIZACAO);
-		chamado.getEventos().add(eventoAtualizacao);
-
+		
+		chamado.atualizar(dto.getDescricao());				
 		chamadoRepo.save(chamado);
 		
 	}
@@ -115,10 +110,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_TRA);
 		}
 		
-		EventoChamado eventoTransferencia = new EventoChamado(LocalDateTime.now(), dto.getDescricao(), atendente,
-				TipoEvento.TRANSFERENCIA);
-		chamado.getEventos().add(eventoTransferencia);		
-		
+		chamado.transferir(atendente, dto.getDescricao());		
 		chamadoRepo.save(chamado);
 		
 	}
@@ -133,14 +125,7 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ENC);
 		}
 		
-		// Criar o evento de encerramento
-		LocalDateTime encerradoEm = LocalDateTime.now();
-		EventoChamado eventoEncerramento = new EventoChamado(encerradoEm, dto.getDescricao(), chamado.responsavel(),
-				TipoEvento.ENCERRAMENTO);
-		chamado.getEventos().add(eventoEncerramento);
-		// Ajustar o atributo que indica o atendimento encerrado
-		chamado.setDataEncerramento(encerradoEm);
-		
+		chamado.encerrar(dto.getDescricao());		
 		chamadoRepo.save(chamado);
 	}
 
