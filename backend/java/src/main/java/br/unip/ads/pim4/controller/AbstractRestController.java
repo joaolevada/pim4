@@ -15,8 +15,14 @@ public abstract class AbstractRestController {
 	
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ApiErrorDto> handleUnknowException(RuntimeException ex) {
-		return ResponseEntity.badRequest().body(new ApiErrorDto(ex.getMessage()) );
+		String message = ex.getMessage().isEmpty() ? "Exceção sem mensagem" : ex.getMessage(); 
+		return ResponseEntity.badRequest().body(new ApiErrorDto(message));
 	}
+	
+	//@ExceptionHandler(Throwable.class)
+	//public ResponseEntity<ApiErrorDto> handleThrowable(RuntimeException ex) {
+	//	return ResponseEntity.badRequest().body(new ApiErrorDto(ex.getMessage()) );
+	//}
 	
 	@ExceptionHandler(DomainException.class)
 	public ResponseEntity<ApiErrorDto> handleDomainException(DomainException ex) {

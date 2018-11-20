@@ -9,16 +9,18 @@ public class EventoChamadoDto {
 	private LocalDateTime data;
 	private String descricao;
 	private AtendenteResumoDto atendente;
+	private String tipo;
 	
 	public EventoChamadoDto() {
 		// REST
 	}	
 
-	public EventoChamadoDto(LocalDateTime data, String descricao, AtendenteResumoDto atendente) {
+	public EventoChamadoDto(LocalDateTime data, String descricao, AtendenteResumoDto atendente, String tipo) {
 		super();
 		this.data = data;
 		this.descricao = descricao;
 		this.atendente = atendente;
+		this.tipo = tipo;
 	}
 
 	public LocalDateTime getData() {
@@ -44,7 +46,13 @@ public class EventoChamadoDto {
 	public void setAtendente(AtendenteResumoDto atendente) {
 		this.atendente = atendente;
 	}
-	
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}	
 
 }

@@ -11,12 +11,12 @@ import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
 public class EventoChamadoDtoAssembly {	
 
 	public static EventoChamadoDto toDto(EventoChamado eventoChamadoCompleto) {
-		/* TODO tratar casos onde o atendente não for encontrado. Criar um atendente
+		/* TODO tratar casos onde o atendente nï¿½o for encontrado. Criar um atendente
 		 "fantasma" */
 		Atendente atendenteCompleto = eventoChamadoCompleto.getAtendente();
 		AtendenteResumoDto atendenteDto = AtendenteDtoAssembler.toDto(atendenteCompleto);
 		EventoChamadoDto eventoChamadoDto = new EventoChamadoDto(eventoChamadoCompleto.getData(),
-				eventoChamadoCompleto.getDescricao(), atendenteDto);
+				eventoChamadoCompleto.getDescricao(), atendenteDto, eventoChamadoCompleto.getTipo().getDescricao());
 		return eventoChamadoDto;
 	}
 	
