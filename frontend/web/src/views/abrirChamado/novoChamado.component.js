@@ -58,8 +58,6 @@ class NovoChamado extends Slim {
 
         const chamadoService = new ChamadoServices();
 
-        console.log(chamado);
-
         const response = await chamadoService.create(chamado);
 
         if (response.ok) {
@@ -67,7 +65,7 @@ class NovoChamado extends Slim {
           this.form.reset();
           this.descricaoIsValid = this.formControl;
           this.assuntoIsValid = this.formControl;
-          this.snackbar.show(response.msg, sucess);
+          this.snackbar.show('Chamado aberto com sucesso !', sucess);
         } else {
           this.loading = false;
           this.form.reset();

@@ -26,8 +26,24 @@ class VisualizarChamadoID extends Slim {
     data.cliente.telefoneFixo = this.formataNumeroTelefone(String(data.cliente.telefoneFixo))
     data.cliente.telefoneMovel = this.formataNumeroTelefone(String(data.cliente.telefoneMovel))
     data.eventos = data.eventos.map((evento) => {
+      switch (evento.tipo) {
+        case 'Abertura':
+          evento.tipo = 'Aberto por'
+          break;
+        case 'Encerramento':
+          evento.tipo = 'Encerrado por'
+          break;
+        case 'Atualização':
+          evento.tipo = 'Atualizado por'
+          break;
+        case 'Transferência':
+          evento.tipo = 'Tranferido para'
+          break;
+        default:
+          break;
+      }
       const dataFormatada = new Date(evento.data);
-      const date = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
+      const date = `${dataFormatada.getDate()}/${dataFormatada.getMonth() + 1}/${dataFormatada.getFullYear()} ás ${dataFormatada.getHours()}:${dataFormatada.getMinutes()}`;
       evento.data = date;
       return evento;
     })
@@ -56,7 +72,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formEncerrar.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado encerrado com sucesso !', this.sucess);
         this.encerrar.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {
@@ -86,7 +102,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formAtualizar.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado atualizado com sucesso !', this.sucess);
         this.atualizar.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {
@@ -120,7 +136,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formTransferir.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado transferido com sucesso ! ', this.sucess);
         this.transferir.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {

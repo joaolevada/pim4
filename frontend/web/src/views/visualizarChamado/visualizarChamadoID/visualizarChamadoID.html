@@ -16,7 +16,7 @@
       <div class="p-0 m-0" style="overflow-y: auto; height: 60vh;">
         <a bind s:repeat="eventos as eventos" class="list-group-item list-group-item-action flex-column align-items-start mb-1 fade-in">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{evento.acao}} por {{eventos.atendente.nome}}</h5>
+            <h5 class="mb-1">{{eventos.tipo}} {{eventos.atendente.nome}}</h5>
             <small class="text-muted">{{eventos.data}}</small>
           </div>
           <p class="mb-1">{{eventos.descricao}}</p>
