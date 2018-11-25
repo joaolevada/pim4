@@ -1,5 +1,5 @@
 <div id="cardHero" class="list-group d-flex w-100 flex-row justify-content-around flex-wrap">
-  <a bind s:repeat="data as item" bind:href="item.urlProtocolo" class="list-group-item fade-in m-1 list-group-item-action flex-column align-items-start ">
+  <a bind bind:status="item.statusFiltro" s:repeat="data as item" bind:style="item.status" bind:href="item.urlProtocolo" id="teste" class="list-group-item fade-in m-1 list-group-item-action flex-column align-items-start ">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{item.cliente.nome}}</h5>
       <small>{{item.data}}</small>
@@ -23,4 +23,9 @@
     }
 
   }
+
+#teste {
+/* border-left: solid 3px red; */
+border-radius:5px;
+}
 </style>

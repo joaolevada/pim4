@@ -2,22 +2,44 @@
   <div class="progress-bar "></div>
 </div>
 <div class="container mt-2 fade-in">
-  <h5 class="text-secundary-dark">Visualizar Chamado</h5>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="form-group col-md-6 m-0 ml-1 p-0 pr-3 pl-1">
+  <div class="">
+    <h5 class="text-secundary-dark">Visualizar Chamado</h5>
+    <div class="d-flex flex-wrap">
+      <div class="custom-control custom-checkbox mr-sm-2 mt-2">
+        <input type="checkbox" s:id="checkAberto" checked class="custom-control-input" id="abertos">
+        <label class="custom-control-label aberto" for="abertos">Chamados Abertos</label>
+      </div>
+      <div class="custom-control custom-checkbox mr-sm-2 mt-2 ml-3">
+        <input type="checkbox" s:id="checkEncerrado" checked class="custom-control-input" id="encerrados">
+        <label class="custom-control-label encerrado"  for="encerrados">Chamados Encerrados</label>
+      </div>
+      <div class="form-group col-md-6 m-0 ml-5 ml-auto p-0 pr-3 pl-1">
         <div class="input-icon">
           <input autocomplete="off" type="text" class="form-control" s:id="filtro" id="filtro" placeholder="Protocolo ou CPF">
           <i class="fas fa-search icon"></i>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
       <card-component s:id="cardChamados" class="container-fluid p-1"></card-component>
     </div>
   </div>
 </div>
 
 <style>
+  .encerrado {
+    border-bottom: solid 2px red;
+    border-radius: 3px
+
+  }
+  .aberto {
+    border-bottom: solid 2px green;
+    border-radius: 3px
+
+  }
+
   .input-icon input {
     /* padding-right: 40px !important; */
   }

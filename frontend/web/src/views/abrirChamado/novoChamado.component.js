@@ -50,6 +50,7 @@ class NovoChamado extends Slim {
         this.loading = false;
         abrir.removeAttribute('disabled');
         this.snackbar.show('Preencha os campos corretamente !', danger);
+
       } else if (verifica.includes('form-control is-valid')) {
 
         const { ChamadoServices } = await import('./services/ChamadoServices');
@@ -79,7 +80,6 @@ class NovoChamado extends Slim {
         this.snackbar.show('Preencha os campos corretamente !', danger);
         abrir.removeAttribute('disabled');
       }
-
     });
   }
 

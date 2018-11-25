@@ -19,12 +19,28 @@ class VisualizarChamadoID extends Slim {
     this.response = await visualizarServices.readByID(this.props.id);
     this.data = this.formataDados(await this.response.data);
     this.eventos = this.data.eventos;
+    if (this.data.status === 'Encerrado') {
+      this.teste = this.eventos.filter(evento => evento.tipo === 'Encerrado por')[0];
+      // this.a = this.teste[0];
+      console.log(this.teste);
+      this.atualizarClass = 'nav-link disabled';
+      this.tranferirClass = 'nav-link disabled';
+      this.encerrarClass = 'nav-link disabled';
+      this.encerrado = 'Encerrado';
+      this.tabOperacoesChamado.style.display = 'none';
+    } else {
+      this.atualizarClass = 'nav-link active';
+      this.tranferirClass = 'nav-link';
+      this.encerrarClass = 'nav-link';
+      this.encerrado = '';
+    }
   }
 
   formataDados = (data) => {  /* eslint-disable */
     data.cliente.cpf = CPF.format(data.cliente.cpf);
     data.cliente.telefoneFixo = this.formataNumeroTelefone(String(data.cliente.telefoneFixo))
     data.cliente.telefoneMovel = this.formataNumeroTelefone(String(data.cliente.telefoneMovel))
+    data.status = data.dataEncerramento ?  'Encerrado' : 'Aberto';
     data.eventos = data.eventos.map((evento) => {
       switch (evento.tipo) {
         case 'Abertura':

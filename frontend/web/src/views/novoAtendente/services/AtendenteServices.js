@@ -3,10 +3,8 @@ import API_URL from '../../../lib/variables';
 
 export class AtendenteServices {
   constructor() {
-    // eslint-disable-next-line
-    this.token = `Basic ${btoa('guilherme11.gr@gmail.com:mesmerize')}`;
+    this.token = localStorage.getItem('token');
     // console.log(this.token);
-    // this.token = localStorage.getItem('token');
   }
 
   async create(Atendente) {
