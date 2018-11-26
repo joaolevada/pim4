@@ -39,12 +39,9 @@ public class Chamado {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER, optional = false)
 	private Cliente cliente;
 
-	// @OneToMany(cascade= CascadeType.ALL, fetch=FetchType.EAGER,
-	// orphanRemoval=true)
-	// @JoinColumn(name="protocoloChamado")
 	@ElementCollection(fetch = FetchType.EAGER)
 	@OrderBy("data")
-	private SortedSet<EventoChamado> eventos = new TreeSet<>();	
+	private SortedSet<EventoChamado> eventos = new TreeSet<>();
 
 	public Chamado() {
 		// Persistence
@@ -89,7 +86,7 @@ public class Chamado {
 		this.cliente = cliente;
 	}
 
-	public Set<EventoChamado> getEventos() {		
+	public Set<EventoChamado> getEventos() {
 		return eventos;
 	}
 

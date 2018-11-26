@@ -11,8 +11,7 @@ import br.unip.ads.pim4.domain.model.chamado.evento.EventoChamado;
 public class EventoChamadoDtoAssembly {	
 
 	public static EventoChamadoDto toDto(EventoChamado eventoChamadoCompleto) {
-		/* TODO tratar casos onde o atendente n�o for encontrado. Criar um atendente
-		 "fantasma" */
+		/* TODO Tratar casos onde o Cliente ou o Atendente não estejam mais disponíveis */
 		Atendente atendenteCompleto = eventoChamadoCompleto.getAtendente();
 		AtendenteResumoDto atendenteDto = AtendenteDtoAssembler.toDto(atendenteCompleto);
 		EventoChamadoDto eventoChamadoDto = new EventoChamadoDto(eventoChamadoCompleto.getData(),

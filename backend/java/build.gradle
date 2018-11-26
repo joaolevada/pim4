@@ -37,6 +37,7 @@ dependencies {
 	
 	// Driver do banco de dados
 	runtimeOnly('mysql:mysql-connector-java')
+	runtimeOnly('org.postgresql:postgresql')
 	
 	// Swagger (documentacao da API REST)
 	implementation('io.springfox:springfox-swagger2:2.9.2')
