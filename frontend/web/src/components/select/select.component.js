@@ -3,7 +3,6 @@ import { tag, template } from 'slim-js/Decorators';
 import { HttpAuth } from '../../services/httpServicesAuth';
 import API_URL from '../../lib/variables';
 
-
 const tpl = require('./select.component.html');
 
 @tag('select-input')
@@ -14,10 +13,10 @@ class Select extends Slim {
     this.valid = 'form-control';
     this.getProps();
     // eslint-disable-next-line
-    this.formInvalid = this.props.required == 'false' ? 'form-control' : 'form-control is-invalid';
+    this.formInvalid = this.props.required ==='false' ? 'form-control' : 'form-control is-invalid';
 
     this.label = this.props.label;
-    this.placeholder = this.props.url == '/clientes' ? 'Nome ou CPF' : 'Nome';
+    this.placeholder = this.props.url === '/clientes' ? 'Nome ou CPF' : 'Nome';
     // eslint-disable-next-line
     this.token = `Basic ${btoa('guilherme11.gr@gmail.com:mesmerize')}`;
     this.res = await HttpAuth.get(`${API_URL}${this.props.url}`, this.token);
@@ -29,7 +28,7 @@ class Select extends Slim {
         nome: item.nome,
         id: item.id,
         email: item.email,
-        nomeCpf: this.props.url == '/clientes' ? `${item.nome} ${item.cpf}` : `${item.nome}`,
+        nomeCpf: this.props.url === '/clientes' ? `${item.nome} ${item.cpf}` : `${item.nome}`,
       };
       return data;
     });

@@ -19,15 +19,47 @@ class VisualizarChamadoID extends Slim {
     this.response = await visualizarServices.readByID(this.props.id);
     this.data = this.formataDados(await this.response.data);
     this.eventos = this.data.eventos;
+    if (this.data.status === 'Encerrado') {
+      this.teste = this.eventos.filter(evento => evento.tipo === 'Encerrado por')[0];
+      // this.a = this.teste[0];
+      console.log(this.teste);
+      this.atualizarClass = 'nav-link disabled';
+      this.tranferirClass = 'nav-link disabled';
+      this.encerrarClass = 'nav-link disabled';
+      this.encerrado = 'Encerrado';
+      this.tabOperacoesChamado.style.display = 'none';
+    } else {
+      this.atualizarClass = 'nav-link active';
+      this.tranferirClass = 'nav-link';
+      this.encerrarClass = 'nav-link';
+      this.encerrado = '';
+    }
   }
 
   formataDados = (data) => {  /* eslint-disable */
     data.cliente.cpf = CPF.format(data.cliente.cpf);
     data.cliente.telefoneFixo = this.formataNumeroTelefone(String(data.cliente.telefoneFixo))
     data.cliente.telefoneMovel = this.formataNumeroTelefone(String(data.cliente.telefoneMovel))
+    data.status = data.dataEncerramento ?  'Encerrado' : 'Aberto';
     data.eventos = data.eventos.map((evento) => {
+      switch (evento.tipo) {
+        case 'Abertura':
+          evento.tipo = 'Aberto por'
+          break;
+        case 'Encerramento':
+          evento.tipo = 'Encerrado por'
+          break;
+        case 'Atualização':
+          evento.tipo = 'Atualizado por'
+          break;
+        case 'Transferência':
+          evento.tipo = 'Tranferido para'
+          break;
+        default:
+          break;
+      }
       const dataFormatada = new Date(evento.data);
-      const date = `${dataFormatada.getDate()} / ${dataFormatada.getMonth() + 1} / ${dataFormatada.getFullYear()}`;
+      const date = `${dataFormatada.getDate()}/${dataFormatada.getMonth() + 1}/${dataFormatada.getFullYear()} ás ${dataFormatada.getHours()}:${dataFormatada.getMinutes()}`;
       evento.data = date;
       return evento;
     })
@@ -56,7 +88,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formEncerrar.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado encerrado com sucesso !', this.sucess);
         this.encerrar.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {
@@ -86,7 +118,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formAtualizar.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado atualizado com sucesso !', this.sucess);
         this.atualizar.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {
@@ -120,7 +152,7 @@ class VisualizarChamadoID extends Slim {
       if (response.ok) {
         this.loading = false;
         this.formTransferir.reset();
-        this.snackbar.show(response.msg, this.sucess);
+        this.snackbar.show('Chamado transferido com sucesso ! ', this.sucess);
         this.transferir.removeAttribute('disabled');
         this.onBeforeCreated();
       } else {

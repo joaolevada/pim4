@@ -20,11 +20,16 @@ class CardComponent extends Slim {
       item['data'] = date;
       // eslint-disable-next-line
       item['urlProtocolo'] = `/#!/visualizar-chamado/${item.protocolo}`;
+      // eslint-disable-next-line
+      item['status'] = item.dataEncerramento ? 'border-left: solid 3px #d9534f;' : 'border-left: solid 3px #5cb85c;';
+      // eslint-disable-next-line
+      item['statusFiltro'] = item.dataEncerramento ? 'Encerrado' : 'Aberto';
       const cpf = CPF.format(item.cliente.cpf);
       // eslint-disable-next-line
       item.cliente.cpf = cpf;
       return item;
     });
+    console.log(this.data);
   }
 }
 

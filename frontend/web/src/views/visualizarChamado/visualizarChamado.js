@@ -20,7 +20,40 @@ class VisualizarChamado extends Slim {
   }
 
   onRender() {
-    const { filtro } = this;
+    const { filtro, checkAberto, checkEncerrado } = this;
+
+    checkAberto.addEventListener('change', (e) => {  /* eslint-disable */
+      // eslint-disable-next-line
+      const cardHero = document.getElementById('cardHero');
+      const a = cardHero.querySelectorAll('a');
+      const nodeArr = [...a];
+      if (checkAberto.checked) {
+        nodeArr.forEach((node) => {
+          node.getAttribute('status') == 'Aberto' ? node.style.display = '' : null;
+        });
+      } else {
+        nodeArr.forEach((node) => {
+          node.getAttribute('status') == 'Aberto' ? node.style.display = 'none' : null;
+        });
+      }
+    });
+
+    checkEncerrado.addEventListener('change', (e) => { /* eslint-disable */
+      // eslint-disable-next-line
+      const cardHero = document.getElementById('cardHero');
+      const a = cardHero.querySelectorAll('a');
+      const nodeArr = [...a];
+      if (checkEncerrado.checked) {
+        nodeArr.forEach((node) => {
+          node.getAttribute('status') == 'Encerrado' ? node.style.display = '' : null;
+        });
+      } else {
+        nodeArr.forEach((node) => {
+          node.getAttribute('status') == 'Encerrado' ? node.style.display = 'none' : null;
+        });
+      }
+    });
+
     filtro.addEventListener('keyup', () => {
       // eslint-disable-next-line
       const cardHero = document.getElementById('cardHero');
