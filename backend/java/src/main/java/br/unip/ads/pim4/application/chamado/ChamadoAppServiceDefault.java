@@ -129,4 +129,11 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 		chamadoRepo.save(chamado);
 	}
 
+	@Override
+	public Iterable<ChamadoResumoDto> buscarDoAtendente(String atendenteId) {
+		Iterable<Chamado> chamadosDoAtendente = chamadoRepo.findByAtendente_Id(new Id(atendenteId));
+		Iterable<ChamadoResumoDto> dtoList = ChamadoDtoAssembly.toDtoList(chamadosDoAtendente);
+		return dtoList;
+	}
+
 }

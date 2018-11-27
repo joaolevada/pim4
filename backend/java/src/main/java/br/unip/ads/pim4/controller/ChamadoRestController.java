@@ -49,7 +49,13 @@ public class ChamadoRestController extends AbstractRestController {
 	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodos() {
 		Iterable<ChamadoResumoDto> todosChamados = chamadoAppService.buscarTodos();
 		return ResponseEntity.ok().body(todosChamados);
-	}	
+	}
+	
+	@GetMapping("doAtendente/{id}")	
+	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodosDoAtendente(@PathVariable(name="id") String atendenteId) {
+		Iterable<ChamadoResumoDto> chamadosDoAtendente = chamadoAppService.buscarDoAtendente(atendenteId);
+		return ResponseEntity.ok().body(chamadosDoAtendente);
+	}
 
 	@PutMapping("{protocolo}/atualizar")
 	public ResponseEntity<Void> atualizarChamado(@PathVariable("protocolo") String protocolo, @RequestBody AtualizaChamadoDto dto) throws DomainException {
