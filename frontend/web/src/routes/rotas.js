@@ -39,7 +39,7 @@ router.on(() => {
   const userJson = '[{"id":"3d737590-50bd-4362-9826-1bad5eacad37","nome":"Guilherme Revoredo","email":"guilherme11.gr@gmail.com"}]';
   localStorage.setItem('user', userJson);
   const user = JSON.parse(userJson);
-  doc('#userlogado').html(user[0].nome);
+  doc('#userlogado').html(`${user[0].nome} &#9207;`);
   doc('#app').html('<dash-board></dash-board>');
 });
 
