@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
+import br.unip.ads.pim4.domain.model.Atendente;
 import br.unip.ads.pim4.domain.model.Cliente;
-import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
 
@@ -17,6 +17,6 @@ public interface ChamadoRepository extends CrudRepository<Chamado, Protocolo> {
 	
 	Iterable<Chamado> findByCliente(Cliente cliente);
 	
-	Iterable<Chamado> findByAtendente_Id(Id atendenteId);
+	Iterable<Chamado> findByResponsavel(Atendente responsavel);
 
 }

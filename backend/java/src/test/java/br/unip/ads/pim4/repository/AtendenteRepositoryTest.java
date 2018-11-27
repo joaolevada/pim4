@@ -1,5 +1,7 @@
 package br.unip.ads.pim4.repository;
 
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,15 @@ public class AtendenteRepositoryTest {
 	
 	@Test
 	public void createAtendente() {
+		
+		EMail novoEmail = new EMail("atendente@pimquatro.com");
+		if (atendenteRepo.findByPessoa_Email(novoEmail).isPresent()) {
+			fail("Atendente já cadastrado neste banco de dados.");
+		}
 
 		Id novoId = Id.proximo();
 		Cpf novoCpf = Cpf.gerarCpf();
-		EMail novoEmail = new EMail("atendente@pimquatro.com");
+		
 		Pessoa novaPessoa = new Pessoa("Atendente Stub da Silva", novoCpf, novoEmail);
 		Atendente novoAtendente = new Atendente(novoId, novaPessoa, "123456");
 		atendenteRepo.save(novoAtendente);

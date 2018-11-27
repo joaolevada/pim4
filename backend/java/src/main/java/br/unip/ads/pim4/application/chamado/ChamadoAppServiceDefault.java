@@ -1,6 +1,5 @@
 package br.unip.ads.pim4.application.chamado;
 
-import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ import br.unip.ads.pim4.domain.model.Cliente;
 import br.unip.ads.pim4.domain.model.Id;
 import br.unip.ads.pim4.domain.model.chamado.Chamado;
 import br.unip.ads.pim4.domain.model.chamado.Protocolo;
-import br.unip.ads.pim4.domain.model.chamado.builder.ChamadoBuilder;
 import br.unip.ads.pim4.repository.AtendenteRepository;
 import br.unip.ads.pim4.repository.ChamadoRepository;
 import br.unip.ads.pim4.repository.ClienteRepository;
@@ -40,28 +38,24 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	private ClienteRepository clienteRepo;
 
 	@Override
-	public String criar(NovoChamadoDto novoChamado) throws DomainException {
+	public String criar(NovoChamadoDto dto) throws DomainException {
 
-		Atendente atendente = atendenteRepo.findById(new Id(novoChamado.getIdAtendente()))
+		Atendente atendente = atendenteRepo.findById(new Id(dto.getIdAtendente()))
 				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));
 
-		Cliente cliente = clienteRepo.findById(new Id(novoChamado.getIdCliente()))
+		Cliente cliente = clienteRepo.findById(new Id(dto.getIdCliente()))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CLIENTE_NAO_ENCONTRADO));
-
-		Protocolo novoProtocolo = Protocolo.proximo();
-		ChamadoBuilder builder = new ChamadoBuilder().comAssunto(novoChamado.getAssunto())
-				.comDataAbertura(LocalDateTime.now()).comCliente(cliente)
-				.comEventoDeAbertura(atendente, novoChamado.getDescricaoProblema()).comProtocolo(novoProtocolo);
-		Chamado chamadoAberto = builder.build();
-
-		chamadoRepo.save(chamadoAberto);
-		return chamadoAberto.getProtocolo().asString();
+		
+		Chamado chamado = new Chamado();
+		chamado.abrir(atendente, cliente, dto.getAssunto(), dto.getDescricaoProblema());
+		chamadoRepo.save(chamado);
+		
+		return chamado.getProtocolo().asString();
 	}
 
 	@Override
-	public ChamadoResumoDto buscar(String protocolo) {
-		Protocolo protocoloBuscado = new Protocolo(protocolo);
-		Chamado chamadoCompleto = chamadoRepo.findById(protocoloBuscado).get();
+	public ChamadoResumoDto buscar(String protocolo) {		
+		Chamado chamadoCompleto = chamadoRepo.findById(new Protocolo(protocolo)).get();
 		ChamadoResumoDto chamadoResumido = ChamadoDtoAssembly.toDto(chamadoCompleto);
 		return chamadoResumido;
 	}
@@ -83,55 +77,57 @@ public class ChamadoAppServiceDefault extends AbstractAppService implements Cham
 	}
 
 	@Override
-	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) throws DomainException {		
+	public void atualizarChamado(String protocolo, AtualizaChamadoDto dto) throws DomainException {
 
 		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
-		
+
 		if (chamado.isEncerrado()) {
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ATU);
 		}
-		
-		chamado.atualizar(dto.getDescricao());				
+
+		chamado.atualizar(dto.getDescricao());
 		chamadoRepo.save(chamado);
-		
+
 	}
 
 	@Override
 	public void transferirChamado(String protocolo, TransfereChamadoDto dto) throws DomainException {
-		
+
 		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
-		
+
 		Atendente atendente = atendenteRepo.findById(new Id(dto.getAtendenteId()))
-				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));		
-		
+				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));
+
 		if (chamado.isEncerrado()) {
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_TRA);
 		}
-		
-		chamado.transferir(atendente, dto.getDescricao());		
+
+		chamado.transferir(atendente, dto.getDescricao());
 		chamadoRepo.save(chamado);
-		
+
 	}
 
 	@Override
 	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) throws DomainException {
-		
+
 		Chamado chamado = chamadoRepo.findById(new Protocolo(protocolo))
 				.orElseThrow(() -> new DomainException(VALIDACAO_CHAMADO_NAO_ENCONTRADO));
-		
+
 		if (chamado.isEncerrado()) {
 			throw new DomainException(VALIDACAO_CHAMADO_ENCERRADO_ENC);
 		}
-		
-		chamado.encerrar(dto.getDescricao());		
+
+		chamado.encerrar(dto.getDescricao());
 		chamadoRepo.save(chamado);
 	}
 
 	@Override
-	public Iterable<ChamadoResumoDto> buscarDoAtendente(String atendenteId) {
-		Iterable<Chamado> chamadosDoAtendente = chamadoRepo.findByAtendente_Id(new Id(atendenteId));
+	public Iterable<ChamadoResumoDto> buscarDoAtendente(String atendenteId) throws DomainException {
+		Atendente responsavel = atendenteRepo.findById(new Id(atendenteId))
+				.orElseThrow(() -> new DomainException(VALIDACAO_ATENDENTE_NAO_ENCONTRADO));
+		Iterable<Chamado> chamadosDoAtendente = chamadoRepo.findByResponsavel(responsavel);
 		Iterable<ChamadoResumoDto> dtoList = ChamadoDtoAssembly.toDtoList(chamadosDoAtendente);
 		return dtoList;
 	}

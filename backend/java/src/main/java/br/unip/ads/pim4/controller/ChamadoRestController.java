@@ -52,7 +52,7 @@ public class ChamadoRestController extends AbstractRestController {
 	}
 	
 	@GetMapping("doAtendente/{id}")	
-	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodosDoAtendente(@PathVariable(name="id") String atendenteId) {
+	public ResponseEntity<Iterable<ChamadoResumoDto>> buscarTodosDoAtendente(@PathVariable(name="id") String atendenteId) throws DomainException {
 		Iterable<ChamadoResumoDto> chamadosDoAtendente = chamadoAppService.buscarDoAtendente(atendenteId);
 		return ResponseEntity.ok().body(chamadosDoAtendente);
 	}

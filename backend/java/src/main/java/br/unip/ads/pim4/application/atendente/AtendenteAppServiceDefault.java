@@ -39,7 +39,7 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 		}		
 		
 		EMail email = new EMail(dto.getEmail());		
-		boolean emailEncontrado = atendenteRepo.findByPessoa_Email(email).iterator().hasNext();
+		boolean emailEncontrado = atendenteRepo.findByPessoa_Email(email).isPresent();
 		if (emailEncontrado) {
 			throw new DomainException(VALIDACAO_EMAIL_DUPLICADO);
 		}
@@ -74,7 +74,7 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 		}
 		boolean alterouEMail = !atendenteParaAtualizar.getPessoa().getEmail().asString().equals(dto.getEmail());
 		if (alterouEMail) {
-			Atendente outroAtendente = atendenteRepo.findByPessoa_Email(new EMail(dto.getEmail())).iterator().next();
+			Atendente outroAtendente = atendenteRepo.findByPessoa_Email(new EMail(dto.getEmail())).get();
 			// Se encontrar outro atendente com o mesmo email, levantar exceção
 			if (!atendenteParaAtualizar.equals(outroAtendente)) {
 				throw new DomainException(VALIDACAO_EMAIL_DUPLICADO);
@@ -109,7 +109,7 @@ public class AtendenteAppServiceDefault extends AbstractAppService implements At
 	public AtendenteResumoDto buscarPorEmailESenha(String email, String senha) {
 		EMail emailProcurado = new EMail(email);
 		try {
-			Atendente atendenteCompleto = atendenteRepo.findByPessoa_Email(emailProcurado).iterator().next();
+			Atendente atendenteCompleto = atendenteRepo.findByPessoa_Email(emailProcurado).get();
 			if (atendenteCompleto == null) {
 				return null;
 			}

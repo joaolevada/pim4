@@ -1,7 +1,7 @@
 package br.unip.ads.pim4.domain.model.chamado;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -39,6 +39,9 @@ public class Chamado {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER, optional = false)
 	private Cliente cliente;
 
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER, optional = false)
+	private Atendente responsavel;
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	@OrderBy("data")
 	private SortedSet<EventoChamado> eventos = new TreeSet<>();
@@ -52,91 +55,62 @@ public class Chamado {
 		this.protocolo = protocolo;
 		this.assunto = assunto;
 		this.cliente = cliente;
-	}
+	}	
 
 	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
-	}
+	}	
 
-	public void setDataAbertura(LocalDateTime dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
-
-	public LocalDateTime getDataEncerramento() {
-		return dataEncerramento;
-	}
-
-	public void setDataEncerramento(LocalDateTime dataEncerramento) {
-		this.dataEncerramento = dataEncerramento;
-	}
+	public Optional<LocalDateTime> getDataEncerramento() {
+		return Optional.ofNullable(dataEncerramento);
+	}	
 
 	public String getAssunto() {
 		return assunto;
 	}
 
-	public void setAssunto(String assunto) {
-		this.assunto = assunto;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+	}	
 
 	public Set<EventoChamado> getEventos() {
 		return eventos;
-	}
-
-	public void setEventos(SortedSet<EventoChamado> eventos) {
-		this.eventos = eventos;
-	}
+	}	
 
 	public Protocolo getProtocolo() {
 		return protocolo;
-	}
+	}	
 
-	public Atendente responsavel() {
-
-		if (getEventos().isEmpty()) {
-			return null;
-		}
-
-		// Retornar o atendente do evento mais recente;
-		LocalDateTime data = null;
-		Atendente atendenteDoUltimoEvento = null;
-		for (EventoChamado e : getEventos()) {
-			if (data == null || data.isBefore(e.getData())) {
-				data = e.getData();
-				atendenteDoUltimoEvento = e.getAtendente();
-			}
-		}
-
-		return atendenteDoUltimoEvento;
-
-	}
+	public Atendente getResponsavel() {
+		return responsavel;
+	}	
 
 	public boolean isEncerrado() {
-		return !Objects.isNull(getDataEncerramento());
+		return getDataEncerramento().isPresent();
 	}
 
-	public void abrir(Atendente atendente, String descricao) throws DomainException {
+	public void abrir(Atendente atendente, Cliente cliente, String assunto, String descricao) throws DomainException {
 		if (isEncerrado()) {
-			throw new DomainException("Chamado encerrado não pode ser aberto.");
+			throw new DomainException("Chamado já encerrado.");
 		}
+		
 		LocalDateTime abertoEm = LocalDateTime.now();
-		setDataAbertura(abertoEm);
+		
+		protocolo = Protocolo.proximo();
+		responsavel = atendente;
+		dataAbertura = abertoEm;
+		this.cliente = cliente;
+		this.assunto = assunto;		
 		EventoChamado eventoAbertura = new EventoChamado(abertoEm, descricao, atendente, TipoEvento.ABERTURA);
-		getEventos().add(eventoAbertura);
+		getEventos().add(eventoAbertura);		 
+				
 	}
 
 	public void atualizar(String descricao) throws DomainException {
 		if (isEncerrado()) {
 			throw new DomainException("Chamado encerrado não pode receber atualizações.");
 		}
-		EventoChamado eventoAtualizacao = new EventoChamado(LocalDateTime.now(), descricao, this.responsavel(),
+		EventoChamado eventoAtualizacao = new EventoChamado(LocalDateTime.now(), descricao, this.getResponsavel(),
 				TipoEvento.ATUALIZACAO);
 		this.getEventos().add(eventoAtualizacao);
 	}
@@ -148,16 +122,17 @@ public class Chamado {
 		EventoChamado eventoTransferencia = new EventoChamado(LocalDateTime.now(), descricao, novoAtendente,
 				TipoEvento.TRANSFERENCIA);
 		this.getEventos().add(eventoTransferencia);
+		responsavel = novoAtendente;
 	}
 
 	public void encerrar(String descricao) throws DomainException {
 		if (isEncerrado()) {
-			throw new DomainException("O chamdo já foi encerrado.");
+			throw new DomainException("O chamado já foi encerrado.");
 		}
 		LocalDateTime dataEncerramento = LocalDateTime.now();
-		EventoChamado eventoEncerramento = new EventoChamado(dataEncerramento, descricao, this.responsavel(),
+		EventoChamado eventoEncerramento = new EventoChamado(dataEncerramento, descricao, this.getResponsavel(),
 				TipoEvento.ENCERRAMENTO);
-		this.setDataEncerramento(dataEncerramento);
+		this.dataEncerramento = dataEncerramento;
 		this.getEventos().add(eventoEncerramento);
 	}
 

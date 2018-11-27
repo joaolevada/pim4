@@ -14,6 +14,7 @@ public class NovoChamadoDto {
 	public String getIdCliente() {
 		return idCliente;
 	}
+	
 	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
@@ -21,6 +22,7 @@ public class NovoChamadoDto {
 	public String getAssunto() {
 		return assunto;
 	}
+	
 	public void setAssunto(String assunto) {
 		this.assunto = assunto;
 	}
@@ -28,6 +30,7 @@ public class NovoChamadoDto {
 	public String getIdAtendente() {
 		return idAtendente;
 	}
+	
 	public void setIdAtendente(String idAtendente) {
 		this.idAtendente = idAtendente;
 	}

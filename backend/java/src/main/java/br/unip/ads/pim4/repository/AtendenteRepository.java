@@ -19,7 +19,7 @@ public interface AtendenteRepository extends CrudRepository<Atendente, Id> {
 	
 	// Optional<Atendente> findByPessoa_Email(EMail email);
 	
-	Iterable<Atendente> findByPessoa_Email(EMail email);
+	Optional<Atendente> findByPessoa_Email(EMail email);
 	
 	Optional<Atendente> findByPessoa_Cpf(Cpf cpf);
 	

@@ -23,6 +23,6 @@ public interface ChamadoAppService {
 	
 	public void encerrarChamado(String protocolo, EncerraChamadoDto dto) throws DomainException;
 
-	public Iterable<ChamadoResumoDto> buscarDoAtendente(String atendenteId);
+	public Iterable<ChamadoResumoDto> buscarDoAtendente(String atendenteId) throws DomainException;
 	
 }
