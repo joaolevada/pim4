@@ -10,7 +10,12 @@ const routes: Routes = [
   /**
    * Módulo Atendente CRUD
    */
-  { path: 'atendente', loadChildren: './atendente/atendente.module#AtendenteModule' }
+  { path: 'atendente', loadChildren: './atendente/atendente.module#AtendenteModule' },
+
+  /**
+   * Módulo Chamado CRUD
+   */
+  { path: 'chamado', loadChildren: './chamado/chamado.module#ChamadoModule' },
 
 ];
 

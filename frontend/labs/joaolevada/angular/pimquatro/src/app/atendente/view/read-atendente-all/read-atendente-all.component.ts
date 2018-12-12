@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AtendenteService } from '../../service/atendente.service';
 import { AtendenteResumoDto } from '../../model/atendente-resumo-dto';
-import { Observable } from 'rxjs';
+import { ProgressBarService } from 'src/app/core/service/progress-bar.service';
 
 @Component({
   selector: 'app-read-atendente-all',
@@ -12,18 +10,21 @@ import { Observable } from 'rxjs';
 })
 export class ReadAtendenteAllComponent implements OnInit {
 
-  atendentes: Observable<AtendenteResumoDto[]>;
+  atendentes: AtendenteResumoDto[];
 
   constructor(
-    private _service: AtendenteService
+    private _atendente: AtendenteService,
+    private _progress: ProgressBarService,
   ) { }
 
   ngOnInit(): void {
+    this._progress.display();
     this._carregarAtendentes();
+    this._progress.hide();
   }
 
-  private _carregarAtendentes() {
-    this.atendentes = this._service.buscar();
+  private async _carregarAtendentes() {
+    this.atendentes = await this._atendente.buscar();
   }
 
 }

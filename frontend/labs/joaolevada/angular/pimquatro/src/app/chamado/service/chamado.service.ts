@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AtendenteResumoDto } from '../model/atendente-resumo-dto';
 import { HttpAuthClientService } from 'src/app/core/service/http-auth-client.service';
-import { Observable } from 'rxjs';
+import { ChamadoResumoDto } from '../model/chamado-resumo-dto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AtendenteService {
+export class ChamadoService {
 
-  private _url = `${environment.url}/atendentes`;
+  private _url = `${environment.url}/chamados`;
 
   constructor(
     private _http: HttpAuthClientService
-  ) {
+  ) { }
 
-  }
-
-  async buscar(): Promise<AtendenteResumoDto[]> {
-    const atendentes = await this._http.get<AtendenteResumoDto[]>(this._url)
+  async buscar(): Promise<ChamadoResumoDto[]> {
+    const url = this._url;
+    const chamados = await this._http.get<ChamadoResumoDto[]>(url)
       .toPromise()
       .then(response => response);
-    return atendentes;
+    return chamados;
   }
+
 
 }
