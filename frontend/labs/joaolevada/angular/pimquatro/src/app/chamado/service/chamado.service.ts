@@ -15,11 +15,13 @@ export class ChamadoService {
   ) { }
 
   async buscar(): Promise<ChamadoResumoDto[]> {
+
     const url = this._url;
-    const chamados = await this._http.get<ChamadoResumoDto[]>(url)
-      .toPromise()
-      .then(response => response);
-    return chamados;
+    const response = await this._http
+      .get<ChamadoResumoDto[]>(url)
+      .toPromise();
+    return response;
+
   }
 
 

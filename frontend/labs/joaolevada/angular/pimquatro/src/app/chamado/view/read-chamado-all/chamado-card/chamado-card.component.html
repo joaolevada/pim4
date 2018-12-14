@@ -1,52 +1,26 @@
-<mat-card class="dashboard-card">
+<mat-card class="dashboard-card" [routerLink]="[chamado.protocolo]">
   <mat-card-header>
     <mat-card-title>
       {{chamado.assunto}}
-      <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+      <!-- <button mat-icon-button class="more-button" aria-label="Toggle menu" [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item>Expand</button>
-        <button mat-menu-item>Remove</button>
-      </mat-menu>
+        <button mat-menu-item [routerLink]="[chamado.protocolo]">Ver detalhes</button>
+      </mat-menu> -->
     </mat-card-title>
     <mat-card-subtitle>
       Para {{chamado.cliente.nome}}<br>
-      {{chamado.dataAbertura | date:'fullDate'}} às {{chamado.dataAbertura | date:'mediumTime'}}<br>
-
-      <span *ngIf="chamado.dataEncerramento">
-        Encerrado em {{chamado.dataEncerramento | date:'fullDate'}} às {{chamado.dataEncerramento |
-        date:'mediumTime'}}, após {{chamado.eventos.length}} evento(s)
-      </span>
-
-      <span *ngIf="!chamado.dataEncerramento">
-        {{chamado.eventos.length}} evento(s) até agora
-      </span>
-
+      {{chamado.dataAbertura | date:'medium'}}
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="dashboard-card-content">
-
-    <mat-list>
-      <mat-list-item *ngFor="let evento of chamado.eventos; let i = index">
-        <mat-icon>{{ evento.tipo === 'Encerramento' ? 'assignment_turned_in' : 'assignment' }}</mat-icon>
-        <h3 matLine>{{ evento.tipo }}
-        </h3>
-        <p matLine>
-          <span>
-            {{evento.data | date:'fullDate'}} às {{evento.data | date:'mediumTime'}}
-          </span>
-        </p>
-        <p matLine>
-          <span>
-            por {{evento.atendente.nome}}
-          </span>
-        </p>
-        <p matLine>
-          <span>{{evento.descricao}}</span>
-        </p>
-      </mat-list-item>
-    </mat-list>
+    <mat-chip-list>
+      <mat-chip color="accent" selected>
+        {{chamado.eventos.length}} {{ chamado.eventos.length === 1 ? 'evento' : 'eventos' }}
+      </mat-chip>
+      <mat-chip color="warn" selected *ngIf="chamado.dataEncerramento">encerrado</mat-chip>
+    </mat-chip-list>
 
   </mat-card-content>
 </mat-card>

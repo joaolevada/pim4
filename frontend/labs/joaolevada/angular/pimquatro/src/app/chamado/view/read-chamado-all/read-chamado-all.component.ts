@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChamadoService } from '../../service/chamado.service';
 import { ChamadoResumoDto } from '../../model/chamado-resumo-dto';
 import { ProgressBarService } from 'src/app/core/service/progress-bar.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-read-chamado-all',
@@ -16,20 +18,26 @@ export class ReadChamadoAllComponent implements OnInit {
     return this._chamados;
   }
 
+  isHandset$: Observable<boolean> = this._breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
   constructor(
-    private breakpointObserver: BreakpointObserver,
+    private _breakpointObserver: BreakpointObserver,
     private _chamado: ChamadoService,
     private _progress: ProgressBarService,
   ) { }
 
   private async _carregarChamados() {
+    this._progress.display();
     this._chamados = await this._chamado.buscar();
+    this._progress.hide();
+    return;
   }
 
   ngOnInit() {
-    this._progress.display();
     this._carregarChamados();
-    this._progress.hide();
   }
 
 }

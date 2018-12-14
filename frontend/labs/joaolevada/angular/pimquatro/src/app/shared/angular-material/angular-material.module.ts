@@ -14,6 +14,7 @@ import {
   MatSelectModule,
   MatInputModule,
   MatProgressBarModule,
+  MatChipsModule,
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -33,7 +34,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatRadioModule,
     MatSelectModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatChipsModule,
   ],
   exports: [
     LayoutModule,
@@ -50,7 +52,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatRadioModule,
     MatSelectModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatChipsModule,
   ],
   declarations: []
 })

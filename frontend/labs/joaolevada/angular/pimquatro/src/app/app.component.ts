@@ -11,9 +11,12 @@ import { ProgressBarService } from './core/service/progress-bar.service';
 })
 export class AppComponent implements OnInit, AfterViewChecked {
 
-  private _loading = false;
-  public get loading(): boolean {
-    return this._loading;
+  private _loading$: Observable<boolean>;
+  public get loading$(): Observable<boolean> {
+    if (!this._loading$) {
+      this._loading$ = this._progress.displaySubject;
+    }
+    return this._loading$;
   }
 
   title = 'PIMQuatro';
@@ -29,7 +32,6 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ) { }
 
   ngOnInit() {
-    this._progress.displaySubject.subscribe(value => this._loading = value);
   }
 
   ngAfterViewChecked() {
