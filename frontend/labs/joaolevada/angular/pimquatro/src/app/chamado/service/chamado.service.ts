@@ -14,13 +14,12 @@ export class ChamadoService {
     private _http: HttpAuthClientService
   ) { }
 
-  async buscar(): Promise<ChamadoResumoDto[]> {
+  buscar(): Promise<ChamadoResumoDto[]> {
 
     const url = this._url;
-    const response = await this._http
+    return this._http
       .get<ChamadoResumoDto[]>(url)
       .toPromise();
-    return response;
 
   }
 

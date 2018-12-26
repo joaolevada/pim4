@@ -20,11 +20,11 @@ export class ReadAtendenteAllComponent implements OnInit {
   ngOnInit(): void {
     this._progress.display();
     this._carregarAtendentes();
-    this._progress.hide();
+    // this._progress.hide();
   }
 
   private async _carregarAtendentes() {
-    this.atendentes = await this._atendente.buscar();
+    throw new Error('AINDA NÃO IMPLEMENTADO!!');
   }
 
 }

@@ -32,6 +32,7 @@ export class ReadChamadoAllComponent implements OnInit {
   private async _carregarChamados() {
     this._progress.display();
     this._chamados = await this._chamado.buscar();
+    console.log(this._chamados);
     this._progress.hide();
     return;
   }

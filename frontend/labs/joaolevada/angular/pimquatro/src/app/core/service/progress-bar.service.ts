@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,20 +8,21 @@ import { Subject } from 'rxjs';
 export class ProgressBarService {
 
   private _displaySubject: Subject<boolean> = new Subject<boolean>();
-  public get displaySubject(): Subject<boolean> {
-    return this._displaySubject;
+
+  private _displayObservable$: Observable<boolean> = this._displaySubject.asObservable();
+  public get displayObservable$(): Observable<boolean> {
+    return this._displayObservable$;
   }
 
   constructor() {
-
   }
 
   display() {
-    this.displaySubject.next(true);
+    this._displaySubject.next(true);
   }
 
   hide() {
-    this.displaySubject.next(false);
+    this._displaySubject.next(false);
   }
 
 }
