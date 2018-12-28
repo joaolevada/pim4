@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { ProgressBarService } from './core/service/progress-bar.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
 
   private _loading = false;
   public get loading(): boolean {
@@ -29,17 +29,20 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ) { }
 
   private _initialize() {
-    this._progress.displayObservable$.subscribe((val) => {
+    this._progress.display$.subscribe((val) => {
       this._loading = val;
     });
   }
 
   ngOnInit() {
-
     this._initialize();
+    this._progress.hide();
+  }
+
+  ngAfterViewChecked() {
 
   }
 
-  ngAfterViewChecked() { }
+  ngAfterViewInit() { }
 
 }

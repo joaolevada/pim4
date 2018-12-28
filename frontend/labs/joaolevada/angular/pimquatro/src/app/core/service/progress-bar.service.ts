@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
-import { Subject, Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgressBarService {
 
-  private _displaySubject: Subject<boolean> = new Subject<boolean>();
+  private _displaySubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-  private _displayObservable$: Observable<boolean> = this._displaySubject.asObservable();
-  public get displayObservable$(): Observable<boolean> {
-    return this._displayObservable$;
+  public get display$(): Observable<boolean> {
+    return this._displaySubject.asObservable();
   }
 
   constructor() {

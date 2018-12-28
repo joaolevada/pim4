@@ -18,9 +18,7 @@ export class ReadAtendenteAllComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._progress.display();
-    this._carregarAtendentes();
-    // this._progress.hide();
+
   }
 
   private async _carregarAtendentes() {
